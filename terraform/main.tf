@@ -1,5 +1,6 @@
-module "azurerm_resource_group" "sasoleuw-big-data-sandbox-aes-rg" {
-  source = "./modules/resource_groups"
+module "resource_group" {
+  source = "./modules/resource_group"
+
   name     = var.resource_group_name
-  location = var.location
+  location = var.resource_group_location
 }
