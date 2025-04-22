@@ -11,8 +11,8 @@ module "catalog_rg" {
 }
 
 module "databricks_workspace" {
-  source                        = "./modules/databricks_workspace"
-  name = var.databricks_workspace_name
-  location                      = var.location
-  resource_group_name           = module.workspace_rg.name
+  source              = "./modules/databricks_workspace"
+  name                = var.databricks_workspace_name
+  location            = var.location
+  resource_group_name = module.workspace_rg.name
 }
