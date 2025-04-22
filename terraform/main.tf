@@ -14,5 +14,5 @@ module "databricks_workspace" {
   source              = "./modules/databricks_workspace"
   name                = var.databricks_workspace_name
   location            = var.location
-  resource_group_name = azurerm_resource_group.workspace_rg.name
+  resource_group_name = azurerm_resource_group.resource_group_name_workspace.name
 }
