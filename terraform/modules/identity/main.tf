@@ -1,5 +1,13 @@
-provider "databricks" {
-  alias = "workspace"
+# Define the required provider
+terraform {
+  required_providers {
+    databricks = {
+      source = "hashicorp/databricks"
+      configuration_aliases = [
+        "databricks.workspace",  # Reference the alias used in the root module
+      ]
+    }
+  }
 }
 
 resource "azurerm_user_assigned_identity" "this" {
