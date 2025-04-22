@@ -1,20 +1,17 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Unity Catalog Terraform Setup
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This project sets up Azure Databricks Unity Catalog, metastore assignment, and dynamic access control using Terraform.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Structure
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+- `terraform/` — Main IaC logic
+- `modules/catalogs` — Catalog/schema creation and access grants
+- `access.yaml` — AD group permissions
+- `azure-pipelines.yml` — CI/CD pipeline for Azure DevOps
+- `scripts/` — Optional pre-deployment validation
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Getting Started
+- Set your workspace and metastore IDs
+- Define access groups in `access.yaml`
+- Configure Azure backend and service connections
+- Commit and push to trigger pipeline
