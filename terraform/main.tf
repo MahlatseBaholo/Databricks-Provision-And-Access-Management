@@ -1,6 +1,11 @@
-module "resource_group" {
-  source = "./modules/resource_group"
+module "workspace_rg" {
+  source  = "./modules/resource_group"
+  name    = var.resource_group_name_workspace
+  location = var.location
+}
 
-  resource_group_name     = var.resource_group_name
-  location                = var.location
+module "catalog_rg" {
+  source  = "./modules/resource_group"
+  name    = var.resource_group_name_catalog
+  location = var.location
 }
