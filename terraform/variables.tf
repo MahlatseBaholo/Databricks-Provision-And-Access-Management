@@ -3,7 +3,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "resource_group_location" {
+variable "location" {
   description = "Azure location for the resource group"
   type        = string
   default     = "westeurope"
