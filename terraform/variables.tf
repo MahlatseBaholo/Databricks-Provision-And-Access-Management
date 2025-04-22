@@ -3,7 +3,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "region" {
+variable "location" {
   description = "The region where resources will be created"
   type        = string
   default     = "westeurope"  # Default value for region
