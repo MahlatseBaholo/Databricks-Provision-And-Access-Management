@@ -4,10 +4,6 @@ variable "location" {
   default     = "westeurope"
 }
 
-variable "project_name" {
-  description = "Name of the project or workload"
-  type        = string
-}
 
 variable "resource_group_name_workspace" {
   description = "Resource group name for Databricks workspace"
