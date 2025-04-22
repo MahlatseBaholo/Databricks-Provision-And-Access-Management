@@ -9,3 +9,11 @@ module "catalog_rg" {
   name    = var.resource_group_name_catalog
   location = var.location
 }
+
+module "databricks_workspace" {
+  source              = "./modules/databricks_workspace"
+  name                = var.workspace_name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.resource_group_name_workspace.name
+  sku                 = var.workspace_sku
+}
