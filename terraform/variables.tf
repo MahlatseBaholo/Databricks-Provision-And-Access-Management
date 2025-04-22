@@ -13,3 +13,8 @@ variable "location" {
   type        = string
   default     = "westeurope"
 }
+
+variable "databricks_workspace_name" {
+  type        = string
+  description = "Databricks workspace name"
+}
