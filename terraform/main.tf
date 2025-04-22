@@ -4,7 +4,7 @@ provider "databricks" {
 }
 
 locals {
-  metastore_id   = "<your-metastore-id>"
+  metastore_id   = "88ad67c1-2d9f-448a-a740-155002742426"
   access_config  = yamldecode(file("${path.module}/access.yaml"))
 }
 
@@ -24,18 +24,18 @@ module "unity_catalog" {
   source  = "data-platform-hq/unity-catalog/databricks"
   version = "~> 1.1.0"
 
-  env              = "production"
+  env              = "development"
   metastore_id     = local.metastore_id
-  metastore_grants = [
-    {
-      principal  = "admin@databricks.com"
-      privileges = ["CREATE_CATALOG", "CREATE_EXTERNAL_LOCATION"]
-    },
-    {
-      principal  = "governance@databricks.com"
-      privileges = ["CREATE_SHARE", "CREATE_RECIPIENT", "CREATE_PROVIDER"]
-    }
-  ]
+  #metastore_grants = [
+  #  {
+  #    principal  = "admin@databricks.com"
+  #    privileges = ["CREATE_CATALOG", "CREATE_EXTERNAL_LOCATION"]
+  #  },
+  #  {
+  #    principal  = "governance@databricks.com"
+  #    privileges = ["CREATE_SHARE", "CREATE_RECIPIENT", "CREATE_PROVIDER"]
+  #  }
+  #]
 
   catalog = local.access_config
 
