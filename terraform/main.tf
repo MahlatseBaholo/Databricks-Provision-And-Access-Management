@@ -24,6 +24,7 @@ module "storage" {
 
 # Managed Identity
 module "identity" {
+  provider        = databricks.workspace
   source  = "./modules/identity"
   rg_name = module.resource_groups.catalog_rg_name
   region  = var.region
@@ -41,7 +42,7 @@ module "access_connector" {
 
 # Storage Credential
 module "storage_credential" {
-  provider     = databricks.workspace
+  provider            = databricks.workspace
   source              = "./modules/storage_credential"
   name                = var.credential_name
   comment             = "Storage credential for Unity Catalog external locations"
