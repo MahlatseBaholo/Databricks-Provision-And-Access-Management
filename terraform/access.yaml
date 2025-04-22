@@ -1,27 +1,55 @@
-example_catalog:
+ai_catalog:
   schema_names:
-    - raw
-    - refined
-    - data_product
+    - bronze
+    - silver
+    - gold
   catalog_access:
-    Analytics Team:
+    GenAI-Developers:
+      - APPLY_TAG
+      - BROWSE
       - USE_CATALOG
-      - CREATE_SCHEMA
-    Data Engineers:
-      - USE_CATALOG
+      - READ_VOLUME
+      - REFRESH
+      - EXECUTE
+      - SELECT
+      - USE_SCHEMA
   schema_access:
-    raw:
-      Analytics Team:
+    bronze:
+      GenAI-Developers:
+        - CREATE_FUNCTION
+        - CREATE_TABLE 
+        - CREATE_MODEL 
+        - CREATE_VOLUME 
+        - CREATE_MATERIALIZED_VIEW 
         - USE_SCHEMA
+        - EXECUTEMODIFY
         - SELECT
-      Data Engineers:
+        - READ_VOLUME
+        - REFRESH
+        - WRITE_VOLUME
+    silver:
+      GenAI-Developers:
+        - CREATE_FUNCTION
+        - CREATE_TABLE 
+        - CREATE_MODEL 
+        - CREATE_VOLUME 
+        - CREATE_MATERIALIZED_VIEW 
         - USE_SCHEMA
-    refined:
-      Analytics Team:
-        - USE_SCHEMA
+        - EXECUTEMODIFY
         - SELECT
-    data_product:
-      Product Team:
+        - READ_VOLUME
+        - REFRESH
+        - WRITE_VOLUME
+    gold:
+      GenAI-Developers:
+        - CREATE_FUNCTION
+        - CREATE_TABLE 
+        - CREATE_MODEL 
+        - CREATE_VOLUME 
+        - CREATE_MATERIALIZED_VIEW 
         - USE_SCHEMA
-        - MODIFY
+        - EXECUTEMODIFY
         - SELECT
+        - READ_VOLUME
+        - REFRESH
+        - WRITE_VOLUME
