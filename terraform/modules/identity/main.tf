@@ -1,4 +1,6 @@
-provider     = databricks.workspace
+provider "databricks" {
+  alias = "workspace"
+}
 
 resource "azurerm_user_assigned_identity" "this" {
   name                = var.name
