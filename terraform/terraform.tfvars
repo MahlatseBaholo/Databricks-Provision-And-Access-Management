@@ -1,5 +1,5 @@
 location                         = "westeurope"
-resource_group_name_workspace    = "sasoleuw-aes-dev-rg"
+resource_group_name              = "sasoleuw-aes-dev-rg"
 resource_group_name_catalog      = "sasoleuw-big-data-aes-unity-catalog-rg"
 databricks_workspace_name        = "sasol-dev-aes-dbw"
 storage_account_name             = "sasoleuwaescatalog"
