@@ -12,6 +12,10 @@ terraform {
 }
 
 provider "azurerm" {
+  tenant_id       = "3d2c89c4-4762-4441-8185-505beedaf7af"
+  subscription_id = "53b5fe7d-2477-4a93-943a-af5571bf146c"
+  client_id     = "f8011808-8877-4385-917a-77b3f195e8e7"
+  client_secret = "3bqry2JZH7w/WjMre5CL7WDH/b6ig01iqlfTCehrxjY="
   features {}
   skip_provider_registration = true
 }
@@ -27,9 +31,9 @@ provider "databricks" {
 
 provider "databricks" {
   alias         = "workspace"
-  host          = ""
-  client_id     = ""
-  client_secret = ""
+  host          = "https://adb-3787911233650262.2.azuredatabricks.net"
+  client_id     = "085d9aab-a52c-4ef6-b983-4ff78908a68d"
+  client_secret = "dosec6bee1d8b5f9ef1dd7bd9ccfba05ba42"
   auth_type     = "oauth-m2m"
 }
 
