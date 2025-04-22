@@ -1,4 +1,6 @@
-provider     = databricks.workspace
+provider "databricks" {
+  alias = "workspace"
+}
 
 resource "databricks_storage_credential" "this" {
   name     = var.name
