@@ -1,8 +1,10 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "<resource-group>"
-    storage_account_name = "<storage-account>"
-    container_name       = "tfstate"
-    key                  = "unity-catalog.tfstate"
+    resource_group_name  = "sasoleuw-simegas-dev-rg"
+    storage_account_name = "simegas-terraform-backend"
+    container_name       = "databricks"
+    key                  = "terraform-databricks.tfstate"
+    access_key           = ""
   }
+
 }
