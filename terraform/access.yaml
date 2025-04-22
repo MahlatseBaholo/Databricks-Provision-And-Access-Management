@@ -1,4 +1,4 @@
-ai_catalog:
+test_catalog:
   schema_names:
     - bronze
     - silver
