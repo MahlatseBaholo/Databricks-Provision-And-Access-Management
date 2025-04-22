@@ -22,7 +22,8 @@ ai_catalog:
         - CREATE_VOLUME 
         - CREATE_MATERIALIZED_VIEW 
         - USE_SCHEMA
-        - EXECUTEMODIFY
+        - EXECUTE
+        - MODIFY
         - SELECT
         - READ_VOLUME
         - REFRESH
@@ -35,7 +36,8 @@ ai_catalog:
         - CREATE_VOLUME 
         - CREATE_MATERIALIZED_VIEW 
         - USE_SCHEMA
-        - EXECUTEMODIFY
+        - EXECUTE
+        - MODIFY
         - SELECT
         - READ_VOLUME
         - REFRESH
@@ -48,7 +50,8 @@ ai_catalog:
         - CREATE_VOLUME 
         - CREATE_MATERIALIZED_VIEW 
         - USE_SCHEMA
-        - EXECUTEMODIFY
+        - EXECUTE
+        - MODIFY
         - SELECT
         - READ_VOLUME
         - REFRESH
