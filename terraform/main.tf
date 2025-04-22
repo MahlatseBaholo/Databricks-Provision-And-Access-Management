@@ -58,13 +58,19 @@ module "external_location" {
 }
 
 # Optionally add Unity Catalog grant modules here as required
+locals {
+  access_yaml_path = "${path.module}/access.yaml"  # Set the path to the access.yaml file
+  access_config    = yamldecode(file(local.access_yaml_path))  # Read the file content
+}
+
 module "catalogs" {
   source  = "data-platform-hq/unity-catalog/databricks"
   version = "~> 1.1.0"
   env              = var.env
   metastore_id     = var.metastore_id
-  catalog          = yamldecode(file("${path.module}/access.yaml"))
+  catalog          = local.access_config  # Pass the access_config from locals
   providers = {
     databricks = databricks.workspace
   }
 }
+
