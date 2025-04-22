@@ -8,19 +8,19 @@ module "resource_groups" {
 
 # Databricks Workspace
 module "workspace" {
-  provider            = azurerm
-  source              = "./modules/databricks_workspace"
-  region              = var.region
-  rg_name             = module.resource_groups.dev_rg_name
-  workspace_name      = var.workspace_name
+  provider                            = azurerm
+  source                              = "./modules/databricks_workspace"
+  region                              = var.region
+  resource_group_name_storage_account = module.resource_groups.dev_rg_name
+  workspace_name                      = var.workspace_name
 }
 
 # Storage Account & Container
 module "storage" {
-  source             = "./modules/storage"
-  rg_name            = module.resource_groups.catalog_rg_name
-  region             = var.region
-  storage_account    = var.storage_account_name
-  container_name     = var.container_name
+  source                                = "./modules/storage"
+  resource_group_name_storage_account   = module.resource_groups.catalog_rg_name
+  region                                = var.region
+  storage_account                       = var.storage_account_name
+  container_name                        = var.container_name
 }
 
