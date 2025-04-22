@@ -58,7 +58,7 @@ module "external_location" {
 }
 
 # Optionally add Unity Catalog grant modules here as required
-module "unity_catalog" {
+module "catalogs" {
   source  = "data-platform-hq/unity-catalog/databricks"
   version = "~> 1.1.0"
   env              = var.env
