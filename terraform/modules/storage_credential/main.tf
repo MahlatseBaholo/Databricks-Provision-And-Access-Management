@@ -1,3 +1,5 @@
+provider     = databricks.workspace
+
 resource "databricks_storage_credential" "this" {
   name     = var.name
   comment  = var.comment
