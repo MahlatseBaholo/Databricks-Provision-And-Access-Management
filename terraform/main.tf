@@ -6,6 +6,7 @@ module "resource_groups" {
 
 # Databricks Workspace
 module "workspace" {
+  provider            = azurerm
   source              = "./modules/databricks_workspace"
   region              = var.region
   rg_name             = module.resource_groups.dev_rg_name
@@ -40,6 +41,7 @@ module "access_connector" {
 
 # Storage Credential
 module "storage_credential" {
+  provider     = databricks.workspace
   source              = "./modules/storage_credential"
   name                = var.credential_name
   comment             = "Storage credential for Unity Catalog external locations"
