@@ -1,4 +1,6 @@
-provider     = databricks.workspace
+provider "databricks" {
+  alias = "workspace"
+}
 
 resource "databricks_external_location" "this" {
   name            = var.name
