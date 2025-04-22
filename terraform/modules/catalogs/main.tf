@@ -1,3 +1,7 @@
+provider "databricks" {
+  alias = "workspace"
+}
+
 resource "databricks_grants" "catalog_grants" {
   for_each = var.catalogs
   catalog  = each.key
