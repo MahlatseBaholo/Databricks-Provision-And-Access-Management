@@ -1,16 +1,14 @@
-variable "resource_group_name_storage_account" {
-  description = "The name of the resource group for the workspace"
+variable "resource_group_name" {
+  description = "The name of the resource group"
   type        = string
 }
 
+variable "region" {
+  description = "The region where the storage account will be created"
+  type        = string
+}
 
 variable "storage_account_name" {
-  description = "Name of the storage account for Unity Catalog"
+  description = "The name of the storage account"
   type        = string
-}
-
-variable "container_name" {
-  description = "Name of the container for metastore"
-  type        = string
-  default     = "metastore"
 }
