@@ -20,7 +20,7 @@ module "storage" {
   source             = "./modules/storage"
   rg_name            = module.resource_groups.catalog_rg_name
   region             = var.region
-  storage_account    = var.storage_account
+  storage_account    = var.storage_account_name
   container_name     = var.container_name
 }
 
