@@ -65,8 +65,4 @@ variable "workspace_id" {
   type        = string
 }
 
-variable "unity_catalog" {
-  description = "Path to the access.yaml file for catalog/schema permissions"
-  type        = string
-  default     = "${path.module}/access.yaml"
-}
+
