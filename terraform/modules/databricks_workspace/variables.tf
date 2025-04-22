@@ -3,7 +3,7 @@ variable "name" {
   type        = string
 }
 
-variable "name" {
+variable "resource_group_name" {
   description = "Resource group name"
   type        = string
 }
