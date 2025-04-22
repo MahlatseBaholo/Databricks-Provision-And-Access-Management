@@ -1,5 +1,5 @@
-resource "azurerm_resource_group" "sasoleuw-big-data-dev-aes-rg" {
-  name     = "sasoleuw-big-data-dev-aes-rg"
+resource "azurerm_resource_group" "sasoleuw-simegas-dev-rg" {
+  name     = "sasoleuw-simegas-dev-rg"
   location = "westeurope"
 }
 
@@ -28,10 +28,10 @@ resource "databricks_metastore_assignment" "metastore" {
   workspace_id  = "1627607411856178"
 }
 
-resource "azurerm_databricks_workspace" "sasol-dev-aes-dbw" {
+resource "azurerm_databricks_workspace" "sasol-dev-simegas-dbw" {
   provider            = azurerm
-  name                = "sasol-dev-aes-dbw"
-  resource_group_name = "sasoleuw-big-data-dev-aes-rg"
+  name                = "sasol-dev-simegas-dbw"
+  resource_group_name = "sasoleuw-simegas-dev-rg"
   location            = "westeurope"
   sku                 = "premium"
 }
