@@ -52,6 +52,46 @@ resource "azurerm_storage_container" "metastore" {
 }
 
 
+resource "azurerm_user_assigned_identity" "sasoleuw-aes-catalog-id" {
+  name                = "sasoleuw-aes-catalog-id"
+  location            = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.location
+  resource_group_name = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.name
+}
+
+resource "azurerm_databricks_access_connector" "sasoleuw-aes-catalog-conncetor" {
+  name                = "sasoleuw-aes-catalog-conncetor"
+  resource_group_name = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.name
+  location            = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.location
+  identity {
+    type              = "UserAssigned"
+    identity_ids      = [azurerm_user_assigned_identity.sasoleuw-aes-catalog-id.id]
+  }
+}
+
+// Storage credential creation to be used to "CREATE_ external location
+resource "databricks_storage_credential" "sasoleuw-aes-dbsc-ai" {
+  provider     = databricks.workspace
+  name                  = "sasoleuw-aes-dbsc-ai"
+  azure_managed_identity {
+    access_connector_id = azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor.id
+    managed_identity_id = azurerm_user_assigned_identity.sasoleuw-aes-catalog-id.id
+  }
+  comment    = "Storage credential for all external locations"
+}
+
+resource "databricks_external_location" "ai-catalog-external-location" {
+  provider        = databricks.workspace
+  name            = "ai-catalog-external-location"
+  url             = format("abfss://%s@%s.dfs.core.windows.net",
+    azurerm_storage_container.aicontainer.name,
+  azurerm_storage_account.sasoleuwaescatalog.name)
+  credential_name = databricks_storage_credential.sasoleuw-aes-dbsc-ai.id
+  comment         = "External location used by catalog-external-location as root storage"
+  depends_on = [
+    databricks_metastore_assignment.metastore
+  ]
+}
+
 provider "databricks" {
   host                        = "https://<your-databricks-instance>"
   azure_workspace_resource_id = "<your-workspace-resource-id>"
