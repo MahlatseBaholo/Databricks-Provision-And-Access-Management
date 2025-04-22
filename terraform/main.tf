@@ -1,93 +1,70 @@
-resource "azurerm_resource_group" "sasoleuw-simegas-dev-rg" {
-  name     = "sasoleuw-simegas-dev-rg"
-  location = "westeurope"
+# Resource Groups
+module "resource_groups" {
+  source = "./modules/resource_groups"
+  region = var.region
 }
 
-resource "azurerm_resource_group" "sasoleuw-big-data-simegas-unity-catalog-rg" {
-  name     = "sasoleuw-big-data-simegas-unity-catalog-rg"
-  location = "westeurope"
+# Databricks Workspace
+module "workspace" {
+  source              = "./modules/databricks_workspace"
+  region              = var.region
+  rg_name             = module.resource_groups.dev_rg_name
+  workspace_name      = var.workspace_name
 }
 
-resource "databricks_group" "MetastoreAdmins" {
-  provider     = databricks.azure_account
-  display_name = "MetastoreAdmins"
+# Storage Account & Container
+module "storage" {
+  source             = "./modules/storage"
+  rg_name            = module.resource_groups.catalog_rg_name
+  region             = var.region
+  storage_account    = var.storage_account
+  container_name     = var.container_name
 }
 
-resource "databricks_metastore" "metastore" {
-  provider      = databricks.azure_account
-  name          = "metastore"
-  storage_root  = "abfss://metastore@sasoleuwsimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
-  owner         = "MetastoreAdmins"
-  region        = "westeurope"
-#  sku           = "premium"
+# Managed Identity
+module "identity" {
+  source  = "./modules/identity"
+  rg_name = module.resource_groups.catalog_rg_name
+  region  = var.region
+  name    = var.identity_name
 }
 
-resource "databricks_metastore_assignment" "metastore" {
-  provider      = databricks.azure_account
-  metastore_id  = databricks_metastore.metastore.id
-  workspace_id  = ""
+# Access Connector
+module "access_connector" {
+  source  = "./modules/access_connector"
+  rg_name = module.resource_groups.catalog_rg_name
+  region  = var.region
+  name    = var.access_connector_name
+  identity_id = module.identity.identity_id
 }
 
-resource "azurerm_databricks_workspace" "sasol-dev-simegas-dbw" {
-  provider            = azurerm
-  name                = "sasol-dev-simegas-dbw"
-  resource_group_name = "sasoleuw-simegas-dev-rg"
-  location            = "westeurope"
-  sku                 = "premium"
+# Storage Credential
+module "storage_credential" {
+  source              = "./modules/storage_credential"
+  name                = var.credential_name
+  comment             = "Storage credential for Unity Catalog external locations"
+  access_connector_id = module.access_connector.access_connector_id
+  managed_identity_id = module.identity.identity_id
 }
 
-resource "azurerm_storage_account" "sasoleuwsimegascatalog" {
-  name                      = "sasoleuwsimegascatalog"
-  resource_group_name       = "sasoleuw-big-data-simegas-unity-catalog-rg"
-  location                  = azurerm_resource_group.sasoleuw-big-data-simegas-unity-catalog-rg.location
-  account_tier              = "Standard"
-  account_replication_type  = "ZRS"
-  is_hns_enabled            = true
+# External Location
+module "external_location" {
+  source          = "./modules/external_location"
+  name            = var.external_location_name
+  url             = "abfss://${var.container_name}@${var.storage_account}.dfs.core.windows.net"
+  credential_name = module.storage_credential.this.name
+  comment         = "External location for Unity Catalog"
+  depends_on      = [module.storage_credential]
 }
 
-resource "azurerm_storage_container" "metastore" {
-  name                  = "metastore"
-  storage_account_name  = azurerm_storage_account.sasoleuwsimegascatalog.name
-  container_access_type = "private"
-}
-
-
-resource "azurerm_user_assigned_identity" "sasoleuw-simegas-catalog-id" {
-  name                = "sasoleuw-simegas-catalog-id"
-  location            = azurerm_resource_group.sasoleuw-big-data-simegas-unity-catalog-rg.location
-  resource_group_name = azurerm_resource_group.sasoleuw-big-data-simegas-unity-catalog-rg.name
-}
-
-resource "azurerm_databricks_access_connector" "sasoleuw-simegas-catalog-conncetor" {
-  name                = "sasoleuw-simegas-catalog-conncetor"
-  resource_group_name = azurerm_resource_group.sasoleuw-big-data-simegas-unity-catalog-rg.name
-  location            = azurerm_resource_group.sasoleuw-big-data-simegas-unity-catalog-rg.location
-  identity {
-    type              = "UserAssigned"
-    identity_ids      = [azurerm_user_assigned_identity.sasoleuw-simegas-catalog-id.id]
+# Optionally add Unity Catalog grant modules here as required
+module "unity_catalog" {
+  source  = "data-platform-hq/unity-catalog/databricks"
+  version = "~> 1.1.0"
+  env              = var.env
+  metastore_id     = var.metastore_id
+  catalog          = yamldecode(file("${path.module}/access.yaml"))
+  providers = {
+    databricks = databricks.workspace
   }
-}
-
-// Storage credential creation to be used to "CREATE_ external location
-resource "databricks_storage_credential" "sasoleuw-simegas-dbsc-ai" {
-  provider     = databricks.workspace
-  name                  = "sasoleuw-simegas-dbsc-ai"
-  azure_managed_identity {
-    access_connector_id = azurerm_databricks_access_connector.sasoleuw-simegas-catalog-conncetor.id
-    managed_identity_id = azurerm_user_assigned_identity.sasoleuw-simegas-catalog-id.id
-  }
-  comment    = "Storage credential for all external locations"
-}
-
-resource "databricks_external_location" "ai-catalog-external-location" {
-  provider        = databricks.workspace
-  name            = "ai-catalog-external-location"
-  url             = format("abfss://%s@%s.dfs.core.windows.net",
-    azurerm_storage_container.aicontainer.name,
-  azurerm_storage_account.sasoleuwsimegascatalog.name)
-  credential_name = databricks_storage_credential.sasoleuw-simegas-dbsc-ai.id
-  comment         = "External location used by catalog-external-location as root storage"
-  depends_on = [
-    databricks_metastore_assignment.metastore
-  ]
 }
