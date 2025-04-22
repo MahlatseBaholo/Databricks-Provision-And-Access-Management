@@ -1,15 +1,9 @@
-variable "resource_group_name_workspace" {
-  description = "Name of the Resource Group for the Databricks Workspace"
-  type        = string
-}
-
-variable "resource_group_name_catalog" {
-  description = "Name of the Resource Group for the Unity Catalog"
+variable "name" {
+  description = "Resource group name"
   type        = string
 }
 
 variable "location" {
-  description = "Azure location for the resource group"
+  description = "Resource group location"
   type        = string
-  default     = "westeurope"
 }
