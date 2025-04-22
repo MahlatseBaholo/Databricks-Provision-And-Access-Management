@@ -1,8 +1,10 @@
 # Resource Groups
 module "resource_groups" {
-  source = "./modules/resource_groups"
-  region = var.region
+  source                        = "./modules/resource_groups"
+  region                        = var.region
+  resource_group_name_workspace = var.resource_group_name_workspace  # Provide the missing argument
 }
+
 
 # Databricks Workspace
 module "workspace" {
