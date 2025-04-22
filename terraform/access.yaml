@@ -1,0 +1,27 @@
+example_catalog:
+  schema_names:
+    - raw
+    - refined
+    - data_product
+  catalog_access:
+    Analytics Team:
+      - USE_CATALOG
+      - CREATE_SCHEMA
+    Data Engineers:
+      - USE_CATALOG
+  schema_access:
+    raw:
+      Analytics Team:
+        - USE_SCHEMA
+        - SELECT
+      Data Engineers:
+        - USE_SCHEMA
+    refined:
+      Analytics Team:
+        - USE_SCHEMA
+        - SELECT
+    data_product:
+      Product Team:
+        - USE_SCHEMA
+        - MODIFY
+        - SELECT
