@@ -1,55 +1,46 @@
 trigger:
-  branches:
-    include:
-      - main
+- none
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
 variables:
-  TF_VAR_environment: 'production'
+  resourcegroup: 'sasoleuw-big-data-aes-restore-rg'
+  accountname: 'sasolaesiac'
+  containername: 'terraform'
+  key: 'adb-unity-catalog-sandbox.tfstate'
+  accesskey: 'rL8c4EJ0WhHyKlMhr96th9swepgB56xB47O5Eo3XYLHzywn0bfpRqTjvKG8yY+vr0dpaf0HL3h6O+AStFcZE6w=='
 
 stages:
-  - stage: Terraform
+  - stage: tfapply
     jobs:
-      - job: InitPlanApply
+      - job: tfinstall
         steps:
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: '3.x'
-
-          - script: pip install pyyaml
-            displayName: 'Install PyYAML'
-
-          - script: |
-              python scripts/validate_yaml.py terraform/access.yaml
-            displayName: 'Validate access.yaml'
-            continueOnError: true
-
           - task: TerraformInstaller@1
+            displayName: install
             inputs:
-              terraformVersion: '1.5.7'
-
+              terraformVersion: 'latest'
+      - job: tfapply
+        steps:
+          - task: TerraformInstaller@1
+            displayName: install
+            inputs:
+              terraformVersion: 'latest'
           - task: TerraformTaskV4@4
-            displayName: 'Terraform Init'
+            displayName: init 
             inputs:
               provider: 'azurerm'
               command: 'init'
-              workingDirectory: 'terraform'
-
+              backendServiceArm: 'AES 2.0 Dev - SP'
+              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
           - task: TerraformTaskV4@4
-            displayName: 'Terraform Plan'
-            inputs:
-              provider: 'azurerm'
-              command: 'plan'
-              workingDirectory: 'terraform'
-
-          - task: TerraformTaskV4@4
-            displayName: 'Terraform Apply'
+            displayName: apply 
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: 'terraform'
-              environmentServiceNameAzureRM: '<Azure Service Connection>'
-              backendServiceArm: '<Azure Service Connection>'
-              ensureBackend: true
+              environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
