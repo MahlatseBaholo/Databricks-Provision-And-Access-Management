@@ -1,4 +1,4 @@
 variable "resource_group_name_workspace" {
-  description = "Resource group name for Databricks workspace"
+  description = "The name of the resource group for the workspace"
   type        = string
 }
