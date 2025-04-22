@@ -1,26 +1,13 @@
-# Resource Groups
+# Define resource groups module
 module "resource_groups" {
-  source                        = "./modules/resource_groups"
-  region                        = var.region
-  resource_group_name_workspace = var.resource_group_name_workspace  # Provide the missing argument
+  source = "./modules/resource_groups"  # Path to the module directory
+  region = var.region                   # Pass region variable to the resource_groups module
 }
 
-
-# Databricks Workspace
-module "workspace" {
-  provider                            = azurerm
-  source                              = "./modules/databricks_workspace"
-  region                          = var.region
-  resource_group_name_workspace = module.resource_groups.workspace_rg_name
-  workspace_name                      = var.workspace_name
-}
-
-# Storage Account & Container
+# Define storage module
 module "storage" {
-  source                                = "./modules/storage"
-  resource_group_name_storage_account   = module.resource_groups.storage_account_rg_name
-  region                                = var.region
-  storage_account                       = var.storage_account_name
-  container_name                        = var.container_name
+  source               = "./modules/storage"          # Path to the storage module
+  resource_group_name  = module.resource_groups.name  # Pass the resource group name from resource_groups
+  region               = var.region                   # Pass region variable
+  storage_account_name = var.storage_account_name    # Pass storage account name
 }
-
