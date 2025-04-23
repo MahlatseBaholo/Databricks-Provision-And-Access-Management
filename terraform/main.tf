@@ -25,5 +25,5 @@ module "metastore_assignment" {
   }
 
   metastore_id = data.terraform_remote_state.metastore.outputs.metastore_id
-  workspace_id = databricks_workspace.databricks_workspace.id
+  workspace_id = databricks_workspace.name.id
 }
