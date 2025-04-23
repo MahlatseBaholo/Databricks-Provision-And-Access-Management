@@ -14,8 +14,3 @@ variable "comment" {
   type    = string
   default = ""
 }
-
-variable "depends_on" {
-  type    = list(any)
-  default = []
-}
