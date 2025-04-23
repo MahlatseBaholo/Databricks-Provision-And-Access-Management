@@ -11,6 +11,7 @@ module "catalog_rg" {
 }
 
 module "databricks_workspace" {
+  provider            = azurerm
   source                        = "./modules/databricks_workspace"
   name                          = var.databricks_workspace_name
   location                      = var.location
@@ -18,6 +19,7 @@ module "databricks_workspace" {
 }
 
 module "metastore_assignment" {
+  provider      = databricks.azure_account
   source       = "./modules/metastore_assignment"
   metastore_id = data.terraform_remote_state.metastore.outputs.metastore_id
   workspace_id = data.terraform_remote_state.databricks_workspace.outputs.workspace_id
