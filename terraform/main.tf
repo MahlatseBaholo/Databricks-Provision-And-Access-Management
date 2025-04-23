@@ -1,7 +1,7 @@
 module "workspace_rg" {
   source   = "./module/resource_group"
   providers = {
-    databricks.azure_account = databricks.azure_account
+    azurerm = azurerm
   }
   name     = var.resource_group_name_workspace
   location = var.location
