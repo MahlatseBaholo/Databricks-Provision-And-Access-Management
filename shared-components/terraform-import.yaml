@@ -40,10 +40,3 @@ stages:
             terraform import azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasoleuw-aes-catalog-conncetor
           displayName: 'Import Resources'
           workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
-        - task: TerraformTaskV4@4
-          displayName: apply 
-          inputs:
-            provider: 'azurerm'
-            command: 'apply'
-            environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
