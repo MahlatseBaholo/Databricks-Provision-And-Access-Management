@@ -16,16 +16,16 @@ stages:
     jobs:
       - job: tfinstall
         steps:
-          - task: shared-componentsInstaller@1
+          - task: TerraformInstaller@1
             displayName: install
             inputs:
-              shared-componentsVersion: 'latest'
+              terraformVersion: 'latest'
       - job: tfapply
         steps:
-          - task: shared-componentsInstaller@1
+          - task: TerraformInstaller@1
             displayName: install
             inputs:
-              shared-componentsVersion: 'latest'
+              terraformVersion: 'latest'
           - task: TerraformTaskV4@4
             displayName: init 
             inputs:
