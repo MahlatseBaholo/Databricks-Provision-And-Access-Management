@@ -1,5 +1,4 @@
 location                           = "westeurope"
-resource_group_name_workspace      = "sasoleuw-big-data-sandbox-aes-rg"
 databricks_workspace_name          = "sasol-sandbox-aes-dbw"
 storage_account_name               = "xxxxxxxx"
 container_name                     = "xxxxxxxx"
