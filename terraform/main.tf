@@ -11,7 +11,6 @@ module "catalog_rg" {
 }
 
 module "databricks_workspace" {
-  provider            = azurerm
   source                        = "./modules/databricks_workspace"
   name                          = var.databricks_workspace_name
   location                      = var.location
