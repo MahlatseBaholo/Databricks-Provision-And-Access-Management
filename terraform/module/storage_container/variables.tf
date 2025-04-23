@@ -1,4 +1,4 @@
-variable "container_name" {
+variable "name" {
   type = string
 }
 
