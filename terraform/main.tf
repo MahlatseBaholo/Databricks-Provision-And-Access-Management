@@ -1,3 +1,8 @@
+resource "azurerm_resource_group" "sasoleuw-big-data-sandbox-aes-rg" {
+  name     = "sasoleuw-big-data-sandbox-aes-rg"
+  location = "westeurope"
+}
+
 module "workspace_rg" {
   source   = "./module/resource_group"
   name     = var.resource_group_name_workspace
