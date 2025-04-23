@@ -6,7 +6,7 @@ module "workspace_rg" {
 
 module "catalog_rg" {
   source   = "./module/resource_group"
-  name     = data.terraform_remote_state.metastore.outputs.name
+  name = data.terraform_remote_state.metastore.outputs.unity_catalog_rg_name
   location = var.location
 }
 
