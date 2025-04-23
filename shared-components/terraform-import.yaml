@@ -31,7 +31,11 @@ stages:
             backendAzureRmKey: '$(key)'
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
         - script: |
-            terraform import azurerm_resource_group.unity-catalog-rg /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg
+            terraform import azurerm_storage_account.sasoleuwaescatalog /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg/providers/Microsoft.Storage/storageAccounts/sasoleuwaescatalog
+            terraform import azurerm_user_assigned_identity.sasoleuw-aes-catalog-id /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasoleuw-aes-catalog-id
+            terraform import azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasoleuw-aes-catalog-conncetor
+            terraform import azurerm_storage_container.metastore https://sasoleuwaescatalog.blob.core.windows.net/metastore
+          #terraform import azurerm_resource_group.unity-catalog-rg /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg
           #terraform import databricks_metastore.metastore 88ad67c1-2d9f-448a-a740-155002742426
           #terraform import databricks_metastore_assignment.metastore '3787911233650262|88ad67c1-2d9f-448a-a740-155002742426'
 
