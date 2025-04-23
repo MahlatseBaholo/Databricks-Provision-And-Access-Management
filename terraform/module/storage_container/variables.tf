@@ -1,1 +1,3 @@
-de
+variable "container_name" {
+  type = string
+}
