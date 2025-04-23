@@ -17,14 +17,6 @@ module "databricks_workspace" {
   resource_group_name_workspace = module.workspace_rg.name
 }
 
-module "metastore" {
-  source       = "./module/metastore"
-  providers = {
-    databricks.azure_account = databricks.azure_account
-  }
-  metastore_id = data.terraform_remote_state.metastore.outputs.metastore_id
-}
-
 module "metastore_assignment" {
   source       = "./module/metastore_assignment"
   providers = {
