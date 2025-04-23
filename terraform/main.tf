@@ -20,15 +20,16 @@ module "metastore_assignment" {
   workspace_id = module.databricks_workspace.workspace_id
 }
 
+
 module "storage_credential" {
   source              = "./module/databricks_storage_credential"
   name                = var.databricks_storage_credential_name
-  azure_managed_identity {
-    access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
-    managed_identity_id = data.terraform_remote_state.metastore.outputs.user_assigned_identity_id
-  }
+  access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
+  managed_identity_id = data.terraform_remote_state.metastore.outputs.user_assigned_identity_id
+
   providers = {
     databricks.workspace = databricks.workspace
   }
 }
+
 
