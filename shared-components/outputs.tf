@@ -34,6 +34,9 @@ output "metastore_assignment" {
   value = databricks_metastore_assignment.metastore
 }
 
+output "storage_account_name" {
+  value = azurerm_storage_account.sasoleuwaescatalog.name
+}
 
 
 
