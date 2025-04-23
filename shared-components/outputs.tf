@@ -26,8 +26,8 @@ output "access_connector_name" {
   value = azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor.name
 } 
 
-output "workspace_resource_group_name" {
-  value = azurerm_resource_group.sasoleuw-big-data-sandbox-aes-rg.name
+output "unity_catalog_resource_group_name" {
+  value = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.name
 }
 
 output "workspace_resource_group_name" {
