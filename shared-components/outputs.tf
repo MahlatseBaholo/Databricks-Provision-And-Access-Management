@@ -30,6 +30,10 @@ output "workspace_resource_group_name" {
   value = azurerm_resource_group.sasoleuw-big-data-sandbox-aes-rg.name
 }
 
+output "workspace_resource_group_name" {
+  value = azurerm_resource_group.sasoleuw-big-data-sandbox-aes-rg.name
+}
+
 output "metastore_assignment" {
   value = databricks_metastore_assignment.metastore
 }
