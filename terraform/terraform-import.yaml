@@ -31,8 +31,8 @@ stages:
             backendAzureRmKey: '$(key)'
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
         - script: |
-            terraform import modules.metastore_assignment.databricks_metastore_assignment.metastore 3787911233650262|88ad67c1-2d9f-448a-a740-155002742426
-            terraform import modules.metastore.databricks_metastore.metastore 88ad67c1-2d9f-448a-a740-155002742426
+            terraform import module.metastore_assignment.databricks_metastore_assignment.metastore 3787911233650262|88ad67c1-2d9f-448a-a740-155002742426
+            terraform import module.metastore.databricks_metastore.metastore 88ad67c1-2d9f-448a-a740-155002742426
           #terraform import databricks_metastore.metastore 88ad67c1-2d9f-448a-a740-155002742426
           #  terraform import databricks_metastore_assignment.metastore '3787911233650262|88ad67c1-2d9f-448a-a740-155002742426'
           displayName: 'Import Resources'
