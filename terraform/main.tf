@@ -1,9 +1,3 @@
-module "workspace_rg" {
-  source   = "./module/resource_group"
-  name     = var.resource_group_name_workspace
-  location = var.location
-}
-
 module "databricks_workspace" {
   source                        = "./module/databricks_workspace"
   name                          = var.databricks_workspace_name
