@@ -1,6 +1,0 @@
-resource "azurerm_databricks_workspace" "workspace" {
-  name                = var.name
-  location            = var.location
-  resource_group_name = var.resource_group_name_workspace
-  sku                 = "premium"
-}
