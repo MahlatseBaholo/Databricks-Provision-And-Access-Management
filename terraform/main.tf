@@ -16,7 +16,7 @@ module "external_location" {
     azurerm_storage_container.var.storage_container,
   azurerm_storage_account.sasoleuwaescatalog.name)
   credential_name  = module.storage_credential.storage_credential_id
-  storage_account  = 
+  storage_account  = data.terraform_remote_state.metastore.outputs.storage_account_name
   depends_on      = [
     data.terraform_remote_state.metastore.outputs.metastore_assignment
   ]
