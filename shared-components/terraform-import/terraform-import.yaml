@@ -5,11 +5,11 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  resourcegroup: 'sasoleuw-big-data-aes-restore-rg'
-  accountname: 'sasolaesiac'
-  containername: 'terraform'
-  key: 'adb-unity-catalog-sandbox.tfstate'
-  accesskey: 'rL8c4EJ0WhHyKlMhr96th9swepgB56xB47O5Eo3XYLHzywn0bfpRqTjvKG8yY+vr0dpaf0HL3h6O+AStFcZE6w=='
+  resourcegroup: 'sasoleuw-big-data-dev-aes-terraform-rg'
+  accountname: 'sasolterraform'
+  containername: 'shared-components'
+  key: 'metastore/terraform.tfstate'
+  accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
 
 stages:
   - stage: tfimport
