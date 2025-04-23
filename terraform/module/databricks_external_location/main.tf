@@ -11,4 +11,5 @@ resource "databricks_external_location" "this" {
   provider        = databricks.workspace
   name            = var.name
   url             = var.url
+  credential_name = var.credential_name
 }
