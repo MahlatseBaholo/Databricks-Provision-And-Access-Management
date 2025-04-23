@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      configuration_aliases = [databricks.azure_account]
+      configuration_aliases = [azurerm]
     }
   }
 }
