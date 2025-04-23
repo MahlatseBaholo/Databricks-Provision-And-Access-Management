@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "sasoleuw-big-data-aes-unity-catalog-rg" {
+resource "azurerm_resource_group" "unity-catalog-rg" {
   name     = "sasoleuw-big-data-aes-unity-catalog-rg"
   location = "westeurope"
 }
