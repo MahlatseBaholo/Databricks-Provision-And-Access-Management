@@ -5,6 +5,6 @@ data "terraform_remote_state" "metastore" {
     storage_account_name = "sasolterraform"
     container_name       = "shared-components"
     key                  = "metastore/terraform.tfstate"
-    #accesskey            = "BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=="
+    accesskey            = "BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=="
   }
 }
