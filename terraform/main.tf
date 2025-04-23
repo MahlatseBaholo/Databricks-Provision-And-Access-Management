@@ -1,6 +1,6 @@
 module "storage_container" {
-  source = "./module/storage_container"
-  container_name       = var.storage_container
+  source               = "./module/storage_container"
+  name                 = var.storage_container
   storage_account_name = data.terraform_remote_state.metastore.outputs.storage_account_name
   resource_group_name  = data.terraform_remote_state.metastore.outputs.unity_catalog_resource_group_name
 }
