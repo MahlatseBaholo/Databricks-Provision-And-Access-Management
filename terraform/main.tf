@@ -9,6 +9,9 @@ module "workspace_rg" {
 
 module "catalog_rg" {
   source   = "./module/resource_group"
+  providers = {
+    azurerm = azurerm
+  }
   name     = var.resource_group_name_catalog
   location = var.location
 }
