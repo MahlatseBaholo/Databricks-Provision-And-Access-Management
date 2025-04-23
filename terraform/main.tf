@@ -14,9 +14,8 @@ module "external_location" {
   name             = var.databricks_databricks_external_location
   url             = format("abfss://%s@%s.dfs.core.windows.net",
     azurerm_storage_container.var.storage_container,
-  azurerm_storage_account.sasoleuwaescatalog.name)
+  data.terraform_remote_state.shared_components.outputs.storage_account_name)
   credential_name  = module.storage_credential.storage_credential_id
-  storage_account  = data.terraform_remote_state.metastore.outputs.storage_account_name
   depends_on      = [
     data.terraform_remote_state.metastore.outputs.metastore_assignment
   ]
