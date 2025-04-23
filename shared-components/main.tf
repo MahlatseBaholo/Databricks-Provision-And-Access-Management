@@ -6,3 +6,9 @@ resource "databricks_metastore" "metastore" {
   region        = "westeurope"
 #  sku           = "premium"
 }
+
+resource "databricks_metastore_assignment" "metastore" {
+  provider      = databricks.azure_account
+  metastore_id  = databricks_metastore.metastore.id
+  workspace_id  = "3787911233650262"
+}
