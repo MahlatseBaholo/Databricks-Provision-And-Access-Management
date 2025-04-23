@@ -1,8 +1,8 @@
 module "storage_container" {
   source = "./module/storage_container"
-  container_name              = var.storage_container
-  shared_storage_account_name = data.terraform_remote_state.metastore.outputs.storage_account_name
-  resource_group_name         = data.terraform_remote_state.metastore.outputs.resource_group_name
+  container_name       = var.storage_container
+  storage_account_name = data.terraform_remote_state.metastore.outputs.storage_account_name
+  resource_group_name  = data.terraform_remote_state.metastore.outputs.resource_group_name
 }
 
 module "storage_credential" {
