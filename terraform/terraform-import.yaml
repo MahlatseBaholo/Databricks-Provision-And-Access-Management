@@ -7,10 +7,10 @@ pool:
 variables:
   resourcegroup: 'sasoleuw-big-data-dev-aes-terraform-rg'
   accountname: 'sasolterraform'
-  containername: 'shared-components'
-  key: 'metastore/terraform.tfstate'
+  containername: 'sasol-sandbox-aes-dbw'
+  key: 'unity-catalog/terraform.tfstate'
   accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
-
+  
 stages:
   - stage: tfimport
     jobs:
