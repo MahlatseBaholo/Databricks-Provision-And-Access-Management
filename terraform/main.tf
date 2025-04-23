@@ -16,3 +16,9 @@ module "databricks_workspace" {
   location                      = var.location
   resource_group_name_workspace = module.workspace_rg.name
 }
+
+module "metastore_assignment" {
+  source       = "./modules/metastore_assignment"
+  metastore_id = data.terraform_remote_state.metastore.outputs.metastore_id
+  workspace_id = module.databricks_workspace.workspace_id
+}
