@@ -3,6 +3,15 @@ resource "azurerm_resource_group" "unity-catalog-rg" {
   location = "westeurope"
 }
 
+resource "azurerm_storage_account" "sasoleuwaescatalog" {
+  name                      = "sasoleuwaescatalog"
+  resource_group_name       = "sasoleuw-big-data-aes-unity-catalog-rg"
+  location                  = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.location
+  account_tier              = "Standard"
+  account_replication_type  = "ZRS"
+  is_hns_enabled            = true
+}
+
 resource "databricks_metastore" "metastore" {
   provider      = databricks.azure_account
   name          = "metastore"
