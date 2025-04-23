@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    databricks = {
-      source = "databricks/databricks"
-      configuration_aliases = [databricks.azure_account]
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "~>3.0"
     }
   }
 }
