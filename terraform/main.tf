@@ -1,3 +1,9 @@
+resource "null_resource" "metastore_assignment_dependency" {
+  triggers = {
+    metastore_assignment_id = data.terraform_remote_state.metastore.outputs.metastore_assignment
+  }
+}
+
 module "storage_credential" {
   source              = "./module/databricks_storage_credential"
   name                = var.databricks_storage_credential_name
@@ -15,8 +21,8 @@ module "external_location" {
     azurerm_storage_container.var.storage_container,
   data.terraform_remote_state.shared_components.outputs.storage_account_name)
   credential_name  = module.storage_credential.storage_credential_id
-  depends_on      = [
-    data.terraform_remote_state.metastore.outputs.metastore_assignment
+  depends_on = [
+    null_resource.metastore_assignment_dependency
   ]
   providers = {
     databricks.workspace = databricks.workspace
