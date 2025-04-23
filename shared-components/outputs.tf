@@ -6,3 +6,8 @@ output "workspace_id" {
   value = azurerm_databricks_workspace.workspace.id
 }
 
+output "name" {
+  value = azurerm_resource_group.this.name
+}
+
+
