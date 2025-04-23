@@ -18,7 +18,7 @@ module "external_location" {
   source           = "./module/databricks_external_location"
   name             = var.databricks_databricks_external_location
   url             = format("abfss://%s@%s.dfs.core.windows.net",
-    azurerm_storage_container.var.storage_container,
+    var.storage_container,
   data.terraform_remote_state.metastore.outputs.storage_account_name)
   credential_name  = module.storage_credential.storage_credential_id
   depends_on = [
