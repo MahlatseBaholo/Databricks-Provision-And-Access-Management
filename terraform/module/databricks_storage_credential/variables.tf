@@ -1,15 +1,14 @@
 variable "name" {
-  type = string
+  description = "Name of the Databricks storage credential"
+  type        = string
 }
 
 variable "access_connector_id" {
-  type = string
+  description = "Azure Databricks Access Connector ID"
+  type        = string
 }
 
 variable "managed_identity_id" {
-  type = string
-}
-
-variable "databricks_storage_credential_name" {
-  type = string
+  description = "User Assigned Managed Identity ID"
+  type        = string
 }
