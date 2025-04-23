@@ -4,7 +4,7 @@ terraform {
     databricks = {
       source = "hashicorp/databricks"
       configuration_aliases = [
-        "databricks.workspace",  # Reference the alias used in the root module
+        "databricks.workspace"  # Reference the alias used in the root module
       ]
     }
   }
