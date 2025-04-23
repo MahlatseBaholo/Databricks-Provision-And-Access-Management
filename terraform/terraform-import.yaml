@@ -31,6 +31,6 @@ stages:
             backendAzureRmKey: '$(key)'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
         - script: |
-            terraform import module.workspace_rg.azurerm_resource_group.this "/subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-sandbox-aes-rg"
+            terraform import azurerm_resource_group.sasoleuw-big-data-dev-aes-rg /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-dev-aes-rg
           displayName: 'Import Resources'
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
