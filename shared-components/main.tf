@@ -7,12 +7,12 @@ resource "databricks_metastore" "metastore" {
 #  sku           = "premium"
 }
 
-resource "azurerm_databricks_workspace" "workspace" {
-  name                = var.name
-  location            = var.location
-  resource_group_name = var.resource_group_name_workspace
-  sku                 = "premium"
-}
+#resource "azurerm_databricks_workspace" "workspace" {
+#  name                = var.name
+#  location            = var.location
+#  resource_group_name = var.resource_group_name_workspace
+#  sku                 = "premium"
+#}
 
 resource "databricks_metastore_assignment" "metastore" {
   provider      = databricks.azure_account
