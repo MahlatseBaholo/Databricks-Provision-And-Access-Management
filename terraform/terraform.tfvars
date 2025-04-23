@@ -1,5 +1,4 @@
 location                           = "westeurope"
-databricks_workspace_name          = "sasol-sandbox-aes-dbw"
 storage_account_name               = "xxxxxxxx"
 container_name                     = "xxxxxxxx"
 external_location_name             = "ai-catalog-external-location"
