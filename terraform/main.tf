@@ -8,7 +8,7 @@ module "databricks_workspace" {
   source                        = "./module/databricks_workspace"
   name                          = var.databricks_workspace_name
   location                      = var.location
-  resource_group_name_workspace = module.workspace_rg.name
+  resource_group_name_workspace = data.terraform_remote_state.shared_components.outputs.workspace_resource_group_name
 }
 
 module "metastore_assignment" {
