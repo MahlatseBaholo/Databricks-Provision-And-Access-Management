@@ -20,7 +20,6 @@ module "metastore_assignment" {
   workspace_id = module.databricks_workspace.workspace_id
 }
 
-
 module "storage_credential" {
   source              = "./module/databricks_storage_credential"
   name                = var.databricks_storage_credential_name
