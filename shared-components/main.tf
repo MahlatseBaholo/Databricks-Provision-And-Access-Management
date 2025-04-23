@@ -1,3 +1,8 @@
+resource "azurerm_resource_group" "sasoleuw-big-data-sandbox-aes-rg" {
+  name     = "sasoleuw-big-data-sandbox-aes-rg"
+  location = "westeurope"
+}
+
 resource "azurerm_resource_group" "unity-catalog-rg" {
   name     = "sasoleuw-big-data-aes-unity-catalog-rg"
   location = "westeurope"
