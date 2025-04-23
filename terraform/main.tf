@@ -18,4 +18,15 @@ module "storage_credential" {
   }
 }
 
+module "sandbox_external_location" {
+  source          = "./module/databricks_external_location"
+  name            = var.databricks_databricks_external_location
+  url             = format("abfss://%s@%s.dfs.core.windows.net",
+                      module.shared_components.sandbox_container_name,
+                      module.shared_components.storage_account_name)
+  credential_name = module.storage_credential.storage_credential_id
+  comment         = "External location used by catalog-external-location as root storage"
+
+  depends_on = [module.metastore_assignment]
+}
 
