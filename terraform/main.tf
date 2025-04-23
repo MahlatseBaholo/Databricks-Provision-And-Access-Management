@@ -25,7 +25,6 @@ module "storage_credential" {
   name                = var.databricks_storage_credential_name
   access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
   managed_identity_id = data.terraform_remote_state.metastore.outputs.user_assigned_identity_id
-  comment             = "Storage credential for all external locations"
   providers = {
     databricks.workspace = databricks.workspace
   }
