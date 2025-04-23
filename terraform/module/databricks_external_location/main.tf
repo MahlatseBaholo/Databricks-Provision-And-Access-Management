@@ -10,4 +10,5 @@ terraform {
 resource "databricks_external_location" "this" {
   provider        = databricks.workspace
   name            = var.name
+  url             = var.url
 }
