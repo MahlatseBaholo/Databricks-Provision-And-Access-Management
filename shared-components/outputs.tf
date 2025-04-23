@@ -1,3 +1,3 @@
 output "metastore_id" {
-  value = databricks_metastore.this.id
+  value = databricks_metastore.metastore.id
 }
