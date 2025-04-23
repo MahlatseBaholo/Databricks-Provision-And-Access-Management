@@ -1,4 +1,11 @@
-variable "storage_credential_name" {
-  description = "Name of the Databricks storage credential"
-  type        = string
+variable "name" {
+  type = string
+}
+
+variable "access_connector_id" {
+  type = string
+}
+
+variable "managed_identity_id" {
+  type = string
 }
