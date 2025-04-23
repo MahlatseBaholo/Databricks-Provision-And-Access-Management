@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     databricks = {
-      source = "hashicorp/databricks"
-      configuration_aliases = ["databricks.workspace"]
+      source  = "databricks/databricks"
+      version = "~>1.5"
     }
   }
 }
