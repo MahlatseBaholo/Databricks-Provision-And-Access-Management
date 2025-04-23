@@ -8,6 +8,3 @@ data "terraform_remote_state" "metastore" {
     accesskey            = "BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=="
   }
 }
-
-
-  
