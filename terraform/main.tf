@@ -23,5 +23,5 @@ module "metastore_assignment" {
     databricks.azure_account = databricks.azure_account
   }
   metastore_id = data.terraform_remote_state.metastore.outputs.metastore_id
-  workspace_id = databricks_workspace.name.id
+  workspace_id = module.databricks_workspace.workspace_id
 }
