@@ -1,12 +1,3 @@
-module "metastore_assignment" {
-  source       = "./module/metastore_assignment"
-  providers = {
-    databricks.azure_account = databricks.azure_account
-  }
-  metastore_id = data.terraform_remote_state.metastore.outputs.metastore_id
-  workspace_id = data.terraform_remote_state.metastore.outputs.workspace_id
-}
-
 module "storage_credential" {
   source              = "./module/databricks_storage_credential"
   name                = var.databricks_storage_credential_name
@@ -18,15 +9,17 @@ module "storage_credential" {
   }
 }
 
-module "sandbox_external_location" {
-  source          = "./module/databricks_external_location"
-  name            = var.databricks_databricks_external_location
-  url             = format("abfss://%s@%s.dfs.core.windows.net",
-                      module.shared_components.sandbox_container_name,
-                      module.shared_components.storage_account_name)
-  credential_name = module.storage_credential.storage_credential_id
-  comment         = "External location used by catalog-external-location as root storage"
+module "external_location" {
+  source           = "./module/databricks_external_location"
+  name             = var.databricks_databricks_external_location
+  credential_name  = module.storage_credential.storage_credential_id
+  container_name   = data.terraform_remote_state.metastore.outputs.storage_container_name
+  storage_account  = data.terraform_remote_state.metastore.outputs.storage_account_name
 
-  depends_on = [module.metastore_assignment]
+  metastore_assignment_depends_on = data.terraform_remote_state.metastore.outputs.metastore_assignment
+
+  providers = {
+    databricks.workspace = databricks.workspace
+  }
 }
 
