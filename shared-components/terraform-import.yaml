@@ -42,3 +42,10 @@ stages:
 
           displayName: 'Import Resources'
           workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
+        - task: TerraformTaskV4@4
+          displayName: apply 
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
