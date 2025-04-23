@@ -1,4 +1,3 @@
-location                           = "westeurope"
 storage_account_name               = "xxxxxxxx"
 container_name                     = "xxxxxxxx"
 external_location_name             = "ai-catalog-external-location"
