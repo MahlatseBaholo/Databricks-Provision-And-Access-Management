@@ -19,10 +19,12 @@ module "databricks_workspace" {
 }
 
 module "metastore_assignment" {
-  providers = {
-    databricks = databricks.azure_account
-  }
   source       = "./modules/metastore_assignment"
+
+  providers = {
+    databricks.azure_account = databricks.azure_account
+  }
+
   metastore_id = data.terraform_remote_state.metastore.outputs.metastore_id
   workspace_id = data.terraform_remote_state.databricks_workspace.outputs.workspace_id
 }
