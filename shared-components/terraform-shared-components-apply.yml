@@ -6,9 +6,9 @@ pool:
 
 variables:
   resourcegroup: 'sasoleuw-big-data-dev-aes-shared-components-rg'
-  accountname: 'sasolshared-components'
+  accountname: 'sasolterraform'
   containername: 'shared-components'
-  key: 'metastore/shared-components.tfstate'
+  key: 'metastore/terraform.tfstate'
   accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
 
 stages:
