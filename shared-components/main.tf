@@ -1,3 +1,8 @@
+resource "azurerm_resource_group" "sasoleuw-big-data-aes-unity-catalog-rg" {
+  name     = "sasoleuw-big-data-aes-unity-catalog-rg"
+  location = "westeurope"
+}
+
 resource "databricks_metastore" "metastore" {
   provider      = databricks.azure_account
   name          = "metastore"
