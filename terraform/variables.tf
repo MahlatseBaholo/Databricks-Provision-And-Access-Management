@@ -3,3 +3,12 @@ variable "databricks_storage_credential_name" {
   type        = string
 }
 
+variable "databricks_databricks_external_location" {
+  description = "The name for the external location"
+  type        = string
+}
+
+variable "storage_container" {
+  description = "The name of the ADLS storage container"
+  type        = string
+}
