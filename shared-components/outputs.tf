@@ -7,7 +7,7 @@ output "workspace_id" {
 }
 
 output "name" {
-  value = azurerm_resource_group.this.name
+  value = azurerm_resource_group.unity-catalog-rg.name
 }
 
 
