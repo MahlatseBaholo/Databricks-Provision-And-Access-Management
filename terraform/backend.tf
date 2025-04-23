@@ -1,10 +1,10 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "sasoleuw-big-data-aes-restore-rg"
-    storage_account_name = "sasolaesiac"
-    container_name       = "terraform"
-    key                  = "adb-unity-catalog-sandbox.tfstate"
-    access_key           = "rL8c4EJ0WhHyKlMhr96th9swepgB56xB47O5Eo3XYLHzywn0bfpRqTjvKG8yY+vr0dpaf0HL3h6O+AStFcZE6w=="
+    resource_group_name  = "sasoleuw-big-data-dev-aes-terraform-rg"
+    storage_account_name = "sasolterraform"
+    container_name       = "shared-components"
+    key                  = "metastore/terraform.tfstate"
+    access_key           = "BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=="
   }
 
 }
