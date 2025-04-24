@@ -80,7 +80,7 @@ module "databricks_catalog_schema_grants" {
   for_each      = local.enriched_catalog_definitions
   catalog_name  = each.key
   schema_access = each.value.schema_access
-
+  depends_on = [module.tabricks_catalog_with_access]
   providers = {
     databricks = databricks.workspace
   }
