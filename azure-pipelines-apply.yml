@@ -33,7 +33,7 @@ stages:
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
-              extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
+              #extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
 
           - task: TerraformTaskV4@4
             displayName: Terraform Apply (catalogs)
@@ -43,7 +43,7 @@ stages:
               environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
               # Target only catalog-related resources in this stage
-              extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
+              #extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
 
   - stage: tfapply_schema_grants
     displayName: "Apply Schema Grants"
