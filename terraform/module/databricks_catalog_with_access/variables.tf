@@ -16,4 +16,5 @@ variable "catalog_access" {
 
 variable "schema_access" {
   type = map(map(list(string)))
+  default     = {}
 }
