@@ -7,6 +7,14 @@ terraform {
   }
 }
 
+resource "time_sleep" "wait_for_schema" {
+  for_each = var.schema_access
+
+  depends_on = [databricks_schema.this]
+
+  create_duration = "15s"  # wait 15 seconds before proceeding
+}
+
 resource "databricks_catalog" "this" {
   name         = var.catalog_name
   storage_root = var.storage_root
@@ -54,7 +62,8 @@ resource "databricks_grants" "schema" {
 
   depends_on = [
     databricks_schema.this,     # Wait for schema creation
-    databricks_catalog.this     # Wait for catalog creation
+    databricks_catalog.this,
+    time_sleep.wait_for_schema,     # Wait for catalog creation
   ]
 }
 
