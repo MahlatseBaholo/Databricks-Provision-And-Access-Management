@@ -27,6 +27,7 @@ resource "databricks_schema" "this" {
 
   name         = each.value.schema_name
   catalog_name = each.value.catalog_name
+  depends_on = [databricks_catalog.this]
   comment      = "Schema ${each.value.schema_name} in catalog ${each.value.catalog_name}"
 }
 
@@ -34,7 +35,7 @@ resource "databricks_grants" "catalog" {
   for_each = var.catalog_definitions
 
   catalog = databricks_catalog.this[each.key].name
-
+  
   dynamic "grant" {
     for_each = each.value.catalog_access
     content {
@@ -42,6 +43,7 @@ resource "databricks_grants" "catalog" {
       privileges = grant.value
     }
   }
+  depends_on = [databricks_catalog.this]
 }
 
 resource "databricks_grants" "schema" {
@@ -66,4 +68,5 @@ resource "databricks_grants" "schema" {
       privileges = grant.value
     }
   }
+ depends_on = [databricks_schema]
 }
