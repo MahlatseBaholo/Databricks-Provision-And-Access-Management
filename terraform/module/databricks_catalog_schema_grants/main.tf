@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-data "databricks_schemas" "all" {
-  catalog_name = var.catalog_name
-}
-
 resource "databricks_grants" "schema" {
   for_each = var.schema_access
 
@@ -24,6 +20,4 @@ resource "databricks_grants" "schema" {
       privileges = grant.value
     }
   }
-
-  depends_on = [data.databricks_schemas.all]
 }
