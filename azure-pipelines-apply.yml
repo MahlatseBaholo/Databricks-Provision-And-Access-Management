@@ -47,33 +47,3 @@ stages:
             retryCountOnTaskFailure: 3
             # Optional: Add a condition to rerun only on failure
             condition: failed()
-  - stage: tfapply_schema_grants
-    displayName: "Apply Schema Grants"
-    dependsOn: tfapply_catalogs
-    jobs:
-      - job: apply_schema_grants
-        steps:
-          - task: TerraformInstaller@1
-            displayName: Install Terraform
-            inputs:
-              terraformVersion: 'latest'
-
-          - task: TerraformTaskV4@4
-            displayName: Terraform Init (grants)
-            inputs:
-              provider: 'azurerm'
-              command: 'init'
-              backendServiceArm: 'AES 2.0 Dev - SP'
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
-              backendAzureRmStorageAccountName: '$(accountname)'
-              backendAzureRmContainerName: '$(containername)'
-              backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/module/databricks_catalog_schema_grants/'
-
-          - task: TerraformTaskV4@4
-            displayName: Terraform Apply (grants)
-            inputs:
-              provider: 'azurerm'
-              command: 'apply'
-              environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/module/databricks_catalog_schema_grants/'
