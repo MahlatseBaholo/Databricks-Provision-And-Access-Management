@@ -38,3 +38,15 @@ module "external_location" {
     databricks.workspace = databricks.workspace
   }
 }
+
+locals {
+  access_config = yamldecode(file("${path.module}/access.yaml"))
+}
+
+module "databricks_access_control" {
+  source         = "./module/databricks_access_control"
+  catalog_name   = "test_catalog"
+  catalog_access = local.access_config.catalog_access
+  schema_access  = local.access_config.schema_access
+}
+
