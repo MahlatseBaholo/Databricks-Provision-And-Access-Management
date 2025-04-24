@@ -28,7 +28,7 @@ module "external_location" {
   for_each = var.storage_definitions
   name             = each.value.external_location_name
   url              = format("abfss://%s@%s.dfs.core.windows.net",
-    module.storage_container.container_name,
+    module.storage_container[each.key].container_name,
   data.terraform_remote_state.metastore.outputs.storage_account_name)
   credential_name = module.storage_credential[each.key].storage_credential_id
   depends_on = [
