@@ -44,6 +44,6 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
               # Target only catalog-related resources in this stage
               #extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
-            retryCountOnTaskFailure: 3
+            #retryCountOnTaskFailure: 3
             # Optional: Add a condition to rerun only on failure
-            condition: failed()
+            #condition: failed()
