@@ -61,13 +61,13 @@ module "external_location" {
 }
 
 module "databricks_catalog_with_access" {
-  source              = "./module/databricks_catalog_with_access"
-  for_each            = local.enriched_catalog_definitions
-  catalog_name        = each.key
-  storage_root        = each.value.storage_root
-  schema_names        = each.value.schema_names
-  catalog_access      = each.value.catalog_access
-  schema_access       = each.value.schema_access
+  source = "./module/databricks_catalog_with_access"
+  for_each = local.enriched_catalog_definitions
+  catalog_name   = each.key
+  storage_root   = each.value.storage_root
+  schema_names   = each.value.schema_names
+  catalog_access = each.value.catalog_access
+  schema_access  = each.value.schema_access
   depends_on = [module.external_location]
   providers = {
     databricks = databricks.workspace
