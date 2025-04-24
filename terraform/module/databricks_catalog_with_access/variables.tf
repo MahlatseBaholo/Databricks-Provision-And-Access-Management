@@ -1,9 +1,19 @@
-variable "catalog_definitions" {
-  description = "Map of catalog definitions including storage_root, schemas, and access"
-  type = map(object({
-    storage_root   = string
-    schema_names   = list(string)
-    catalog_access = map(list(string))
-    schema_access  = map(map(list(string)))
-  }))
+variable "catalog_name" {
+  type = string
+}
+
+variable "storage_root" {
+  type = string
+}
+
+variable "schema_names" {
+  type = list(string)
+}
+
+variable "catalog_access" {
+  type = map(list(string))
+}
+
+variable "schema_access" {
+  type = map(map(list(string)))
 }
