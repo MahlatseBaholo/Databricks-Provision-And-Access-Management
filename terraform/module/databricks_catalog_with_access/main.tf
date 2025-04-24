@@ -12,7 +12,6 @@ resource "databricks_catalog" "this" {
   name         = each.key
   storage_root = each.value.storage_root
   comment      = "Catalog provisioned via Terraform"
-  provider     = databricks.workspace
 }
 
 resource "databricks_schema" "this" {
@@ -28,7 +27,6 @@ resource "databricks_schema" "this" {
   name         = each.value.schema_name
   catalog_name = each.value.catalog_name
   comment      = "Schema ${each.value.schema_name} in catalog ${each.value.catalog_name}"
-  provider     = databricks.workspace
 }
 
 resource "databricks_grants" "catalog" {
@@ -43,8 +41,6 @@ resource "databricks_grants" "catalog" {
       privileges = grant.value
     }
   }
-
-  provider = databricks.workspace
 }
 
 resource "databricks_grants" "schema" {
@@ -68,6 +64,4 @@ resource "databricks_grants" "schema" {
       privileges = grant.value
     }
   }
-
-  provider = databricks.workspace
 }
