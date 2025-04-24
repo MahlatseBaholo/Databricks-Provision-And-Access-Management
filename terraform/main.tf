@@ -44,9 +44,11 @@ locals {
 }
 
 module "databricks_access_control" {
-  source         = "./module/databricks_access_control"
-  catalog_name   = "test_catalog"
-  catalog_access = local.access_config.catalog_access
-  schema_access  = local.access_config.schema_access
+  source       = "./module/databricks_access_control"
+  catalog_name = "test_catalog"
+
+  providers = {
+    databricks.workspace = databricks.workspace
+  }
 }
 
