@@ -39,7 +39,7 @@ resource "databricks_grants" "catalog" {
 resource "databricks_grants" "schema" {
   for_each = var.schema_access
 
-  schema       = databricks_schema[each.key].name
+  schema       = databricks_schema.this[each.key].name
   catalog_name = var.catalog_name
 
   dynamic "grant" {
