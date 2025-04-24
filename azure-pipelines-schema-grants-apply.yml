@@ -42,8 +42,8 @@ stages:
               command: 'apply'
               environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-databricks-schema-grants'
-              commandOptions: >
-                -var-file=$(System.DefaultWorkingDirectory)/terraform/terraform.tfvars
+              #commandOptions: >
+              #  -var-file=$(System.DefaultWorkingDirectory)/terraform/terraform.tfvars
               #extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
               #retryCountOnTaskFailure: 3
               #condition: failed()
