@@ -6,6 +6,7 @@ terraform {
     }
   }
 }
+
 resource "databricks_storage_credential" "this" {
   provider = databricks.workspace
   name     = var.name
