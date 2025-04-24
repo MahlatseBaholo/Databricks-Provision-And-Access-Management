@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    databricks = {
+      source = "databricks/databricks"
+      configuration_aliases = [databricks.workspace] 
+    }
+  }
+}
+
 resource "databricks_catalog" "this" {
   name = var.catalog_name
 }
