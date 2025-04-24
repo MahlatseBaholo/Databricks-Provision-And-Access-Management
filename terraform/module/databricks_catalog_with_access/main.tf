@@ -13,19 +13,6 @@ resource "databricks_catalog" "this" {
   comment      = "Catalog provisioned via Terraform"
 }
 
-resource "databricks_schema" "this" {
-  for_each = {
-    for schema_name in var.schema_names :
-    schema_name => schema_name
-  }
-
-  name         = each.value
-  catalog_name = var.catalog_name
-  comment      = "Schema ${each.value} in catalog ${var.catalog_name}"
-
-  depends_on = [databricks_catalog.this]
-}
-
 resource "databricks_grants" "catalog" {
   catalog = var.catalog_name
 
@@ -36,6 +23,17 @@ resource "databricks_grants" "catalog" {
       privileges = grant.value
     }
   }
-
   depends_on = [databricks_catalog.this]
+}
+
+resource "databricks_schema" "this" {
+  for_each = {
+    for schema_name in var.schema_names :
+    schema_name => schema_name
+  }
+
+  name         = each.value
+  catalog_name = var.catalog_name
+  comment      = "Schema ${each.value} in catalog ${var.catalog_name}"
+  depends_on = [databricks_grants.catalog]
 }
