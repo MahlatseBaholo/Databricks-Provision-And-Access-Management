@@ -13,3 +13,7 @@ variable "catalog_access" {
 variable "schema_access" {
   type = map(map(list(string)))
 }
+
+variable "storage_root" {
+  type = string
+}
