@@ -9,7 +9,7 @@ variables:
   accountname: 'sasolterraform'
   containername: 'sasol-sandbox-aes-dbw'
   key: 'unity-catalog/terraform.tfstate'
-  accesskey: 'xxxxxxxxxxxxxxxx'
+  accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
 
 stages:
   - stage: tfapply_catalogs
