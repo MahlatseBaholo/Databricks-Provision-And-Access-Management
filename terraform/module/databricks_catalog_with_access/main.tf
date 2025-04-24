@@ -8,45 +8,66 @@ terraform {
 }
 
 resource "databricks_catalog" "this" {
-  name         = var.catalog_name
-  comment      = "Managed via Terraform"
-  storage_root = var.storage_root
+  for_each     = var.catalog_definitions
+  name         = each.key
+  storage_root = each.value.storage_root
+  comment      = "Catalog provisioned via Terraform"
   provider     = databricks.workspace
 }
 
 resource "databricks_schema" "this" {
-  for_each     = toset(var.schema_names)
-  name         = each.key
-  catalog_name = databricks_catalog.this.name
-  comment      = "Schema ${each.key}"
+  for_each = {
+    for catalog_name, catalog_def in var.catalog_definitions :
+    for schema_name in catalog_def.schema_names :
+    "${catalog_name}.${schema_name}" => {
+      catalog_name = catalog_name
+      schema_name  = schema_name
+    }
+  }
+
+  name         = each.value.schema_name
+  catalog_name = each.value.catalog_name
+  comment      = "Schema ${each.value.schema_name} in catalog ${each.value.catalog_name}"
   provider     = databricks.workspace
 }
 
-# Grant catalog-level permissions
-resource "databricks_grants" "catalog_grants" {
-  catalog = databricks_catalog.this.name
+resource "databricks_grants" "catalog" {
+  for_each = var.catalog_definitions
+
+  catalog = databricks_catalog.this[each.key].name
 
   dynamic "grant" {
-    for_each = var.catalog_access
+    for_each = each.value.catalog_access
     content {
       principal  = grant.key
       privileges = grant.value
     }
   }
+
+  provider = databricks.workspace
 }
 
-# Grant schema-level permissions
-resource "databricks_grants" "schema_grants" {
-  for_each = var.schema_access
+resource "databricks_grants" "schema" {
+  for_each = {
+    for catalog_name, catalog_def in var.catalog_definitions :
+    for schema_name, group_access in catalog_def.schema_access :
+    "${catalog_name}.${schema_name}" => {
+      catalog_name = catalog_name
+      schema_name  = schema_name
+      group_access = group_access
+    }
+  }
 
-  schema  = databricks_schema[each.key].name
-  catalog = databricks_catalog.this.name
+  schema       = databricks_schema["${each.value.catalog_name}.${each.value.schema_name}"].name
+  catalog_name = each.value.catalog_name
 
   dynamic "grant" {
-    for_each = each.value
+    for_each = each.value.group_access
     content {
       principal  = grant.key
       privileges = grant.value
     }
   }
+
+  provider = databricks.workspace
 }
