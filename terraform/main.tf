@@ -7,11 +7,12 @@ locals {
     }
   }
 
+  # ✅ Handle missing schema_access safely
   enriched_catalog_definitions = {
     for catalog_name, def in var.catalog_definitions : catalog_name => {
       schema_names   = def.schema_names
       catalog_access = def.catalog_access
-      schema_access  = def.schema_access
+      schema_access  = lookup(def, "schema_access", {}) # ← This is the fix
       storage_root   = module.external_location[catalog_name].external_location_url
     }
   }
