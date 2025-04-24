@@ -51,12 +51,7 @@ module "external_location" {
 
 module "databricks_catalog_with_access" {
   source              = "./module/databricks_catalog_with_access"
-  for_each            = var.catalog_definitions
-  catalog_name        = each.key
-  storage_root        = module.external_location[each.key].external_location_url
-  schema_names        = each.value.schema_names
-  catalog_access      = each.value.catalog_access
-  schema_access       = each.value.schema_access
+  catalog_definitions = var.catalog_definitions
   depends_on = [
     module.external_location
   ]
