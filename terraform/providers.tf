@@ -31,7 +31,6 @@ provider "databricks" {
 
 provider "databricks" {
   alias         = "workspace"
-  #source        = "databricks/databricks"
   host          = "https://adb-3787911233650262.2.azuredatabricks.net"
   client_id     = "085d9aab-a52c-4ef6-b983-4ff78908a68d"
   client_secret = "dosec6bee1d8b5f9ef1dd7bd9ccfba05ba42"
