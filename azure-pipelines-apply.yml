@@ -47,7 +47,7 @@ stages:
 
   - stage: tfapply_schema_grants
     displayName: "Apply Schema Grants"
-    dependsOn: tfapply_catalogs
+    #dependsOn: tfapply_catalogs
     jobs:
       - job: apply_schema_grants
         steps:
