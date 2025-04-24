@@ -20,6 +20,7 @@ resource "databricks_schema" "this" {
   }
 
   name         = each.value
+  catalog_name = var.catalog_name
   comment      = "Schema ${each.value} in catalog ${var.catalog_name}"
   depends_on = [databricks_catalog.this]
 }
@@ -41,7 +42,7 @@ resource "databricks_grants" "schema" {
   for_each = var.schema_access
 
   schema = databricks_schema.this[each.key].name
-
+  catalog_name = var.catalog_name
   dynamic "grant" {
     for_each = each.value
     content {
