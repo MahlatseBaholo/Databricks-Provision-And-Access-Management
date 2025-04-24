@@ -6,14 +6,15 @@ resource "databricks_catalog" "this" {
 }
 
 resource "databricks_schema" "this" {
-  for_each = {
-    for catalog_name, catalog_def in var.catalog_definitions :
-    for schema_name in catalog_def.schema_names :
-    "${catalog_name}.${schema_name}" => {
-      catalog_name = catalog_name
-      schema_name  = schema_name
+  for_each = merge([
+    for catalog_name, catalog_def in var.catalog_definitions : {
+      for schema_name in catalog_def.schema_names :
+      "${catalog_name}.${schema_name}" => {
+        catalog_name = catalog_name
+        schema_name  = schema_name
+      }
     }
-  }
+  ]...)
 
   name         = each.value.schema_name
   catalog_name = each.value.catalog_name
@@ -35,15 +36,16 @@ resource "databricks_grants" "catalog" {
 }
 
 resource "databricks_grants" "schema" {
-  for_each = {
-    for catalog_name, catalog_def in var.catalog_definitions :
-    for schema_name, group_access in catalog_def.schema_access :
-    "${catalog_name}.${schema_name}" => {
-      catalog_name = catalog_name
-      schema_name  = schema_name
-      group_access = group_access
+  for_each = merge([
+    for catalog_name, catalog_def in var.catalog_definitions : {
+      for schema_name, group_access in catalog_def.schema_access :
+      "${catalog_name}.${schema_name}" => {
+        catalog_name  = catalog_name
+        schema_name   = schema_name
+        group_access  = group_access
+      }
     }
-  }
+  ]...)
 
   schema       = databricks_schema["${each.value.catalog_name}.${each.value.schema_name}"].name
   catalog_name = each.value.catalog_name
