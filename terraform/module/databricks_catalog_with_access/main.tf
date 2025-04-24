@@ -39,8 +39,7 @@ resource "databricks_grants" "catalog" {
 resource "databricks_grants" "schema" {
   for_each = var.schema_access
 
-  schema       = databricks_schema.this[each.key].name
-  catalog_name = var.catalog_name
+  schema = databricks_schema.this[each.key].name
 
   dynamic "grant" {
     for_each = each.value
@@ -50,3 +49,4 @@ resource "databricks_grants" "schema" {
     }
   }
 }
+
