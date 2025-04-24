@@ -20,7 +20,4 @@ resource "databricks_grants" "schema" {
       privileges = grant.value
     }
   }
-  depends_on = [
-    module.databricks_catalog_with_access  # Ensure the catalog and schema exist before applying grants
-  ]
 }
