@@ -41,6 +41,8 @@ stages:
               command: 'apply'
               environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+              # Target only catalog-related resources in this stage
+              extraArguments: '-target=module.databricks_catalog_with_access'
 
   - stage: tfapply_schema_grants
     displayName: "Apply Schema Grants"
