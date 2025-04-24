@@ -42,7 +42,9 @@ module "external_location" {
   data.terraform_remote_state.metastore.outputs.storage_account_name)
   credential_name = module.storage_credential[each.key].storage_credential_id
   depends_on = [
-    null_resource.metastore_assignment_dependency
+    null_resource.metastore_assignment_dependency,
+    module.storage_container,
+    module.storage_credential
   ]
   providers = {
     databricks = databricks.workspace
