@@ -34,8 +34,5 @@ module "external_location" {
   depends_on = [
     null_resource.metastore_assignment_dependency
   ]
-  providers = {
-    databricks.workspace = databricks.workspace
-  }
 }
 
