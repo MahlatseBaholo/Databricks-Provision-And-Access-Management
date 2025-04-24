@@ -1,19 +1,5 @@
-storage_definitions = {
-  test3 = {
-    container_name            = "test3"
-    storage_credential_name   = "sasoleuw-aes-dbsc-test3"
-    external_location_name    = "test-catalog-external-location"
-  },
-  test4 = {
-    container_name            = "test4"
-    storage_credential_name   = "sasoleuw-aes-dbsc-test4"
-    external_location_name    = "test4-catalog-external-location"
-  }
-}
-
 catalog_definitions = {
-  test_catalog = {
-    storage_root = module.external_location["test3"].external_location_url
+  demo = {
     schema_names = ["bronze", "silver", "gold"]
     catalog_access = {
       "GenAI-Developers" = [
