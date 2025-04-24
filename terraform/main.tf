@@ -50,5 +50,8 @@ module "databricks_catalog_with_access" {
   depends_on = [
     module.external_location
   ]
+  providers = {
+    databricks = databricks.workspace
+  }
 }
 
