@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    databricks = {
+      source = "databricks/databricks"
+      configuration_aliases = [databricks] 
+    }
+  }
+}
+
 resource "databricks_catalog" "this" {
   for_each     = var.catalog_definitions
   name         = each.key
