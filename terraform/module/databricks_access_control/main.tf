@@ -1,7 +1,21 @@
-resource "databricks_catalog_permission" "catalog_access" {
-  catalog = var.catalog_name
+locals {
+  access = yamldecode(file("${path.module}/access.yaml"))
+}
+
+resource "databricks_catalog" "this" {
+  name = var.catalog_name
+}
+
+resource "databricks_schema" "this" {
+  for_each     = toset(local.access.schema_names)
+  name         = each.key
+  catalog_name = databricks_catalog.this.name
+}
+
+resource "databricks_grants" "catalog" {
+  catalog     = databricks_catalog.this.name
   dynamic "grant" {
-    for_each = var.catalog_access
+    for_each = local.access.catalog_access
     content {
       principal = grant.key
       privileges = grant.value
@@ -9,10 +23,12 @@ resource "databricks_catalog_permission" "catalog_access" {
   }
 }
 
-resource "databricks_schema_permission" "schema_access" {
-  for_each = var.schema_access
-  catalog = var.catalog_name
-  schema  = each.key
+resource "databricks_grants" "schema" {
+  for_each = {
+    for schema, access in local.access.schema_access : schema => access
+  }
+  schema      = databricks_schema[each.key].name
+  catalog     = databricks_catalog.this.name
   dynamic "grant" {
     for_each = each.value
     content {
