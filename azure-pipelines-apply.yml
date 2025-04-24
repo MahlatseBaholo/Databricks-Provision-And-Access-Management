@@ -12,22 +12,18 @@ variables:
   accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
 
 stages:
-  - stage: tfapply
+  - stage: tfapply_catalogs
+    displayName: "Apply Catalogs and Schemas"
     jobs:
-      - job: tfinstall
+      - job: apply_catalogs
         steps:
           - task: TerraformInstaller@1
-            displayName: install
+            displayName: Install Terraform
             inputs:
               terraformVersion: 'latest'
-      - job: tfapply
-        steps:
-          - task: TerraformInstaller@1
-            displayName: install
-            inputs:
-              terraformVersion: 'latest'
+
           - task: TerraformTaskV4@4
-            displayName: init 
+            displayName: Terraform Init (catalogs)
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -36,11 +32,43 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/catalog_with_schemas/'
+
           - task: TerraformTaskV4@4
-            displayName: apply 
+            displayName: Terraform Apply (catalogs)
             inputs:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/catalog_with_schemas/'
+
+  - stage: tfapply_schema_grants
+    displayName: "Apply Schema Grants"
+    dependsOn: tfapply_catalogs
+    jobs:
+      - job: apply_schema_grants
+        steps:
+          - task: TerraformInstaller@1
+            displayName: Install Terraform
+            inputs:
+              terraformVersion: 'latest'
+
+          - task: TerraformTaskV4@4
+            displayName: Terraform Init (grants)
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'AES 2.0 Dev - SP'
+              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/catalog_schema_grants/'
+
+          - task: TerraformTaskV4@4
+            displayName: Terraform Apply (grants)
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/catalog_schema_grants/'
