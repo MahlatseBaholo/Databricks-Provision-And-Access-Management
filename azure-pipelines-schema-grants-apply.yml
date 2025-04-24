@@ -33,7 +33,7 @@ stages:
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
-              extraArguments: '-target=module.databricks_catalog_schema_grants
+              extraArguments: -target=module.databricks_catalog_schema_grants
 
           - task: TerraformTaskV4@4
             displayName: Terraform Apply (catalogs)
@@ -44,6 +44,6 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
               #commandOptions: >
               #  -var-file=$(System.DefaultWorkingDirectory)/terraform/terraform.tfvars
-              extraArguments: '-target=module.databricks_catalog_schema_grants
+              extraArguments: -target=module.databricks_catalog_schema_grants
               #retryCountOnTaskFailure: 3
               #condition: failed()
