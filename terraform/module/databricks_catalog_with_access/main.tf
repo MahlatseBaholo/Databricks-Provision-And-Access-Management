@@ -42,7 +42,7 @@ resource "databricks_grants" "schema" {
   for_each = var.schema_access
 
   schema = databricks_schema.this[each.key].name
-  catalog_name = var.catalog_name
+
   dynamic "grant" {
     for_each = each.value
     content {
@@ -50,6 +50,8 @@ resource "databricks_grants" "schema" {
       privileges = grant.value
     }
   }
-  depends_on = [databricks_schema.this]
+  depends_on = [databricks_schema.this,
+  databricks_catalog.this
+  ]
 }
 
