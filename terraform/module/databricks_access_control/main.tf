@@ -1,38 +1,22 @@
-provider "databricks" {
-  alias = "workspace"
-}
-
-resource "databricks_grants" "catalog_grants" {
-  for_each = var.catalogs
-  catalog  = each.key
-
+resource "databricks_catalog_permission" "catalog_access" {
+  catalog = var.catalog_name
   dynamic "grant" {
-    for_each = each.value.catalog_access
+    for_each = var.catalog_access
     content {
-      principal  = grant.key
+      principal = grant.key
       privileges = grant.value
     }
   }
 }
 
-resource "databricks_grants" "schema_grants" {
-  for_each = {
-    for catalog_key, catalog_value in var.catalogs :
-    for schema_name in catalog_value.schema_names :
-    "${catalog_key}.${schema_name}" => {
-      catalog_name = catalog_key
-      schema_name  = schema_name
-      grants       = lookup(catalog_value.schema_access, schema_name, {})
-    }
-  }
-
-  catalog = each.value.catalog_name
-  schema  = each.value.schema_name
-
+resource "databricks_schema_permission" "schema_access" {
+  for_each = var.schema_access
+  catalog = var.catalog_name
+  schema  = each.key
   dynamic "grant" {
-    for_each = each.value.grants
+    for_each = each.value
     content {
-      principal  = grant.key
+      principal = grant.key
       privileges = grant.value
     }
   }
