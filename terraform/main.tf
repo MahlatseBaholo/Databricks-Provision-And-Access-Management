@@ -39,13 +39,17 @@ module "external_location" {
   }
 }
 
-module "catalog_and_access" {
-  source         = "./module/databricks_catalog_with_access"
-  catalog_name   = var.catalog_name
-  schema_names   = var.schema_names
-  catalog_access = var.catalog_access
-  schema_access  = var.schema_access
-
+module "databricks_catalog_with_access" {
+  source              = "./module/databricks_catalog_with_access"
+  for_each            = var.catalog_definitions
+  catalog_name        = each.key
+  storage_root        = each.value.storage_root
+  schema_names        = each.value.schema_names
+  catalog_access      = each.value.catalog_access
+  schema_access       = each.value.schema_access
+  depends_on = [
+    module.external_location
+  ]
   providers = {
     databricks.workspace = databricks.workspace
   }
