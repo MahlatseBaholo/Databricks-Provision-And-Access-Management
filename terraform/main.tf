@@ -74,7 +74,6 @@ module "databricks_catalog_with_access" {
   }
 }
 
-
 # Run this in a separate apply
 module "databricks_catalog_schema_grants" {
   source        = "./module/databricks_catalog_schema_grants"
