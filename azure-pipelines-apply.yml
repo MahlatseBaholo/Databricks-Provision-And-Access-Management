@@ -32,7 +32,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/module/databricks_catalog_with_access'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
 
           - task: TerraformTaskV4@4
             displayName: Terraform Apply (catalogs)
@@ -40,7 +40,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/module/databricks_catalog_with_access'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
 
   - stage: tfapply_schema_grants
     displayName: "Apply Schema Grants"
