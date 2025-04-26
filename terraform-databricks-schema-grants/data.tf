@@ -4,6 +4,6 @@ data "terraform_remote_state" "metastore" {
     resource_group_name  = "sasoleuw-big-data-dev-aes-terraform-rg"
     storage_account_name = "sasolterraform"
     container_name       = "asol-sandbox-aes-dbw"
-    key                  = "schema-access/terraform.tfstate"
+    key                  = "unity-catalog/terraform.tfstate"
   }
 }
