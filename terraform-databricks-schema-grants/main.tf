@@ -17,6 +17,9 @@ module "databricks_catalog_schema_grants" {
   catalog_name  = each.key
   schema_names  = each.value.schema_names
   schema_access = each.value.schema_access
+  providers = {
+    databricks = databricks.workspace
+  }
 }
 
 
