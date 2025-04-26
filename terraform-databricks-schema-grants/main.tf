@@ -1,3 +1,10 @@
+data "databricks_schemas" "schemas" {
+  for_each = var.catalog_definitions
+  catalog_name = each.key
+
+  provider = databricks.workspace
+}
+
 locals {
   schema_grant_definitions = {
     for catalog_name, schema_data in data.databricks_schemas.schemas : catalog_name => {
@@ -17,9 +24,8 @@ module "databricks_catalog_schema_grants" {
   catalog_name  = each.key
   schema_names  = each.value.schema_names
   schema_access = each.value.schema_access
+
   providers = {
     databricks = databricks.workspace
   }
 }
-
-
