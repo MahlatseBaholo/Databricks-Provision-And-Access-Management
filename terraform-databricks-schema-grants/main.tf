@@ -1,12 +1,14 @@
 locals {
   schema_grant_definitions = {
     for catalog_name, schema_data in data.databricks_schemas.schemas : catalog_name => {
-      schema_names  = schema_data.schemas[*].name
+      schema_names = [
+        for id in schema_data.ids : regex("^${catalog_name}\\.(.*)$", id)[0]
+        if !endswith(id, "information_schema")
+      ]
       schema_access = var.catalog_definitions[catalog_name].schema_access
     }
   }
 }
-
 
 module "databricks_catalog_schema_grants" {
   source = "./module/databricks_catalog_schema_grants"
@@ -15,9 +17,6 @@ module "databricks_catalog_schema_grants" {
   catalog_name  = each.key
   schema_names  = each.value.schema_names
   schema_access = each.value.schema_access
-
-  providers = {
-    databricks = databricks.workspace
-  }
 }
+
 
