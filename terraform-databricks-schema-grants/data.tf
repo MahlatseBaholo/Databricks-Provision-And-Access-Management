@@ -3,7 +3,7 @@ data "terraform_remote_state" "metastore" {
   config = {
     resource_group_name  = "sasoleuw-big-data-dev-aes-terraform-rg"
     storage_account_name = "sasolterraform"
-    container_name       = "asol-sandbox-aes-dbw"
+    container_name       = "sasol-sandbox-aes-dbw"
     key                  = "unity-catalog/terraform.tfstate"
   }
 }
