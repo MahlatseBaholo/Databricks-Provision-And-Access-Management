@@ -8,13 +8,13 @@ terraform {
 }
 
 resource "databricks_grants" "schema" {
-  for_each = var.schema_access
+  for_each = toset(var.schema_names)
 
-  schema = each.key
+  schema  = each.value
   catalog = var.catalog_name
 
   dynamic "grant" {
-    for_each = each.value
+    for_each = lookup(var.schema_access, each.value, {})
     content {
       principal  = grant.key
       privileges = grant.value
