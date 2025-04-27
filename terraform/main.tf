@@ -31,7 +31,6 @@ module "storage_credential" {
   name                = each.value.storage_credential_name
   access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
   managed_identity_id = data.terraform_remote_state.metastore.outputs.user_assigned_identity_id
-
   providers = {
     databricks = databricks.workspace
   }
@@ -57,7 +56,6 @@ module "external_location" {
     module.storage_container,
     module.storage_credential
   ]
-
   providers = {
     databricks = databricks.workspace
   }
