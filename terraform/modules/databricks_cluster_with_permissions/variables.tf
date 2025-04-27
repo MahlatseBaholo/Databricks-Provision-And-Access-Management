@@ -1,55 +1,71 @@
+# modules/databricks_cluster_with_permissions/variables.tf
+
 variable "cluster_name" {
-  type = string
+  description = "Name of the Databricks cluster"
+  type        = string
 }
 
 variable "spark_version" {
-  type = string
+  description = "Spark version to use"
+  type        = string
 }
 
 variable "node_type_id" {
-  type = string
+  description = "Node type for worker nodes"
+  type        = string
 }
 
 variable "driver_node_type_id" {
-  type = string
+  description = "Node type for the driver node"
+  type        = string
 }
 
 variable "autotermination_minutes" {
-  type = number
+  description = "Minutes until auto-termination"
+  type        = number
 }
 
 variable "enable_elastic_disk" {
-  type = bool
+  description = "Whether to enable elastic disk"
+  type        = bool
 }
 
 variable "policy_id" {
-  type = string
+  description = "Cluster policy ID"
+  type        = string
 }
 
 variable "enable_local_disk_encryption" {
-  type = bool
+  description = "Enable local disk encryption"
+  type        = bool
 }
 
 variable "data_security_mode" {
-  type = string
+  description = "Data security mode"
+  type        = string
 }
 
 variable "runtime_engine" {
-  type = string
+  description = "Runtime engine"
+  type        = string
 }
 
 variable "apply_policy_default_values" {
-  type = bool
+  description = "Apply policy default values"
+  type        = bool
 }
 
 variable "azure_attributes" {
-  type = map(any) 
+  description = "Azure attributes block"
+  type        = map(any)
 }
 
 variable "autoscale" {
-  type = map(any)
+  description = "Autoscale settings"
+  type        = map(any)
 }
 
 variable "cluster_permissions" {
-  type = map(list(string))
+  description = "Permissions for the cluster"
+  type        = map(list(string))
 }
