@@ -1,13 +1,6 @@
-data "databricks_schemas" "schemas" {
-  for_each = var.catalog_definitions
-  catalog_name = each.key
-
-  provider = databricks.workspace
-}
-
 locals {
   schema_grant_definitions = {
-    for catalog_name, schema_data in data.databricks_schemas.schemas : catalog_name => {
+    for catalog_name, schema_data in data.terraform_remote_state.metastore.outputs.catalog_schemas : catalog_name => {
       schema_names = [
         for id in schema_data.ids : regex("^${catalog_name}\\.(.*)$", id)[0]
         if !endswith(id, "information_schema")
