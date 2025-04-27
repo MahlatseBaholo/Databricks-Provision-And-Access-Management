@@ -43,11 +43,10 @@ module "databricks_cluster" {
   data_security_mode   = var.data_security_mode
   runtime_engine       = var.runtime_engine
   apply_policy_default_values = var.apply_policy_default_values
-  azure_attributes     = var.azure_attributes         # << error was here
-  autoscale            = var.autoscale                 # << and here
-  cluster_permissions  = var.cluster_permissions       # << and here
+  azure_attributes     = var.azure_attributes
+  autoscale            = var.autoscale
+  cluster_permissions  = var.cluster_permissions
 }
-
 
 module "storage_container" {
   source = "../../modules/storage_container"
