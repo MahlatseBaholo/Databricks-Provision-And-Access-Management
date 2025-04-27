@@ -18,7 +18,7 @@ locals {
 }
 
 module "storage_container" {
-  source = "./module/storage_container"
+  source = "./modules/storage_container"
   for_each = local.storage_definitions
   name                 = each.value.container_name
   storage_account_name = data.terraform_remote_state.metastore.outputs.storage_account_name
@@ -26,7 +26,7 @@ module "storage_container" {
 }
 
 module "storage_credential" {
-  source = "./module/databricks_storage_credential"
+  source = "./modules/databricks_storage_credential"
   for_each = local.storage_definitions
   name                = each.value.storage_credential_name
   access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
@@ -43,7 +43,7 @@ resource "null_resource" "metastore_assignment_dependency" {
 }
 
 module "external_location" {
-  source  = "./module/databricks_external_location"
+  source  = "./modules/databricks_external_location"
   for_each = local.storage_definitions
   name             = each.value.external_location_name
   url              = format("abfss://%s@%s.dfs.core.windows.net",
@@ -62,7 +62,7 @@ module "external_location" {
 }
 
 module "databricks_catalog_with_access" {
-  source = "./module/databricks_catalog_with_access"
+  source = "./modules/databricks_catalog_with_access"
   for_each = local.enriched_catalog_definitions
   catalog_name   = each.key
   storage_root   = each.value.storage_root
@@ -75,7 +75,7 @@ module "databricks_catalog_with_access" {
 }
 
 module "databricks_catalog_schema_grants" {
-  source = "./module/databricks_catalog_schema_grants"
+  source = "./modules/databricks_catalog_schema_grants"
   for_each = local.enriched_catalog_definitions
   catalog_name  = each.key
   schema_names  = each.value.schema_names
