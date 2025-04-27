@@ -1,9 +1,15 @@
-resource "databricks_group" "group" {
-  for_each = var.groups
-  display_name = each.key
+resource "databricks_permission_assignment" "permission_assignment" {
+  for_each = var.permission_assignments
+  provider     = databricks.workspace
+  principal_id = each.value.principal_id
+  permissions  = each.value.permissions
 }
 
-resource "databricks_group_member" "group_member" {
-  for_each = var.groups_members
-  group_id  = databricks_group.group[each.key].id
+resource "databricks_entitlement" "entitlement" {
+  for_each = var.entitlements
+  provider               = databricks.workspace
+  group_id               = each.value.group_id
+  workspace_access       = each.value.workspace_access
+  databricks_sql_access  = each.value.databricks_sql_access
+  depends_on             = [databricks_permission_assignment.permission_assignment]
 }
