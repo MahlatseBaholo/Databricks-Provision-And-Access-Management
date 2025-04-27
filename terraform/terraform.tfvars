@@ -1,5 +1,5 @@
 catalog_definitions = {
-  demo16 = {
+  demo17 = {
     schema_names = ["bronze", "silver", "gold"]
     catalog_access = {
       "GenAI-Developers" = [
