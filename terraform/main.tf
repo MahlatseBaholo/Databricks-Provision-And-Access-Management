@@ -16,6 +16,8 @@ locals {
       storage_root   = module.external_location[catalog_name].external_location_url
     }
   }
+
+  schema_grant_definitions = var.catalog_definitions
 }
 
 
@@ -74,6 +76,20 @@ module "databricks_catalog_with_access" {
   catalog_access = each.value.catalog_access
   #schema_access  = each.value.schema_access
   depends_on = [module.external_location]
+  providers = {
+    databricks = databricks.workspace
+  }
+}
+
+module "databricks_catalog_schema_grants" {
+  source = "./module/databricks_catalog_schema_grants"
+  
+  for_each = var.catalog_definitions
+
+  catalog_name  = each.key
+  schema_names  = each.value.schema_names
+  schema_access = each.value.schema_access
+
   providers = {
     databricks = databricks.workspace
   }
