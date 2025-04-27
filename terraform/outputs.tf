@@ -1,6 +1,6 @@
-output "schemas" {
-  value = { 
-    for catalog_name, catalog_data in databricks_catalog_with_access : 
-    catalog_name => catalog_data.schemas 
+output "catalog_schemas" {
+  value = {
+    for catalog_name, schemas_data in data.databricks_schemas.schemas :
+    catalog_name => schemas_data
   }
 }
