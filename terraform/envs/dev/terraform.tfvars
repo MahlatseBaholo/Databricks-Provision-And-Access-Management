@@ -1,17 +1,4 @@
-permission_assignments = {
-  "GenAI-Developers" = {
-    principal_id = data.databricks_group.GenAI-Developers.id
-    permissions  = ["USER"]
-  }
-}
-
-entitlements = {
-  "GenAI-Developers" = {
-    group_id              = data.databricks_group.GenAI-Developers.id
-    workspace_access      = true
-    databricks_sql_access = true
-  }
-}
+group_names = ["GenAI-Developers"]
 
 catalog_definitions = {
   demo-dev = {
