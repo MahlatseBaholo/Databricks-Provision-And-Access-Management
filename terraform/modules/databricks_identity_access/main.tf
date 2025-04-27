@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+provider "databricks" {
+  alias = "account"
+}
+
 resource "databricks_permission_assignment" "permission_assignment" {
   for_each = var.permission_assignments
   principal_id = data.databricks_group.groups[each.key].id  # Use the group dynamically
