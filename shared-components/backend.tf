@@ -4,6 +4,6 @@ terraform {
     storage_account_name = "sasoldevterraform"
     container_name       = "shared-components"
     key                  = "metastore/terraform.tfstate"
-    access_key           = "BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=="
+    access_key           = "sxk5ABUn3ft2pLSwj740BJNAMEPyAfB7PRlM7gwltYLVuMgVxJzDAZtJxK6uYygICwTNIBlo3dLt+AStgeNOTQ=="
   }
 }
