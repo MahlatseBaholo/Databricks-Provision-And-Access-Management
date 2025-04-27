@@ -1,31 +1,16 @@
-variable "groups" {
-  description = "List of Databricks groups"
-  type = map(string)
+variable "permission_assignments" {
+  description = "Mapping of principal_id to permissions"
+  type = map(object({
+    principal_id = string
+    permissions  = list(string)
+  }))
 }
 
-variable "users" {
-  description = "List of Databricks users"
-  type = map(string)
-}
-
-variable "groups_members" {
-  description = "Mapping of group members"
-  type = map(map(string))
-}
-
-variable "catalog_permissions" {
-  description = "Catalog-level permissions"
-  type = map(list(object({
-    principal  = string
-    permission = string
-  })))
-}
-
-variable "schema_permissions" {
-  description = "Schema-level permissions"
-  type = map(list(object({
-    catalog_name = string
-    principal    = string
-    permission   = string
-  })))
+variable "entitlements" {
+  description = "Mapping of group_id to workspace entitlements"
+  type = map(object({
+    group_id             = string
+    workspace_access     = bool
+    databricks_sql_access = bool
+  }))
 }
