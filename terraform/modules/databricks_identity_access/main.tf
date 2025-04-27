@@ -12,6 +12,7 @@ resource "databricks_permission_assignment" "permission_assignment" {
   provider     = databricks.workspace
   principal_id = data.databricks_group.groups[each.value].id
   permissions  = ["USER"]  
+}
 
 resource "databricks_entitlement" "entitlement" {
   for_each = toset(var.group_names)
