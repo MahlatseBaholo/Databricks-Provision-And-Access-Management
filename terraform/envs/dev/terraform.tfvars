@@ -1,15 +1,15 @@
-group_names = ["AES-ADMIN"]
+group_names = ["AES-DATAOPERATIONS"]
 
 permission_assignments = {
-  "AES-ADMIN" = {
-    principal_id = ["AES-ADMIN"]
+  "AES-DATAOPERATIONS" = {
+    principal_id = ["AES-DATAOPERATIONS"]
     permissions  = ["USER"]
   }
 }
 
 entitlements = {
-  "AES-ADMIN" = {
-    group_id              = data.databricks_group.groups["AES-ADMIN"].id
+  "AES-DATAOPERATIONS" = {
+    group_id              = data.databricks_group.groups["AES-DATAOPERATIONS"].id
     workspace_access      = true
     databricks_sql_access = true
   }
