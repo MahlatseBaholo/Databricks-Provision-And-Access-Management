@@ -17,7 +17,7 @@ locals {
   }
 }
 
-module "databricks_permission_management" {
+module "databricks_identity_access" {
   source = "../../modules/databricks_identity_access"
   permission_assignments = var.permission_assignments
   entitlements           = var.entitlements
