@@ -37,8 +37,15 @@ resource "databricks_permissions" "this" {
   dynamic "access_control" {
     for_each = var.cluster_permissions
     content {
-      group_name       = access_control.key
-      permission_level = access_control.value
+      group_name = access_control.key
+
+      # Loop over each permission in the list
+      dynamic "permission_level" {
+        for_each = access_control.value
+        content {
+          permission = permission_level.value
+        }
+      }
     }
   }
 }
