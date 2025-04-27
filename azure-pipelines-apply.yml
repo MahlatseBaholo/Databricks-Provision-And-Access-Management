@@ -1,9 +1,3 @@
-resources:
-  pipelines:
-  - pipeline: azure-pipelines-apply # Name of the pipeline resource.
-    source: azure-pipelines-plan.yml # The name of the pipeline referenced by this pipeline resource.
-    trigger: true # Run aGenerator pipeline when any run of AES2.0_AES2.0_DevOps_RepoBackup completes
-
 pool:
   vmImage: ubuntu-latest
 
