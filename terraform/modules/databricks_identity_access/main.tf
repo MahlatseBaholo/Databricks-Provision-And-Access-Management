@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    databricks = {
+      source = "databricks/databricks"
+      configuration_aliases = [databricks] 
+    }
+  }
+}
+
 resource "databricks_permission_assignment" "permission_assignment" {
   for_each = var.permission_assignments
   provider     = databricks.workspace
