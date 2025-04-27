@@ -1,3 +1,8 @@
+variable "group_names" {
+  description = "List of Databricks group names"
+  type        = list(string)
+}
+
 variable "permission_assignments" {
   description = "Mapping of principal_id to permissions"
   type = map(object({
