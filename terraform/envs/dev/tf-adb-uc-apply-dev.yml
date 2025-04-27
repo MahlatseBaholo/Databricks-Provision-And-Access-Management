@@ -32,7 +32,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
               
           - task: TerraformTaskV4@4
             displayName: tfapply
@@ -40,4 +40,4 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
