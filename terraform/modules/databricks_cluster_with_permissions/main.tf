@@ -31,21 +31,3 @@ resource "databricks_cluster" "this" {
   }
 }
 
-resource "databricks_permissions" "this" {
-  cluster_id = databricks_cluster.this.id
-
-  dynamic "access_control" {
-    for_each = var.cluster_permissions
-    content {
-      group_name = access_control.key
-
-      # Loop over each permission in the list
-      dynamic "permission_level" {
-        for_each = access_control.value
-        content {
-          permission = permission_level.value
-        }
-      }
-    }
-  }
-}
