@@ -1,1 +1,69 @@
-schema-access.yaml
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  terraform_version: '1.1.0'
+  databricks_cli_version: '0.15.1'
+
+jobs:
+- job: GenerateYamlAndGrantPermissions
+  displayName: 'Generate YAML and Grant Schema Permissions'
+  steps:
+
+  # Step 1: Checkout code
+  - task: Checkout@2
+    displayName: 'Checkout Code'
+
+  # Step 2: Set up Terraform
+  - task: UseTerraform@0
+    inputs:
+      terraformVersion: $(terraform_version)
+
+  # Step 3: Install required Python dependencies
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install pyyaml
+    displayName: 'Install Python dependencies'
+
+  # Step 4: Run Python script to generate access_config.yaml from terraform.tfvars
+  - script: |
+      python generate_yaml.py terraform.tfvars
+    displayName: 'Generate access_config.yaml from terraform.tfvars'
+
+  # Step 5: Set up Databricks CLI
+  - task: DatabricksCLI@0
+    inputs:
+      databricksCliVersion: $(databricks_cli_version)
+      DATABRICKS_HOST: $(databricks_host)
+      DATABRICKS_TOKEN: $(databricks_token)
+
+  # Step 6: Apply permissions using Databricks CLI (example for schema access grants)
+  - script: |
+      # Loop through the generated YAML and apply the permissions using Databricks CLI
+      import yaml
+      with open('access_config.yaml', 'r') as file:
+          access_config = yaml.safe_load(file)
+      
+      for catalog, catalog_details in access_config.items():
+          # Apply catalog access permissions
+          for group, permissions in catalog_details['catalog_access'].items():
+              for permission in permissions:
+                  # Example: Use Databricks CLI command to set permissions
+                  # Replace with your Databricks CLI command
+                  print(f"Granting {permission} to {group} on catalog {catalog}")
+          
+          # Apply schema-level access
+          for schema, schema_access in catalog_details['schema_access'].items():
+              for group, permissions in schema_access.items():
+                  for permission in permissions:
+                      # Example: Use Databricks CLI command to set permissions
+                      print(f"Granting {permission} to {group} on schema {schema} in catalog {catalog}")
+    displayName: 'Grant Schema Permissions Using Databricks CLI'
