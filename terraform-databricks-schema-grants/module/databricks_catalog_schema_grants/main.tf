@@ -11,7 +11,7 @@ resource "databricks_grants" "schema" {
   for_each = { for schema in var.schema_names : schema => schema }
 
   catalog = var.catalog_name
-  schema  = each.key   # <-- use each.key, not each.value
+  schema  = each.key
 
   dynamic "grant" {
     for_each = lookup(var.schema_access, each.key, {})
@@ -21,6 +21,3 @@ resource "databricks_grants" "schema" {
     }
   }
 }
-
-
-
