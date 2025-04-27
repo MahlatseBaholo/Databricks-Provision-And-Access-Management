@@ -15,7 +15,7 @@ stages:
   - stage: tfapply
     displayName: "tfapply"
     jobs:
-      - job: apply_catalogs
+      - job: tfapply
         steps:
           - task: TerraformInstaller@1
             displayName: Install Terraform
