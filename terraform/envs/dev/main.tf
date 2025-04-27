@@ -17,6 +17,15 @@ locals {
   }
 }
 
+module "databricks_permission_management" {
+  source = "../../modules/databricks_identity_access"
+  permission_assignments = var.permission_assignments
+  entitlements           = var.entitlements
+  providers = {
+    databricks = databricks.workspace
+  }
+}
+
 module "storage_container" {
   source = "../../modules/storage_container"
   for_each = local.storage_definitions
