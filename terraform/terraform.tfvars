@@ -56,4 +56,5 @@ catalog_definitions = {
         ]
       }
     }
+  }
 }
