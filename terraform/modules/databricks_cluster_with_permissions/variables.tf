@@ -64,8 +64,3 @@ variable "autoscale" {
   description = "Autoscale settings"
   type        = map(any)
 }
-
-variable "cluster_permissions" {
-  description = "Permissions for the cluster"
-  type        = map(list(string))
-}
