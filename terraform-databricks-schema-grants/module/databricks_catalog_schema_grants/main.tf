@@ -22,3 +22,4 @@ resource "databricks_grants" "schema" {
   }
 }
 
+
