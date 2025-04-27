@@ -2,13 +2,9 @@ terraform {
   required_providers {
     databricks = {
       source = "databricks/databricks"
-      configuration_aliases = [databricks] 
+      configuration_aliases = [databricks,databricks.account] 
     }
   }
-}
-
-provider "databricks" {
-  alias = "account"
 }
 
 resource "databricks_permission_assignment" "permission_assignment" {
@@ -18,7 +14,7 @@ resource "databricks_permission_assignment" "permission_assignment" {
 }
 
 # Create entitlements dynamically for each group
-resource "databricks_entitlement" "entitlement" {
+resource "databricks_entitlement" "entitlements" {
   for_each = var.entitlements
   group_id               = data.databricks_group.groups[each.key].id  # Use the group dynamically
   workspace_access       = each.value.workspace_access
