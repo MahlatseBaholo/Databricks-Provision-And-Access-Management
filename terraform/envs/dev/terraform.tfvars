@@ -15,7 +15,6 @@ entitlements = {
   }
 }
 
-
 catalog_definitions = {
   demo-dev = {
     project = "simegas"
