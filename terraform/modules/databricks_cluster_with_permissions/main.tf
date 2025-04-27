@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    databricks = {
-      source = "databricks/databricks"
-    }
-  }
-}
-
 resource "databricks_cluster" "this" {
   cluster_name            = var.cluster_name
   spark_version           = var.spark_version
