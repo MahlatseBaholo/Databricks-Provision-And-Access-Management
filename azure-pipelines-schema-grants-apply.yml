@@ -1,8 +1,5 @@
-resources:
-  pipelines:
-  - pipeline: grantplan # Name of the pipeline resource.
-    source: tf-adb-uc-schema-grants-apply-dev # The name of the pipeline referenced by this pipeline resource.
-    trigger: true # Run aGenerator pipeline when any run of AES2.0_AES2.0_DevOps_RepoBackup completes
+trigger:
+  none
 
 pool:
   vmImage: ubuntu-latest
