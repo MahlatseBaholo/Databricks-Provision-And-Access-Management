@@ -7,12 +7,11 @@ locals {
     }
   }
 
-  # ✅ Handle missing schema_access safely
   enriched_catalog_definitions = {
     for catalog_name, def in var.catalog_definitions : catalog_name => {
       schema_names   = def.schema_names
       catalog_access = def.catalog_access
-      schema_access  = lookup(def, "schema_access", {}) # ← This is the fix
+      schema_access  = lookup(def, "schema_access", {})
       storage_root   = module.external_location[catalog_name].external_location_url
     }
   }
@@ -74,7 +73,6 @@ module "databricks_catalog_with_access" {
   storage_root   = each.value.storage_root
   schema_names   = each.value.schema_names
   catalog_access = each.value.catalog_access
-  #schema_access  = each.value.schema_access
   depends_on = [module.external_location]
   providers = {
     databricks = databricks.workspace
@@ -94,4 +92,3 @@ module "databricks_catalog_schema_grants" {
     databricks = databricks.workspace
   }
 }
-
