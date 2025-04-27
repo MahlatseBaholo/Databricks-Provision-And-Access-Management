@@ -1,5 +1,8 @@
-trigger:
-- none
+resources:
+  pipelines:
+  - pipeline: grantplan # Name of the pipeline resource.
+    source: azure-pipelines-apply # The name of the pipeline referenced by this pipeline resource.
+    trigger: true # Run aGenerator pipeline when any run of AES2.0_AES2.0_DevOps_RepoBackup completes
 
 pool:
   vmImage: ubuntu-latest
