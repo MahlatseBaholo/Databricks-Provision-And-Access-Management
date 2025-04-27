@@ -7,3 +7,10 @@ data "terraform_remote_state" "metastore" {
     key                  = "unity-catalog/terraform.tfstate"
   }
 }
+
+data "databricks_schemas" "schemas" {
+  for_each = var.catalog_definitions
+  catalog_name = each.key
+
+  provider = databricks.workspace
+}
