@@ -14,8 +14,8 @@ variable "permission_assignments" {
 variable "entitlements" {
   description = "Mapping of group_id to workspace entitlements"
   type = map(object({
-    group_id             = string
-    workspace_access     = bool
+    group_id              = string
+    workspace_access      = bool
     databricks_sql_access = bool
   }))
 }
