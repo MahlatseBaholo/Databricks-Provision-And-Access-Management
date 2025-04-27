@@ -35,7 +35,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
               
           - task: TerraformTaskV4@4
-            displayName: tfapply
+            displayName: apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
