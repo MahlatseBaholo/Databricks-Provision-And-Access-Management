@@ -6,9 +6,9 @@ pool:
 
 variables:
   resourcegroup: 'sasoleuw-big-data-dev-aes-terraform-rg'
-  accountname: 'sasolterraform'
+  accountname: 'sasoldevterraform'
   containername: 'sasol-sandbox-aes-dbw'
-  key: 'unity-catalog/terraform.tfstate'
+  key: 'catalog/terraform.tfstate'
   accesskey: 'sxk5ABUn3ft2pLSwj740BJNAMEPyAfB7PRlM7gwltYLVuMgVxJzDAZtJxK6uYygICwTNIBlo3dLt+AStgeNOTQ=='
 
 stages:
