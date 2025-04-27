@@ -13,7 +13,7 @@ variables:
 
 stages:
   - stage: tfapply
-    displayName: "Apply Catalogs and Schemas"
+    displayName: "tfapply"
     jobs:
       - job: apply_catalogs
         steps:
@@ -23,7 +23,7 @@ stages:
               terraformVersion: 'latest'
 
           - task: TerraformTaskV4@4
-            displayName: Terraform Init (catalogs)
+            displayName: init
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -35,7 +35,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
               
           - task: TerraformTaskV4@4
-            displayName: Terraform Apply (catalogs)
+            displayName: tfapply
             inputs:
               provider: 'azurerm'
               command: 'apply'
