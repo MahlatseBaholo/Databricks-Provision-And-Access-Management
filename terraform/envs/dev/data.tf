@@ -1,3 +1,7 @@
+data "databricks_groups" "all_groups" {
+  provider = databricks.account
+}
+
 data "terraform_remote_state" "metastore" {
   backend = "azurerm"
   config = {
