@@ -5,10 +5,3 @@ variable "catalog_definitions" {
     schema_access = map(map(list(string)))  # Correct type for schema_access
   }))
 }
-
-variable "schema_access" {
-  description = "Access grants at schema level."
-  type        = map(map(list(string)))
-  default     = {}
-}
-
