@@ -18,17 +18,14 @@ locals {
 }
 
 module "databricks_identity_access" {
-  source = "../../modules/databricks_identity_access"  # Path to the module
-
+  source = "../../modules/databricks_identity_access"
   permission_assignments = var.permission_assignments
   entitlements           = var.entitlements
-  group_names            = var.group_names  # Group names list
-  
+  group_names            = var.group_names
   providers = {
     databricks = databricks.workspace
   }
 }
-
 
 module "storage_container" {
   source = "../../modules/storage_container"
