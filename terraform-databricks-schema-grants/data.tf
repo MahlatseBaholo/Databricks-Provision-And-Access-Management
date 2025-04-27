@@ -1,4 +1,4 @@
-data "terraform_remote_state" "metastore" {
+data "terraform_remote_state" "catalog_schemas" {
   backend = "azurerm"
   config = {
     resource_group_name  = "sasoleuw-big-data-dev-aes-terraform-rg"
