@@ -1,5 +1,5 @@
 catalog_definitions = {
-  demo3 = {
+  demo_dev = {
     project = "simegas"
     schema_names = ["bronze", "silver", "gold"]
     catalog_access = {
@@ -28,7 +28,7 @@ catalog_definitions = {
       }
     }
   },
-  demo4 = {
+  demo2_dev = {
     project = "aes"
     schema_names = ["bronze", "silver", "gold"]
     catalog_access = {
