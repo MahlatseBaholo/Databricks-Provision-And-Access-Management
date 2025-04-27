@@ -29,7 +29,7 @@ module "databricks_identity_access" {
   }
 }
 
-module "multi_node_sandbox_small" {
+module "databricks_cluster" {
   source = "../../modules/databricks_cluster_with_permissions"
 
   cluster_name            = var.cluster_name
