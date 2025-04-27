@@ -2,7 +2,7 @@ locals {
   storage_definitions = {
     for catalog_name, _ in var.catalog_definitions : catalog_name => {
       container_name          = catalog_name
-      storage_credential_name = "sasoleuw-aes-dbsc-${catalog_name}"
+      storage_credential_name = "sasoleuw-${var.project}-dbsc-${catalog_name}"
       external_location_name  = "${catalog_name}-catalog-external-location"
     }
   }
