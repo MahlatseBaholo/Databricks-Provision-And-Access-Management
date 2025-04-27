@@ -1,0 +1,43 @@
+trigger:
+  none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  resourcegroup: 'sasoleuw-big-data-dev-aes-terraform-rg'
+  accountname: 'sasolterraform'
+  containername: 'sasol-sandbox-aes-dbw'
+  key: 'unity-catalog/terraform.tfstate'
+  accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
+
+stages:
+  - stage: tfapply
+    displayName: "tfapply"
+    jobs:
+      - job: apply_catalogs
+        steps:
+          - task: TerraformInstaller@1
+            displayName: Install Terraform
+            inputs:
+              terraformVersion: 'latest'
+
+          - task: TerraformTaskV4@4
+            displayName: init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'AES 2.0 Dev - SP'
+              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+              
+          - task: TerraformTaskV4@4
+            displayName: tfapply
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
