@@ -12,7 +12,7 @@ variables:
   accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
 
 stages:
-  - stage: tfapply_catalogs
+  - stage: tfapply
     displayName: "Apply Catalogs and Schemas"
     jobs:
       - job: apply_catalogs
