@@ -1,3 +1,18 @@
+permission_assignments = {
+  "SASOL-AZURE-EBU-DATASCIENCE" = {
+    principal_id = GenAI-Developers
+    permissions  = ["USER"]
+  }
+}
+
+entitlements = {
+  "AES-EBF_BS-CLFAV-DATAENGINEERING" = {
+    group_id              = GenAI-Developers
+    workspace_access      = true
+    databricks_sql_access = true
+  }
+}
+
 catalog_definitions = {
   demo-dev = {
     project = "simegas"
