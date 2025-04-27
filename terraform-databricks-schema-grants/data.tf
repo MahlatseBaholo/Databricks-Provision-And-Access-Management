@@ -9,7 +9,8 @@ data "terraform_remote_state" "catalog_schemas" {
 }
 
 data "databricks_schemas" "schemas" {
-  for_each = data.terraform_remote_state.catalog_schemas.outputs.catalog_definitions
+  # Correct reference to the output "catalog_schemas" instead of "catalog_definitions"
+  for_each = data.terraform_remote_state.catalog_schemas.outputs.catalog_schemas
 
   catalog_name = each.key
   provider     = databricks.workspace
