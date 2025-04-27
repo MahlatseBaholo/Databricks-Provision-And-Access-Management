@@ -14,7 +14,7 @@ resource "databricks_permission_assignment" "permission_assignment" {
   permissions  = each.value.permissions
 }
 
-resource "databricks_entitlement" "entitlements" {
+resource "databricks_entitlements" "entitlements" {
   for_each          = var.entitlements
   provider          = databricks.workspace
   group_id          = data.databricks_group.groups[each.key].id  # Use the group dynamically
