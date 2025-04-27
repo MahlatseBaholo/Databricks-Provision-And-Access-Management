@@ -55,7 +55,6 @@ stages:
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
-              #extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
 
           - task: TerraformTaskV4@4
             displayName: plan
@@ -64,4 +63,3 @@ stages:
               command: 'plan'
               environmentServiceNameAzureRM: 'AES 2.0 Dev - SP'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
-              #extraArguments: '-target=module.databricks_catalog_with_access -target=module.databricks_external_location -target=module.databricks_storage_credential -target=module.storage_container'
