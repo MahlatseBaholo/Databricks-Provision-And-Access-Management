@@ -9,7 +9,7 @@ variables:
   accountname: 'sasoldevterraform'
   containername: 'sasol-sandbox-aes-dbw'
   key: 'catalog/terraform.tfstate'
-  accesskey: 'BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=='
+  accesskey: 'sxk5ABUn3ft2pLSwj740BJNAMEPyAfB7PRlM7gwltYLVuMgVxJzDAZtJxK6uYygICwTNIBlo3dLt+AStgeNOTQ=='
 
 stages:
   - stage: tfapply
