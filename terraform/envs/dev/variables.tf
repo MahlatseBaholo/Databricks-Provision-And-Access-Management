@@ -85,11 +85,6 @@ variable "autoscale" {
   type        = map(any)
 }
 
-variable "cluster_permissions" {
-  description = "Permissions for the cluster"
-  type        = map(list(string))
-}
-
 variable "catalog_definitions" {
   type = map(object({
     project        = string
