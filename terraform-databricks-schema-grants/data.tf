@@ -9,8 +9,8 @@ data "terraform_remote_state" "catalog_schemas" {
 }
 
 data "databricks_schemas" "schemas" {
-  for_each = var.catalog_definitions
-  catalog_name = each.key
+  for_each = data.terraform_remote_state.catalog_schemas.outputs.catalog_definitions
 
-  provider = databricks.workspace
+  catalog_name = each.key
+  provider     = databricks.workspace
 }
