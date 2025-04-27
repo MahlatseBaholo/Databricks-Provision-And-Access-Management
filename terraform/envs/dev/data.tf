@@ -1,5 +1,7 @@
-data "databricks_groups" "all_groups" {
-  provider = databricks.account
+data "databricks_group" "groups" {
+  for_each = toset(var.group_names)
+  provider     = databricks.account
+  display_name = each.value
 }
 
 data "terraform_remote_state" "metastore" {
