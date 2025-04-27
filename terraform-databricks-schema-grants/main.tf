@@ -1,6 +1,6 @@
 locals {
   schema_grant_definitions = {
-    for catalog_name, schema_data in module.databricks_catalog_with_access.catalog_schemas : catalog_name => {
+    for catalog_name, schema_data in data.databricks_schemas.schemas : catalog_name => {
       schema_names = [
         for id in schema_data.ids : regex("^${catalog_name}\\.(.*)$", id)[0]
         if !endswith(id, "information_schema")
@@ -9,6 +9,7 @@ locals {
     }
   }
 }
+
 
 module "databricks_catalog_schema_grants" {
   source = "./module/databricks_catalog_schema_grants"
