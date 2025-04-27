@@ -1,12 +1,12 @@
 permission_assignments = {
-  "SASOL-AZURE-EBU-DATASCIENCE" = {
+  "GenAI-Developers" = {
     principal_id = GenAI-Developers
     permissions  = ["USER"]
   }
 }
 
 entitlements = {
-  "AES-EBF_BS-CLFAV-DATAENGINEERING" = {
+  "GenAI-Developers" = {
     group_id              = GenAI-Developers
     workspace_access      = true
     databricks_sql_access = true
