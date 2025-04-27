@@ -10,8 +10,7 @@ terraform {
 resource "databricks_grants" "schema" {
   for_each = { for schema in var.schema_names : schema => schema }
 
-  schema = "${var.catalog_name}.${each.key}"   # FULLY QUALIFIED
-
+  schema = "${var.catalog_name}.${each.key}"
   dynamic "grant" {
     for_each = lookup(var.schema_access, each.key, {})
     content {
