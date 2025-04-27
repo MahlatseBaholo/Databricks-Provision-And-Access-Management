@@ -2,18 +2,19 @@ group_names = ["AES-DATAOPERATIONS"]
 
 permission_assignments = {
   "AES-DATAOPERATIONS" = {
-    principal_id = ["AES-DATAOPERATIONS"]
+    principal_id = "AES-DATAOPERATIONS" 
     permissions  = ["USER"]
   }
 }
 
 entitlements = {
   "AES-DATAOPERATIONS" = {
-    group_id              = data.databricks_group.groups["AES-DATAOPERATIONS"].id
+    group_id              = "AES-DATAOPERATIONS"
     workspace_access      = true
     databricks_sql_access = true
   }
 }
+
 
 catalog_definitions = {
   demo-dev = {
