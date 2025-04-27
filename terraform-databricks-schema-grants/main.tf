@@ -1,5 +1,5 @@
 locals {
-  schema_grant_definitions = data.terraform_remote_state.catalog_schemas.outputs.catalog_definitions
+  schema_grant_definitions = var.catalog_definitions
 }
 
 module "databricks_catalog_schema_grants" {
