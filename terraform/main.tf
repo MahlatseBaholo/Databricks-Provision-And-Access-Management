@@ -17,7 +17,6 @@ locals {
   }
 }
 
-
 module "storage_container" {
   source = "./module/storage_container"
   for_each = local.storage_definitions
