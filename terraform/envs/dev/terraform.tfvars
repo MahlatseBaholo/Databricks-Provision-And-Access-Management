@@ -1,13 +1,13 @@
 permission_assignments = {
   "GenAI-Developers" = {
-    principal_id = GenAI-Developers
+    principal_id = data.databricks_group.GenAI-Developers.id
     permissions  = ["USER"]
   }
 }
 
 entitlements = {
   "GenAI-Developers" = {
-    group_id              = GenAI-Developers
+    group_id              = data.databricks_group.GenAI-Developers.id
     workspace_access      = true
     databricks_sql_access = true
   }
