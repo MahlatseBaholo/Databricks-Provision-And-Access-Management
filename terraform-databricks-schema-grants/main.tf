@@ -4,6 +4,7 @@ locals {
 
 module "databricks_catalog_schema_grants" {
   source = "./module/databricks_catalog_schema_grants"
+  
   for_each = var.catalog_definitions
 
   catalog_name  = each.key
