@@ -39,8 +39,8 @@ autoscale = {
 }
 
 cluster_permissions = {
-  "users"  = ["CAN_ATTACH_TO", "CAN_RESTART"]
-  "admins" = ["CAN_MANAGE"]
+  "GenAI-Developers"  = ["CAN_ATTACH_TO", "CAN_RESTART"]
+  "AES-ADMIN" = ["CAN_MANAGE"]
 }
 
 catalog_definitions = {
