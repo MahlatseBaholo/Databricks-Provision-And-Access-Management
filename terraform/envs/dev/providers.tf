@@ -11,7 +11,6 @@ terraform {
   }
 }
 
-
 #provider "azurerm" {
 #  features {}
 #  skip_provider_registration = true
@@ -31,15 +30,6 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
-#provider "databricks" {
-#  alias         = "account"
-#  host          = "https://accounts.azuredatabricks.net"
-#  account_id    = "16d23151-3113-4c3c-9cb0-bcfc27be30a1"
-#  client_id     = "f457fcb6-eb37-4f7d-9859-058eb19f7741"
-#  client_secret = "dose30b8050a8778e737a8545f89a41ee9ab"
-#  auth_type     = "oauth-m2m"
-#}
-
 provider "databricks" {
   alias         = "account"
   host          = "https://accounts.azuredatabricks.net"
@@ -56,11 +46,3 @@ provider "databricks" {
   client_secret = var.workspace_client_secret
   auth_type     = "oauth-m2m"
 }
-
-#provider "databricks" {
-#  alias         = "workspace"
-#  host          = "https://adb-3787911233650262.2.azuredatabricks.net"
-#  client_id     = "085d9aab-a52c-4ef6-b983-4ff78908a68d"
-#  client_secret = "dosec6bee1d8b5f9ef1dd7bd9ccfba05ba42"
-#  auth_type     = "oauth-m2m"
-#}
