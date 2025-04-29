@@ -53,27 +53,20 @@ module "databricks_cluster" {
 
 module "sql_warehouse" {
   source = "../../modules/databricks_sql_warehouse"
-
-  name                     = "Analytics-SQL-Warehouse"
-  cluster_size             = "Small"
-  max_num_clusters         = 2
-  min_num_clusters         = 1
-  auto_stop_mins           = 15
-  enable_serverless_compute = true
-  tags = {
-    team = "analytics"
-  }
-
-  enable_permissions = true
-  permissions = {
-    "GenAI-Developers" = ["CAN_USE"]
-    "AES-ADMIN"        = ["CAN_MANAGE"]
-  }
-
+  name                     = var.sql_warehouse_name
+  cluster_size             = var.sql_warehouse_cluster_size
+  max_num_clusters         = var.sql_warehouse_max_num_clusters
+  min_num_clusters         = var.sql_warehouse_min_num_clusters
+  auto_stop_mins           = var.sql_warehouse_auto_stop_mins
+  enable_serverless_compute = var.sql_warehouse_enable_serverless_compute
+  tags                     = var.sql_warehouse_tags
+  enable_permissions       = var.sql_warehouse_enable_permissions
+  permissions              = var.sql_warehouse_permissions
   providers = {
     databricks = databricks.workspace
   }
 }
+
 
 module "storage_container" {
   source = "../../modules/storage_container"
