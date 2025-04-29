@@ -20,7 +20,7 @@ terraform/
 │   │   ├── terraform.tfvars
 │   │   └── variables.tf
 │
-│   ├── qa/
+│   ├── preprod/
 │   │   ├── backend.tf
 │   │   ├── data.tf
 │   │   ├── locals.tf
