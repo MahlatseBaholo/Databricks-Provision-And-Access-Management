@@ -1,86 +1,146 @@
-# 🌐 Terraform Deployment for Databricks Platform on Azure
+# 📘 Terraform Databricks Deployment
 
-This repository automates the deployment and configuration of a secure, scalable Databricks environment using Terraform. It integrates with Azure for storage and identity, and provisions a complete Databricks workspace setup including clusters, SQL warehouses, catalogs, schemas, external locations, and fine-grained access controls.
+## 🧱 Project Overview
 
----
-
-## 📁 Module Overview
-
-| Module                          | Description                                                                 |
-|---------------------------------|-----------------------------------------------------------------------------|
-| `databricks_catalog_with_access` | Creates Databricks Unity Catalogs and assigns ownership/access             |
-| `databricks_catalog_schema_grants` | Grants schema-level permissions to users or groups                         |
-| `databricks_cluster`           | Provisions compute clusters with default policies                          |
-| `databricks_identity_access`   | Manages workspace-level access control for users, service principals, etc. |
-| `databricks_sql_warehouse`     | Creates SQL Warehouses (formerly endpoints)                                |
-| `external_location`            | Defines external locations linked to storage credentials and containers    |
-| `storage_container`            | Creates Azure Blob Storage containers for Unity Catalog storage            |
-| `storage_credential`           | Creates Databricks storage credentials referencing Azure SAS or MI         |
-
-All modules use the appropriate provider:
-- [`databricks`](https://registry.terraform.io/providers/databricks/databricks/latest)
-- [`azurerm`](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
+This Terraform-based infrastructure-as-code project provisions and manages Azure Databricks resources across different modules and environments (e.g., `dev`, `prod`). It supports modular deployments, SCIM-based access control, secure credential handling, and automated Azure DevOps CI/CD pipelines.
 
 ---
 
-## 🔐 Secrets and Auth
+## 📂 Project Structure
 
-- Authentication is handled via **OAuth M2M** using service principals.
-- Secrets (e.g., Client IDs, Secrets, Access Keys) are injected from Azure Key Vault into Azure DevOps pipelines.
-- No secrets are hardcoded in Terraform code or state.
+```
+terraform/
+├── envs/
+│   ├── dev/
+│   │   ├── backend.tf
+│   │   ├── data.tf
+│   │   ├── locals.tf
+│   │   ├── main.tf
+│   │   ├── providers.tf
+│   │   ├── terraform.tfvars
+│   │   └── variables.tf
+│
+│   ├── qa/
+│   │   ├── backend.tf
+│   │   ├── data.tf
+│   │   ├── locals.tf
+│   │   ├── main.tf
+│   │   ├── providers.tf
+│   │   ├── terraform.tfvars
+│   │   └── variables.tf
+│
+│   └── prod/
+│       ├── backend.tf
+│       ├── data.tf
+│       ├── locals.tf
+│       ├── main.tf
+│       ├── providers.tf
+│       ├── terraform.tfvars
+│       └── variables.tf
+│
+├── modules/
+│   ├── databricks_catalog_with_access/
+│   ├── databricks_catalog_schema_grants/
+│   ├── databricks_cluster/
+│   ├── databricks_identity_access/
+│   ├── external_location/
+│   ├── sql_warehouse/
+│   ├── storage_container/
+│   └── storage_credential/
+│
+└── pipelines/
+    ├── tf-adb-manage-apply-dev.yml
+    ├── tf-adb-manage-apply-qa.yml
+    ├── tf-adb-manage-apply-prod.yml
+    ├── tf-adb-manage-plan-dev.yml
+    ├── tf-adb-manage-plan-qa.yml
+    └── tf-adb-manage-plan-prod.yml
+```
+
+---
+
+## 📦 Modules Used
+
+| Module                          | Description                                                    |
+|---------------------------------|----------------------------------------------------------------|
+| `databricks_catalog_with_access` | Creates catalogs, schemas, and assigns access                  |
+| `databricks_catalog_schema_grants` | Grants access to SCIM-synced Azure AD groups                |
+| `databricks_cluster`            | Provisions Databricks clusters                                 |
+| `databricks_identity_access`    | Queries Azure AD groups via SCIM                               |
+| `external_location`             | Creates external locations pointing to mounted storage         |
+| `sql_warehouse`                 | Creates SQL warehouses                                         |
+| `storage_container`             | Provisions Azure Storage containers                            |
+| `storage_credential`            | Creates Databricks storage credentials                         |
 
 ---
 
-## 🏗️ Infrastructure Prerequisites
+## 🔧 Core Terraform Files (per environment)
 
-Ensure the following infrastructure is provisioned **before** running these modules:
-- Azure Storage Account and container for remote state
-- Databricks Account with Unity Catalog enabled
-- SCIM sync configured for identity management (Azure AD to Databricks)
-- Azure Key Vault containing:
-  - Databricks Account & Workspace credentials
-  - Azure Storage Access Key or MI config
-
----
-
-## 🚀 CI/CD with Azure DevOps
-
-This Terraform project is typically executed using Azure DevOps pipelines with steps:
-1. Fetch secrets from Key Vault
-2. Export secrets as environment variables
-3. Run `terraform init` with a remote backend (Azure Storage)
-4. Execute `terraform plan` and `terraform apply`
-
-No `backend.tf` is stored in the repo — the backend config is passed dynamically in the pipeline.
+| File               | Purpose                                                              |
+|--------------------|----------------------------------------------------------------------|
+| `backend.tf`        | Defines remote backend in Azure Storage for state management         |
+| `data.tf`           | Fetches remote state and AD groups                                   |
+| `locals.tf`         | Defines reusable local variables (e.g., naming conventions)          |
+| `main.tf`           | Calls and wires all modules                                          |
+| `providers.tf`      | Configures `azurerm` and `databricks` providers                      |
+| `terraform.tfvars`  | Supplies variable values for current environment                     |
+| `variables.tf`      | Declares variables expected from tfvars or pipeline                  |
 
 ---
 
-## 🔁 Execution Order
+## 🔁 CI/CD Pipeline
 
-To avoid dependency issues, apply modules in the following logical sequence:
+Two Azure DevOps YAML pipelines are used:
 
-1. `storage_container`
-2. `storage_credential`
-3. `external_location`
-4. `databricks_catalog_with_access`
-5. `databricks_catalog_schema_grants`
-6. `databricks_identity_access`
-7. `databricks_cluster`
-8. `sql_warehouse`
+### 1. `tf-adb-manage-plan-dev.yml`
+- Initializes Terraform
+- Fetches secrets from Azure Key Vault
+- Runs `terraform plan`
+- Handles dynamic firewall access to Key Vault
 
-Alternatively, use a root module that handles dependencies using `depends_on`.
+### 2. `tf-adb-manage-apply-dev.yml`
+- Executes `terraform apply` after plan validation
+- Secured via service principal auth (OAuth M2M)
+- Supports environment-specific deploys
+
+---
+
+## 🔐 Secrets & Auth
+
+Secrets are stored in **Azure Key Vault** and accessed via environment variables:
+
+- `DATABRICKS_ACCOUNT_CLIENT_ID`, `DATABRICKS_ACCOUNT_CLIENT_SECRET`
+- `DATABRICKS_WORKSPACE_CLIENT_ID`, `DATABRICKS_WORKSPACE_CLIENT_SECRET`
+- `DATABRICKS_WORKSPACE_HOST`
+- `DATABRICKS_ACCOUNT_ID`
+- `AccessKey-sasoldevterraform` (Azure Storage backend access key)
+
+Firewall rules are dynamically updated for build agent IP access to Key Vault during runtime.
 
 ---
 
-## 🧠 Best Practices
+## 🧾 Abbreviations
 
-- Use `locals` to standardize naming (e.g., for containers, credentials, locations)
-- Avoid hardcoding values; pass inputs via `terraform.tfvars` or CI/CD variables
-- Protect secrets using `sensitive = true` in variables and `issecret=true` in pipelines
-- Use role-based access controls (RBAC) for minimal privilege assignments
-- Maintain state locking and versioning on Azure Blob Storage
+| Acronym | Meaning                                |
+|--------|----------------------------------------|
+| ACR     | Azure Container Registry               |
+| ADB     | Azure Databricks                       |
+| SCIM    | System for Cross-domain Identity Mgmt. |
+| SP      | Service Principal                      |
+| KV      | Key Vault                              |
+| AKV     | Azure Key Vault                        |
+| M2M     | Machine-to-Machine OAuth2 Flow         |
+| IP      | Internet Protocol (used in firewall rules) |
 
 ---
+
+## ✅ Tips & Best Practices
+
+- 🔁 Use a separate state file per environment.
+- 🔐 Rotate secrets regularly in Azure Key Vault.
+- 📦 Use `terraform-docs` to auto-generate module-level docs.
+- 🛡️ Grant access via Azure AD groups using SCIM for least privilege.
+- 📁 Maintain `.terraform.lock.hcl` for provider version consistency.
 
 ## 📬 Contact & Contribution
 
