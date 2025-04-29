@@ -39,7 +39,7 @@ autoscale = {
 }
 
 cluster_permissions = {
-  "GenAI-Developers"  = ["CAN_ATTACH_TO", "CAN_RESTART"]
+  "GenAI-Developers"  = ["CAN_ATTACH_TO"]
   "AES-DATAOPERATIONS" = ["CAN_MANAGE"]
 }
 
