@@ -69,8 +69,7 @@ sql_warehouse_enable_permissions       = true
 ##############################################
 # Serverless SQL Warehouse Permissions
 ##############################################
-sql_warehouse_permissions = {
-  "AES-DATAOPERATIONS" = ["CAN_USE"]   
+sql_warehouse_permissions = {   
   "AES-DATAOPERATIONS" = ["CAN_MANAGE"] 
 }
 
