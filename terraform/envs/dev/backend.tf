@@ -4,6 +4,5 @@ terraform {
     storage_account_name = "sasoldevterraform"
     container_name       = "sasol-sandbox-aes-dbw"
     key                  = "catalog/terraform.tfstate"
-    access_key           = "sxk5ABUn3ft2pLSwj740BJNAMEPyAfB7PRlM7gwltYLVuMgVxJzDAZtJxK6uYygICwTNIBlo3dLt+AStgeNOTQ=="
   }
 }
