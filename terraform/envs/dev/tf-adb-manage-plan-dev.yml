@@ -65,13 +65,15 @@ stages:
               SecretsFilter: 'AccessKey-sasoldevterraform,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Host-Account,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host'
               RunAsPreJob: false
           - script: |
-              echo "Setting environment variable"
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY]$(AccessKey-sasoldevterraform)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(databricks-account-client-id)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(databricks-account-client-secret)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(databricks-workspace-client-id)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(databricks-workspace-client-secret)"
-            displayName: 'Set ARM Access Key Variable'
+              echo "Setting environment variables for Terraform..."
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoldevterraform)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=false]$(Databricks-Workspace-Host)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_HOST;issecret=false]$(Databricks-Host-Account)"
+            displayName: 'Set Env Vars from Secrets'
           - task: AzureCLI@2
             displayName: 'Remove IP from Key Vault firewall'
             inputs:
@@ -104,3 +106,11 @@ stages:
               command: 'plan'
               environmentServiceNameAzureRM: $(azureSubscription)
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
+           # env:
+           #   ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+           #   DATABRICKS_ACCOUNT_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+           #   DATABRICKS_ACCOUNT_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+           #   DATABRICKS_WORKSPACE_CLIENT_ID: $(DATABRICKS_WORKSPACE_CLIENT_ID)
+           #   DATABRICKS_WORKSPACE_CLIENT_SECRET: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
+           #   DATABRICKS_WORKSPACE_HOST: $(DATABRICKS_WORKSPACE_HOST)
+           #   DATABRICKS_ACCOUNT_HOST: $(DATABRICKS_ACCOUNT_HOST)
