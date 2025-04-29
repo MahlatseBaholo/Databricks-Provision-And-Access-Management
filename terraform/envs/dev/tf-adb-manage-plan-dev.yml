@@ -37,7 +37,7 @@ stages:
             inputs:
               azureSubscription: 'AES 2.0 Dev - SP'
               KeyVaultName: 'sasol-dev-aes-key'
-              SecretsFilter: 'Databricks-Host,Databricks-Token'
+              SecretsFilter: 'AccessKey-sasoldevterraform'
               RunAsPreJob: false
           - script: |
               echo "Setting environment variable for ARM_ACCESS_KEY"
