@@ -85,13 +85,9 @@ Alternatively, use a root module that handles dependencies using `depends_on`.
 ## 📬 Contact & Contribution
 
 For questions, updates, or to contribute:
-- Contact: Data Platform Engineering
+- Contact: Data Platform Engineering (Mahlatse.Baholo@sasol.com), DevSecOps Lead (Vusi.Sithole@sasol.com)
 - PRs: Open a pull request against the `main` branch
 - Bugs: Raise an issue in the tracker
 
 ---
-
-## 📄 License
-
-Licensed under the MIT License or your organization’s standard license policy.
 
