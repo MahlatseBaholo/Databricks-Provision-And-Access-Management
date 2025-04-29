@@ -33,13 +33,12 @@ resource "databricks_cluster" "this" {
 }
 
 resource "databricks_permissions" "this" {
+  for_each = var.cluster_permissions
+
   cluster_id = databricks_cluster.this.id
 
   access_control {
-    for_each = var.cluster_permissions
-    principal = access_control.key
-    permissions = access_control.value
+    principal   = each.key
+    permissions = each.value
   }
 }
-
-
