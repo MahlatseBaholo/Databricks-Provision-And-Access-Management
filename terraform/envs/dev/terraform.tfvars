@@ -39,7 +39,7 @@ autoscale = {
 }
 
 cluster_permissions = {
-  "GenAI-Developers"   = ["CAN_ATTACH_TO"]
+  "AES-DATAOPERATIONS"   = ["CAN_ATTACH_TO"]
   "AES-DATAOPERATIONS" = ["CAN_MANAGE"]
 }
 
@@ -52,7 +52,7 @@ sql_warehouse_enable_serverless_compute = true
 sql_warehouse_enable_permissions       = true
 
 sql_warehouse_permissions = {
-  "GenAI-Developers"   = ["CAN_USE"]
+  "AES-DATAOPERATIONS"   = ["CAN_USE"]
   "AES-DATAOPERATIONS" = ["CAN_MANAGE"]
 }
 
@@ -61,25 +61,25 @@ catalog_definitions = {
     project = "simegas"
     schema_names = ["bronze", "silver", "gold"]
     catalog_access = {
-      "GenAI-Developers" = [
+      "AES-DATAOPERATIONS" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ]
     }
     schema_access = {
       bronze = {
-        "GenAI-Developers" = [
+        "AES-DATAOPERATIONS" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "GenAI-Developers" = [
+        "AES-DATAOPERATIONS" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "GenAI-Developers" = [
+        "AES-DATAOPERATIONS" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
@@ -90,25 +90,25 @@ catalog_definitions = {
     project = "aes"
     schema_names = ["bronze", "silver", "gold"]
     catalog_access = {
-      "GenAI-Developers" = [
+      "AES-DATAOPERATIONS" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ]
     }
     schema_access = {
       bronze = {
-        "GenAI-Developers" = [
+        "AES-DATAOPERATIONS" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "GenAI-Developers" = [
+        "AES-DATAOPERATIONS" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "GenAI-Developers" = [
+        "AES-DATAOPERATIONS" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
