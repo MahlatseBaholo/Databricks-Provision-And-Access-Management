@@ -17,6 +17,30 @@ stages:
     jobs:
       - job: tfvalidate
         steps:
+          - task: TerraformInstaller@1
+            displayName: install
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'AES 2.0 Dev - SP'
+              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
+          - task: TerraformTaskV4@4
+            displayName: validate
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+      - job: tfplan
+        dependsOn: tfvalidate
+        condition: succeeded('tfvalidate')
+        steps:
           - bash: |
               echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
             displayName: 'Set variable currentip'
@@ -52,30 +76,6 @@ stages:
               inlineScript: |
                 echo "Removing IP $(currentip) from Key Vault"
                 az keyvault network-rule remove -n 'sasol-dev-aes-key' --ip-address $(currentip)
-          - task: TerraformInstaller@1
-            displayName: install
-            inputs:
-              terraformVersion: 'latest'
-          - task: TerraformTaskV4@4
-            displayName: init
-            inputs:
-              provider: 'azurerm'
-              command: 'init'
-              backendServiceArm: 'AES 2.0 Dev - SP'
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
-              backendAzureRmStorageAccountName: '$(accountname)'
-              backendAzureRmContainerName: '$(containername)'
-              backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
-          - task: TerraformTaskV4@4
-            displayName: validate
-            inputs:
-              provider: 'azurerm'
-              command: 'validate'
-      - job: tfplan
-        dependsOn: tfvalidate
-        condition: succeeded('tfvalidate')
-        steps:
           - task: TerraformInstaller@1
             displayName: install
             inputs:
