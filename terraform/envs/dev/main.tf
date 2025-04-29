@@ -47,9 +47,8 @@ module "databricks_cluster" {
   autoscale            = var.autoscale
   #cluster_permissions  = var.cluster_permissions
   providers = {
-  databricks.account   = databricks.account
-  databricks.workspace = databricks.workspace
-}
+    databricks.workspace = databricks.workspace
+  }
 }
 
 module "storage_container" {
