@@ -49,12 +49,12 @@ terraform/
 │   └── storage_credential/
 │
 └── pipelines/
-    ├── tf-adb-manage-apply-dev.yml
-    ├── tf-adb-manage-apply-preprod.yml
-    ├── tf-adb-manage-apply-prod.yml
-    ├── tf-adb-manage-plan-dev.yml
-    ├── tf-adb-manage-plan-preprod.yml
-    └── tf-adb-manage-plan-prod.yml
+    ├── simegas-tf-adb-manage-apply-dev.yml
+    ├── simegas-tf-adb-manage-apply-preprod.yml
+    ├── simegas-tf-adb-manage-apply-prod.yml
+    ├── simegas-tf-adb-manage-plan-dev.yml
+    ├── simegas-tf-adb-manage-plan-preprod.yml
+    └── simegas-tf-adb-manage-plan-prod.yml
 ```
 
 ---
@@ -92,13 +92,13 @@ terraform/
 
 Two Azure DevOps YAML pipelines are used:
 
-### 1. `tf-adb-manage-plan-dev.yml`
+### 1. `simegas-tf-adb-manage-plan-env.yml`
 - Initializes Terraform
 - Fetches secrets from Azure Key Vault
 - Runs `terraform plan`
 - Handles dynamic firewall access to Key Vault
 
-### 2. `tf-adb-manage-apply-dev.yml`
+### 2. `simegas-tf-adb-manage-apply-env.yml`
 - Executes `terraform apply` after plan validation
 - Secured via service principal auth (OAuth M2M)
 - Supports environment-specific deploys
@@ -127,6 +127,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 | SCIM    | System for Cross-domain Identity Mgmt. |
 | TF      | Terraform                     |
 | KV      | Key Vault                              |
+| ENV     | Environment|
 | AKV     | Azure Key Vault                        |
 | M2M     | Machine-to-Machine OAuth2 Flow         |
 
