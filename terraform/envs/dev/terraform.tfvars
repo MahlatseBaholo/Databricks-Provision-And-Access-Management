@@ -19,7 +19,7 @@ cluster_name            = "delete-general-purpose"
 spark_version           = "15.4.x-scala2.12"
 node_type_id            = "Standard_DS3_v2"
 driver_node_type_id     = "Standard_DS3_v2"
-autotermination_minutes = 10
+autotermination_minutes = 5
 enable_elastic_disk     = true
 policy_id               = "00186FF012D0AE5B"
 enable_local_disk_encryption = false
@@ -47,7 +47,7 @@ sql_warehouse_name                     = "serverless-sql-warehouse-sandbox-small
 sql_warehouse_cluster_size             = "2X-Small"
 sql_warehouse_max_num_clusters         = 2
 sql_warehouse_min_num_clusters         = 1
-sql_warehouse_auto_stop_mins           = 10
+sql_warehouse_auto_stop_mins           = 5
 sql_warehouse_enable_serverless_compute = true
 sql_warehouse_enable_permissions       = true
 
@@ -88,6 +88,35 @@ catalog_definitions = {
   },
   demo2-dev = {
     project = "aes"
+    schema_names = ["bronze", "silver", "gold"]
+    catalog_access = {
+      "AES-DATAOPERATIONS" = [
+        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+      ]
+    }
+    schema_access = {
+      bronze = {
+        "AES-DATAOPERATIONS" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      silver = {
+        "AES-DATAOPERATIONS" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      gold = {
+        "AES-DATAOPERATIONS" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      }
+    }
+  },
+  demo3-dev = {
+    project = "simegas"
     schema_names = ["bronze", "silver", "gold"]
     catalog_access = {
       "AES-DATAOPERATIONS" = [
