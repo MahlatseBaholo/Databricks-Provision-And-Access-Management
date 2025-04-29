@@ -108,9 +108,9 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
             env:
               ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
-              DATABRICKS_ACCOUNT_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
-              DATABRICKS_ACCOUNT_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
-              DATABRICKS_WORKSPACE_CLIENT_ID: $(DATABRICKS_WORKSPACE_CLIENT_ID)
-              DATABRICKS_WORKSPACE_CLIENT_SECRET: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
-              DATABRICKS_WORKSPACE_HOST: $(DATABRICKS_WORKSPACE_HOST)
-              DATABRICKS_ACCOUNT_HOST: $(DATABRICKS_ACCOUNT_HOST)
+              TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              TF_VAR_account_client_secret: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              TF_VAR_workspace_client_id: $(DATABRICKS_WORKSPACE_CLIENT_ID)
+              TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
+              TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
+              TF_VAR_account_host_id: $(DATABRICKS_ACCOUNT_HOST)
