@@ -36,10 +36,17 @@ resource "databricks_permissions" "this" {
   cluster_id = databricks_cluster.this.id
 
   dynamic "access_control" {
-    for_each = var.cluster_permissions
+    for_each = flatten([
+      for principal, perms in var.cluster_permissions : [
+        for perm in perms : {
+          principal = principal
+          permission = perm
+        }
+      ]
+    ])
     content {
-      group_name  = access_control.key
-      permission_level = access_control.value[0] # Only one permission allowed per access_control block
+      group_name       = access_control.value.principal
+      permission_level = access_control.value.permission
     }
   }
 }
