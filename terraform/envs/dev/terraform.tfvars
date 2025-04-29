@@ -1,3 +1,6 @@
+##############################################
+# Define AD groups to grant access
+##############################################
 group_names = ["AES-DATAOPERATIONS"]
 
 permission_assignments = {
@@ -7,6 +10,9 @@ permission_assignments = {
   }
 }
 
+##############################################
+# Define entitlement for AD groups
+##############################################
 entitlements = {
   "AES-DATAOPERATIONS" = {
     group_id              = "AES-DATAOPERATIONS"
@@ -15,11 +21,14 @@ entitlements = {
   }
 }
 
+##############################################
+# Cluster configuration and updates
+##############################################
 cluster_name            = "delete-general-purpose"
 spark_version           = "15.4.x-scala2.12"
 node_type_id            = "Standard_DS3_v2"
 driver_node_type_id     = "Standard_DS3_v2"
-autotermination_minutes = 10
+autotermination_minutes = 10 
 enable_elastic_disk     = true
 policy_id               = "00186FF012D0AE5B"
 enable_local_disk_encryption = false
@@ -38,11 +47,17 @@ autoscale = {
   max_workers = 10
 }
 
+##############################################
+# Cluster Permissions
+##############################################
 cluster_permissions = {
   "AES-DATAOPERATIONS"   = ["CAN_ATTACH_TO"]
   "AES-DATAOPERATIONS" = ["CAN_MANAGE"]
 }
 
+##############################################
+# Configuration for Serverless SQL Warehouse
+##############################################
 sql_warehouse_name                     = "serverless-sql-warehouse-sandbox-small-delete"
 sql_warehouse_cluster_size             = "2X-Small"
 sql_warehouse_max_num_clusters         = 2
@@ -51,11 +66,17 @@ sql_warehouse_auto_stop_mins           = 5
 sql_warehouse_enable_serverless_compute = true
 sql_warehouse_enable_permissions       = true
 
+##############################################
+# Serverless SQL Warehouse Permissions
+##############################################
 sql_warehouse_permissions = {
   "AES-DATAOPERATIONS"   = ["CAN_USE"]
   "AES-DATAOPERATIONS" = ["CAN_MANAGE"]
 }
 
+##############################################
+# Create/Update catalogs, schemas and define permission
+##############################################
 catalog_definitions = {
   demo-dev = {
     project = "simegas"
