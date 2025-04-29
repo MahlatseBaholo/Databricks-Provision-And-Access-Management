@@ -10,7 +10,28 @@ variable "client_id" {
   type = string
 }
 
-variable "client_secret" {
+variable "account_host_id" {
+  type = string
+  sensitive = true
+}
+
+variable "account_client_id" {
+  type = string
+
+variable "account_client_secret" {
+  type = string
+  sensitive = true
+}
+
+variable "workspace_host" {
+  type = stringe
+}
+
+variable "workspace_client_id" {
+  type = string
+}
+
+variable "workspace_client_secret" {
   type = string
   sensitive = true
 }
