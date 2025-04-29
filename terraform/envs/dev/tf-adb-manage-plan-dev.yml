@@ -12,6 +12,18 @@ variables:
   key: 'catalog/terraform.tfstate'
   azureSubscription: 'AES 2.0 Dev - SP'
   keyVaultName: 'sasol-dev-aes-key'
+  
+  account_id    = var.account_host_id
+  client_id     = var.account_client_id
+  client_secret = var.account_client_secret
+  auth_type     = "oauth-m2m"
+
+  alias         = "workspace"
+  host          = var.workspace_host
+  client_id     = var.workspace_client_id
+  client_secret = var.workspace_client_secret
+  auth_type     = "oauth-m2m
+
 
 stages:
   - stage: tfvalidate
