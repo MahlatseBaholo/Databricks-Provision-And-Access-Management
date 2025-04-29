@@ -57,7 +57,6 @@ stages:
             displayName: Install Terraform
             inputs:
               terraformVersion: 'latest'
-
           - task: TerraformTaskV4@4
             displayName: init
             inputs:
@@ -68,8 +67,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
-              
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'    
           - task: TerraformTaskV4@4
             displayName: apply
             inputs:
