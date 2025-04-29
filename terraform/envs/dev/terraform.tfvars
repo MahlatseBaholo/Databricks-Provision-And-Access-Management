@@ -75,7 +75,7 @@ sql_warehouse_permissions = {
 }
 
 ##############################################
-# Create/Update catalogs, schemas and define permission
+# Create/Update catalogs, schemas and define permissions
 ##############################################
 catalog_definitions = {
   demo-dev = {
