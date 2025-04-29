@@ -90,6 +90,50 @@ variable "cluster_permissions" {
   type        = map(list(string))
 }
 
+variable "sql_warehouse_name" {
+  type        = string
+  description = "Name of the SQL Warehouse"
+}
+
+variable "sql_warehouse_cluster_size" {
+  type        = string
+  description = "Cluster size (e.g. Small, Medium)"
+}
+
+variable "sql_warehouse_max_num_clusters" {
+  type        = number
+  default     = 1
+}
+
+variable "sql_warehouse_min_num_clusters" {
+  type        = number
+  default     = 1
+}
+
+variable "sql_warehouse_auto_stop_mins" {
+  type        = number
+  default     = 10
+}
+
+variable "sql_warehouse_enable_serverless_compute" {
+  type        = bool
+  default     = true
+}
+
+variable "sql_warehouse_tags" {
+  type        = map(string)
+  default     = {}
+}
+
+variable "sql_warehouse_enable_permissions" {
+  type        = bool
+  default     = false
+}
+
+variable "sql_warehouse_permissions" {
+  type        = map(list(string))
+  default     = {}
+}
 
 variable "catalog_definitions" {
   type = map(object({
