@@ -138,9 +138,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 
 - 🔁 Use a separate state file per environment.
 - 🔐 Rotate secrets regularly in Azure Key Vault.
-- 📦 Use `terraform-docs` to auto-generate module-level docs.
 - 🛡️ Grant access via Azure AD groups using SCIM for least privilege.
-- 📁 Maintain `.terraform.lock.hcl` for provider version consistency.
 
 ## 📬 Contact & Contribution
 
