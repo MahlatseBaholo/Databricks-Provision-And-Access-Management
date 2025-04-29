@@ -50,10 +50,10 @@ terraform/
 │
 └── pipelines/
     ├── tf-adb-manage-apply-dev.yml
-    ├── tf-adb-manage-apply-qa.yml
+    ├── tf-adb-manage-apply-preprod.yml
     ├── tf-adb-manage-apply-prod.yml
     ├── tf-adb-manage-plan-dev.yml
-    ├── tf-adb-manage-plan-qa.yml
+    ├── tf-adb-manage-plan-preprod.yml
     └── tf-adb-manage-plan-prod.yml
 ```
 
