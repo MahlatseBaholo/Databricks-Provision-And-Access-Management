@@ -1,13 +1,15 @@
 variable "account_host_id" {
-  type = string
+  type      = string
   sensitive = true
 }
 
 variable "account_client_id" {
-  type = string
+  type      = string
+  sensitive = true
+}
 
 variable "account_client_secret" {
-  type = string
+  type      = string
   sensitive = true
 }
 
@@ -16,11 +18,12 @@ variable "workspace_host" {
 }
 
 variable "workspace_client_id" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 variable "workspace_client_secret" {
-  type = string
+  type      = string
   sensitive = true
 }
 
