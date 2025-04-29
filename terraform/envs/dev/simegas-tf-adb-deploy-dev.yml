@@ -144,7 +144,7 @@ stages:
     jobs:
       - deployment: ManualApproval
         displayName: "Manual Approval"
-        environment: 'manual-approval-env'  # You must pre-create this in Azure DevOps with approvers set
+        environment: 'manual-approval-env'
         strategy:
           runOnce:
             deploy:
