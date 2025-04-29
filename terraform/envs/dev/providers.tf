@@ -20,15 +20,6 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
-#provider "databricks" {
-#  alias         = "azure_account"
-#  host          = "https://accounts.azuredatabricks.net"
-#  account_id    = "16d23151-3113-4c3c-9cb0-bcfc27be30a1"
-#  client_id     = "f457fcb6-eb37-4f7d-9859-058eb19f7741"
-#  client_secret = "dose30b8050a8778e737a8545f89a41ee9ab"
-#  auth_type     = "oauth-m2m"
-#}
-
 provider "databricks" {
   alias         = "account"
   host          = "https://accounts.azuredatabricks.net"
