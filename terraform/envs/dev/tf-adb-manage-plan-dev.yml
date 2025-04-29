@@ -13,18 +13,6 @@ variables:
   azureSubscription: 'AES 2.0 Dev - SP'
   keyVaultName: 'sasol-dev-aes-key'
 
-  account_id    = var.account_host_id
-  client_id     = var.account_client_id
-  client_secret = var.account_client_secret
-  auth_type     = "oauth-m2m"
-
-  alias         = "workspace"
-  host          = var.workspace_host
-  client_id     = var.workspace_client_id
-  client_secret = var.workspace_client_secret
-  auth_type     = "oauth-m2m
-
-
 stages:
   - stage: tfvalidate
     jobs:
@@ -77,8 +65,12 @@ stages:
               SecretsFilter: 'AccessKey-sasoldevterraform,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Host-Account,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret'
               RunAsPreJob: false
           - script: |
-              echo "Setting environment variable for ARM_ACCESS_KEY"
+              echo "Setting environment variable"
               echo "##vso[task.setvariable variable=ARM_ACCESS_KEY]$(AccessKey-sasoldevterraform)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(terraform-client-id)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(terraform-client-secret)"
+              echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(terraform-tenant-id)"
+              echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(terraform-subscription-id)"
             displayName: 'Set ARM Access Key Variable'
           - task: AzureCLI@2
             displayName: 'Remove IP from Key Vault firewall'
