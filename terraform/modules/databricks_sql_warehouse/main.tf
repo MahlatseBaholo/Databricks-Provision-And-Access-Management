@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    databricks = {
+      source = "databricks/databricks"
+      configuration_aliases = [databricks]
+    }
+  }
+}
+
 resource "databricks_sql_endpoint" "this" {
   name                     = var.name
   cluster_size             = var.cluster_size
