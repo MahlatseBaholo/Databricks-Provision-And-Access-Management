@@ -43,7 +43,7 @@ provider "azurerm" {
 provider "databricks" {
   alias         = "account"
   host          = "https://accounts.azuredatabricks.net"
-  account_id    = var.account_host_id
+  account_id    = var.account_id
   client_id     = var.account_client_id
   client_secret = var.account_client_secret
   auth_type     = "oauth-m2m"
