@@ -67,7 +67,7 @@ stages:
               RunAsPreJob: false
           - script: |
               echo "Setting environment variable for ARM_ACCESS_KEY"
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY]$('AccessKey-sasoldevterraform)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY]$(AccessKey-sasoldevterraform)"
             displayName: 'Set ARM Access Key Variable'
           - task: AzureCLI@2
             displayName: 'Remove IP from Key Vault firewall'
