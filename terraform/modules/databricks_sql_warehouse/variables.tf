@@ -44,7 +44,7 @@ variable "enable_permissions" {
   default     = false
 }
 
-variable "sql_warehouse_permissions" {
+variable "permissions" {
   description = "Permissions map: { group_name = [permissions] }"
   type        = map(list(string))
   default     = {}
