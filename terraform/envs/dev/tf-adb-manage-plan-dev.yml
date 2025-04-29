@@ -39,6 +39,10 @@ stages:
               KeyVaultName: 'sasol-dev-aes-key'
               SecretsFilter: 'Databricks-Host,Databricks-Token'
               RunAsPreJob: false
+          - script: |
+              echo "Setting environment variable for ARM_ACCESS_KEY"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY]$(sasoldevterraform-access-key)"
+            displayName: 'Set ARM Access Key Variable'
           - task: AzureCLI@2
             displayName: 'Remove IP from Key Vault firewall'
             inputs:
