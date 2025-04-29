@@ -50,7 +50,7 @@ stages:
       - job: tfplan
         displayName: "Plan"
         steps:
-          - bash: echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
+          - bash: echo ##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)
             displayName: 'Set variable currentip'
 
           - bash: echo "Current Build Agent IP is $(currentip)"
