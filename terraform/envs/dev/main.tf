@@ -45,7 +45,7 @@ module "databricks_cluster" {
   apply_policy_default_values = var.apply_policy_default_values
   azure_attributes     = var.azure_attributes
   autoscale            = var.autoscale
-  #cluster_permissions  = var.cluster_permissions
+  cluster_permissions  = var.cluster_permissions
   providers = {
     databricks = databricks.workspace
   }
