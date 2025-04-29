@@ -124,12 +124,15 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 | Acronym | Meaning                                |
 |--------|----------------------------------------|
 | ADB     | Azure Databricks                       |
-| SCIM    | System for Cross-domain Identity Mgmt. |
-| TF      | Terraform                     |
-| KV      | Key Vault                              |
-| ENV     | Environment|
 | AKV     | Azure Key Vault                        |
+| ENV     | Environment|
 | M2M     | Machine-to-Machine OAuth2 Flow         |
+| SCIM    | System for Cross-domain Identity Mgmt. |
+| SIMEGAS    |  |
+| TF      | Terraform                     |
+
+
+
 
 
 ---
