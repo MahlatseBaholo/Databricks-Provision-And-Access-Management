@@ -123,14 +123,13 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 
 | Acronym | Meaning                                |
 |--------|----------------------------------------|
-| ACR     | Azure Container Registry               |
 | ADB     | Azure Databricks                       |
 | SCIM    | System for Cross-domain Identity Mgmt. |
-| SP      | Service Principal                      |
+| TF      | Terraform                     |
 | KV      | Key Vault                              |
 | AKV     | Azure Key Vault                        |
 | M2M     | Machine-to-Machine OAuth2 Flow         |
-| IP      | Internet Protocol (used in firewall rules) |
+
 
 ---
 
