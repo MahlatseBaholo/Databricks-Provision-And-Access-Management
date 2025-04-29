@@ -137,21 +137,13 @@ stages:
               TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
               TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
 
-  - stage: approval
-    displayName: "Manual Approval"
-    dependsOn: tfplan
-    condition: succeeded('tfplan')
-    jobs:
-      - job: waitForApproval
-        displayName: "Wait for Manual Approval"
-        pool:
-          vmImage: 'ubuntu-latest'
-        steps:
-          - task: ManualValidation@0
-            timeoutInMinutes: 1440 # 24 hours
-            inputs:
-              instructions: 'Please review the Terraform plan and approve to proceed to apply.'
-              onTimeout: 'reject'
+- stage: Approval
+  dependsOn: TerraformPlan
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  approval:
+    - name: 'Infra Owner Approval'
+      reviewers:
+        - mahlatse.baholo@sasol.com
 
   - stage: tfapply
     displayName: "Terraform Apply"
