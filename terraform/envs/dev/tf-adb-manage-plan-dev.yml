@@ -83,8 +83,6 @@ stages:
               echo "DATABRICKS_WORKSPACE_HOST: $(Databricks-Workspace-Host)"  # Safe
               echo "DATABRICKS_ACCOUNT_ID: $(Databricks-AccountID)"  # Safe
             displayName: 'Print Secret Values for Debugging (REMOVE BEFORE COMMIT)'
-
-            displayName: 'Print TF_VAR values (debug)'
           - task: AzureCLI@2
             displayName: 'Remove IP from Key Vault firewall'
             inputs:
