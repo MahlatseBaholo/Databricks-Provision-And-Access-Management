@@ -33,12 +33,13 @@ resource "databricks_cluster" "this" {
 }
 
 resource "databricks_permissions" "this" {
-  for_each = var.cluster_permissions
-
   cluster_id = databricks_cluster.this.id
 
-  access_control {
-    principal   = each.key
-    permissions = each.value
+  dynamic "access_control" {
+    for_each = var.cluster_permissions
+    content {
+      group_name  = access_control.key
+      permission_level = access_control.value[0] # Only one permission allowed per access_control block
+    }
   }
 }
