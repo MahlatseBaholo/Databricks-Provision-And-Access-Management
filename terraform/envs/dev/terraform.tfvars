@@ -1,10 +1,3 @@
-account_host_id             = var.account_host_id
-account_client_id           = var.account_client_id
-account_client_secret       = var.account_client_secret
-workspace_host              = var.workspace_host
-workspace_client_id         = var.workspace_client_id
-workspace_client_secret     = var.workspace_client_secret
-
 group_names = ["AES-DATAOPERATIONS"]
 
 permission_assignments = {
