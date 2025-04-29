@@ -8,7 +8,7 @@ variables:
   resourcegroup: 'sasoleuw-big-data-dev-aes-terraform-rg'
   accountname: 'sasoldevterraform'
   containername: 'sasol-sandbox-aes-dbw'
-  key: 'catalog/terraform.tfstate'
+  key: 'manage/terraform.tfstate'
   azureSubscription: 'AES 2.0 Dev - SP'
   keyVaultName: 'sasol-dev-aes-key'
 
