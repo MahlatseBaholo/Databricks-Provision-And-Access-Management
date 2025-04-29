@@ -44,12 +44,13 @@ cluster_permissions = {
 }
 
 sql_warehouse_name                     = "serverless-sql-warehouse-sandbox-small-delete"
-sql_warehouse_cluster_size            = "2X-Small"
-sql_warehouse_max_num_clusters        = 2
-sql_warehouse_min_num_clusters        = 1
-sql_warehouse_auto_stop_mins          = 10
+sql_warehouse_cluster_size             = "2X-Small"
+sql_warehouse_max_num_clusters         = 2
+sql_warehouse_min_num_clusters         = 1
+sql_warehouse_auto_stop_mins           = 10
 sql_warehouse_enable_serverless_compute = true
-sql_warehouse_enable_permissions = true
+sql_warehouse_enable_permissions       = true
+
 sql_warehouse_permissions = {
   "GenAI-Developers"   = ["CAN_USE"]
   "AES-DATAOPERATIONS" = ["CAN_MANAGE"]
