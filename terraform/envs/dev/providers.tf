@@ -41,9 +41,26 @@ provider "azurerm" {
 #}
 
 provider "databricks" {
-  alias         = "workspace"
-  host          = "https://adb-3787911233650262.2.azuredatabricks.net"
-  client_id     = "085d9aab-a52c-4ef6-b983-4ff78908a68d"
-  client_secret = "dosec6bee1d8b5f9ef1dd7bd9ccfba05ba42"
+  alias         = "account"
+  host          = "https://accounts.azuredatabricks.net"
+  account_id    = var.account_host_id
+  client_id     = var.account_client_id
+  client_secret = var.account_client_secret
   auth_type     = "oauth-m2m"
 }
+
+provider "databricks" {
+  alias         = "workspace"
+  host          = var.workspace_host
+  client_id     = var.workspace_client_id
+  client_secret = var.workspace_client_secret
+  auth_type     = "oauth-m2m"
+}
+
+#provider "databricks" {
+#  alias         = "workspace"
+#  host          = "https://adb-3787911233650262.2.azuredatabricks.net"
+#  client_id     = "085d9aab-a52c-4ef6-b983-4ff78908a68d"
+#  client_secret = "dosec6bee1d8b5f9ef1dd7bd9ccfba05ba42"
+#  auth_type     = "oauth-m2m"
+#}
