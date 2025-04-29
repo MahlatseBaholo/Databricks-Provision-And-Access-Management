@@ -1,15 +1,3 @@
-variable "subscription_id" {
-  type = string
-}
-
-variable "tenant_id" {
-  type = string
-}
-
-variable "client_id" {
-  type = string
-}
-
 variable "account_host_id" {
   type = string
   sensitive = true
