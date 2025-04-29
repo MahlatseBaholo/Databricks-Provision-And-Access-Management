@@ -75,8 +75,15 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=false]$(Databricks-AccountID)"
             displayName: 'Set Env Vars from Secrets'
           - script: |
-              echo "Account client ID: $TF_VAR_account_client_id"
-              echo "Workspace client ID: $TF_VAR_workspace_client_id"
+              echo "ARM_ACCESS_KEY: $(AccessKey-sasoldevterraform)"  # Dangerous: Don't print in real scenarios
+              echo "DATABRICKS_ACCOUNT_CLIENT_ID: $(Databricks-Account-ServicePrincipal-ClientID)"  # Dangerous
+              echo "DATABRICKS_ACCOUNT_CLIENT_SECRET: $(Databricks-Account-ServicePrincipal-ClientSecret)"  # Dangerous
+              echo "DATABRICKS_WORKSPACE_CLIENT_ID: $(Databricks-Workspace-ServicePrincipal-ClientID)"  # Dangerous
+              echo "DATABRICKS_WORKSPACE_CLIENT_SECRET: $(Databricks-Workspace-ServicePrincipal-ClientSecret)"  # Dangerous
+              echo "DATABRICKS_WORKSPACE_HOST: $(Databricks-Workspace-Host)"  # Safe
+              echo "DATABRICKS_ACCOUNT_ID: $(Databricks-AccountID)"  # Safe
+            displayName: 'Print Secret Values for Debugging (REMOVE BEFORE COMMIT)'
+
             displayName: 'Print TF_VAR values (debug)'
           - task: AzureCLI@2
             displayName: 'Remove IP from Key Vault firewall'
