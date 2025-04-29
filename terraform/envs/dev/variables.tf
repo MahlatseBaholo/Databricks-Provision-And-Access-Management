@@ -24,7 +24,7 @@ variable "account_client_secret" {
 }
 
 variable "workspace_host" {
-  type = stringe
+  type = string
 }
 
 variable "workspace_client_id" {
