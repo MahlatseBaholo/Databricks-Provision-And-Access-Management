@@ -67,10 +67,10 @@ stages:
           - script: |
               echo "Setting environment variable"
               echo "##vso[task.setvariable variable=ARM_ACCESS_KEY]$(AccessKey-sasoldevterraform)"
-              echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(terraform-client-id)"
-              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(terraform-client-secret)"
-              echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(terraform-tenant-id)"
-              echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(terraform-subscription-id)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(databricks-account-client-id)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(databricks-account-client-secret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(databricks-workspace-client-id)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(databricks-workspace-client-secret)"
             displayName: 'Set ARM Access Key Variable'
           - task: AzureCLI@2
             displayName: 'Remove IP from Key Vault firewall'
