@@ -14,7 +14,6 @@ resource "databricks_sql_endpoint" "this" {
   max_num_clusters         = var.max_num_clusters
   auto_stop_mins           = var.auto_stop_mins
   enable_serverless_compute = var.enable_serverless_compute
-  tags                     = var.tags
 }
 
 resource "databricks_permissions" "this" {
