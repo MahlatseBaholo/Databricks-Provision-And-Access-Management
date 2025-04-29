@@ -12,7 +12,6 @@ variables:
   key: 'catalog/terraform.tfstate'
   azureSubscription: 'AES 2.0 Dev - SP'
   keyVaultName: 'sasol-dev-aes-key'
-  #accesskey: 'sxk5ABUn3ft2pLSwj740BJNAMEPyAfB7PRlM7gwltYLVuMgVxJzDAZtJxK6uYygICwTNIBlo3dLt+AStgeNOTQ=='
 
 stages:
   - stage: tfvalidate
