@@ -38,6 +38,11 @@ autoscale = {
   max_workers = 10
 }
 
+cluster_permissions = {
+  "users"  = ["CAN_ATTACH_TO", "CAN_RESTART"]
+  "admins" = ["CAN_MANAGE"]
+}
+
 catalog_definitions = {
   demo-dev = {
     project = "simegas"
