@@ -17,12 +17,20 @@ resource "databricks_sql_endpoint" "this" {
 }
 
 resource "databricks_permissions" "this" {
-  count      = var.enable_permissions ? 1 : 0
-  sql_endpoint_id = databricks_sql_endpoint.this.id
+  sql_warehouse_id = databricks_sql_endpoint.this.id
 
-  access_control {
-    for_each    = var.permissions
-    principal   = access_control.key
-    permissions = access_control.value
+  dynamic "access_control" {
+    for_each = flatten([
+      for principal, perms in var.sql_warehouse_permissions : [
+        for perm in perms : {
+          principal  = principal
+          permission = perm
+        }
+      ]
+    ])
+    content {
+      group_name       = access_control.value.principal
+      permission_level = access_control.value.permission
+    }
   }
 }
