@@ -1,8 +1,8 @@
 data "databricks_group" "groups" {
-  for_each = toset(var.group_names)  # Use the group names from the variable
+  for_each = toset(var.group_names)
 
   provider     = databricks.account
-  display_name = each.value  # Fetch the group by display name
+  display_name = each.value
 }
 
 data "terraform_remote_state" "metastore" {
