@@ -10,18 +10,21 @@ terraform {
 resource "databricks_sql_endpoint" "this" {
   name                     = var.name
   cluster_size             = var.cluster_size
-  max_num_clusters         = var.max_num_clusters
   min_num_clusters         = var.min_num_clusters
+  max_num_clusters         = var.max_num_clusters
   auto_stop_mins           = var.auto_stop_mins
   enable_serverless_compute = var.enable_serverless_compute
+  tags                     = var.tags
 }
 
 resource "databricks_permissions" "this" {
-  sql_warehouse_id = databricks_sql_endpoint.this.id
+  count = var.enable_permissions ? 1 : 0
+
+  sql_endpoint_id = databricks_sql_endpoint.this.id  # ✅ correct attribute
 
   dynamic "access_control" {
     for_each = flatten([
-      for principal, perms in var.sql_warehouse_permissions : [
+      for principal, perms in var.permissions : [
         for perm in perms : {
           principal  = principal
           permission = perm
@@ -34,3 +37,4 @@ resource "databricks_permissions" "this" {
     }
   }
 }
+
