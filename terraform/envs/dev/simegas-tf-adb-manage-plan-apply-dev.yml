@@ -148,7 +148,7 @@ stages:
 
   - stage: tfapply
     displayName: "Terraform Apply"
-    dependsOn: approval
+    dependsOn: Approval
     condition: succeeded('approval')
     jobs:
       - job: tfapply
