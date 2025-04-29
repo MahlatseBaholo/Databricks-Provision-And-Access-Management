@@ -67,5 +67,5 @@ variable "autoscale" {
 
 variable "cluster_permissions" {
   description = "Permissions for the cluster"
-  type        = map(list(string))
+  type = map(string) # not map(list(string))
 }
