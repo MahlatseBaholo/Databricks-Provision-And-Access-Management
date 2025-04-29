@@ -142,10 +142,10 @@ stages:
     dependsOn: TerraformPlan
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     approval:
-        - name: 'Infra Owner Approval'
+      - name: 'Infra Owner Approval'
         reviewers:
-            - mahlatse.baholo@sasol.com
-            
+          - mahlatse.baholo@sasol.com
+
   - stage: tfapply
     displayName: "Terraform Apply"
     dependsOn: approval
