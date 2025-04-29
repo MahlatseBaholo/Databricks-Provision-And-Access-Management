@@ -51,6 +51,30 @@ module "databricks_cluster" {
   }
 }
 
+module "sql_warehouse" {
+  source = "../../modules/databricks_sql_warehouse"
+
+  name                     = "Analytics-SQL-Warehouse"
+  cluster_size             = "Small"
+  max_num_clusters         = 2
+  min_num_clusters         = 1
+  auto_stop_mins           = 15
+  enable_serverless_compute = true
+  tags = {
+    team = "analytics"
+  }
+
+  enable_permissions = true
+  permissions = {
+    "GenAI-Developers" = ["CAN_USE"]
+    "AES-ADMIN"        = ["CAN_MANAGE"]
+  }
+
+  providers = {
+    databricks = databricks.workspace
+  }
+}
+
 module "storage_container" {
   source = "../../modules/storage_container"
   for_each = local.storage_definitions
