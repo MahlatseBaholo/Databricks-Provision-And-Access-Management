@@ -19,12 +19,12 @@ variable "workspace_host" {
 
 variable "workspace_client_id" {
   type      = string
-  sensitive = true
+  sensitive = false
 }
 
 variable "workspace_client_secret" {
   type      = string
-  sensitive = true
+  sensitive = false
 }
 
 variable "group_names" {
