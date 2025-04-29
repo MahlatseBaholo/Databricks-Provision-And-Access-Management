@@ -106,34 +106,5 @@ catalog_definitions = {
         ]
       }
     }
-  },
-  demo2-dev = {
-    project = "aes"
-    schema_names = ["bronze", "silver", "gold"]
-    catalog_access = {
-      "AES-DATAOPERATIONS" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-DATAOPERATIONS" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-DATAOPERATIONS" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-DATAOPERATIONS" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      }
-    }
   }
 }
