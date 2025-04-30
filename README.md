@@ -49,12 +49,9 @@ terraform/
 │   └── storage_credential/
 │
 └── pipelines/
-    ├── simegas-tf-adb-manage-apply-dev.yml
-    ├── simegas-tf-adb-manage-apply-preprod.yml
-    ├── simegas-tf-adb-manage-apply-prod.yml
-    ├── simegas-tf-adb-manage-plan-dev.yml
-    ├── simegas-tf-adb-manage-plan-preprod.yml
-    └── simegas-tf-adb-manage-plan-prod.yml
+    ├── simegas-tf-adb-deploy-dev.yml
+    ├── simegas-tf-adb-deploy-preprod.yml
+    └── simegas-tf-adb-deploy-prod.yml
 ```
 
 ---
@@ -90,15 +87,14 @@ terraform/
 
 ## 🔁 CI/CD Pipeline
 
-Two Azure DevOps YAML pipelines are used:
+One Azure DevOps YAML pipeline is used:
 
-### 1. `simegas-tf-adb-manage-plan-env.yml`
+### 1. `simegas-tf-adb-deploy-env.yml`
 - Initializes Terraform
 - Fetches secrets from Azure Key Vault
 - Runs `terraform plan`
 - Handles dynamic firewall access to Key Vault
-
-### 2. `simegas-tf-adb-manage-apply-env.yml`
+- Peer review, admin and platform owner approvals
 - Executes `terraform apply` after plan validation
 - Secured via service principal auth (OAuth M2M)
 - Supports environment-specific deploys
@@ -146,7 +142,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 ## 📬 Contact & Contribution
 
 For questions, updates, or to contribute:
-- Contact: Data Platform Engineering (Mahlatse.Baholo@sasol.com), DevSecOps Lead (Vusi.Sithole@sasol.com)
+- Contact: Data Platform Engineering (Mahlatse.Baholo@sasol.com), Platform Owner (Vusi.Sithole@sasol.com)
 - PRs: Open a pull request against the `main` branch
 - Bugs: Raise an issue in the tracker
 
