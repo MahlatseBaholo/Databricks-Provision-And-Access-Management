@@ -5,11 +5,10 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  resourcegroup: 'sasoleuw-big-data-dev-aes-terraform-rg'
-  accountname: 'sasoldevterraform'
+  resourcegroup: 'sasoleuw-simegas-dev-rg'
+  accountname: 'sasoldevsimegasterraform'
   containername: 'shared-components'
   key: 'metastore/terraform.tfstate'
-  accesskey: 'sxk5ABUn3ft2pLSwj740BJNAMEPyAfB7PRlM7gwltYLVuMgVxJzDAZtJxK6uYygICwTNIBlo3dLt+AStgeNOTQ=='
 
 stages:
   - stage: tfimport
