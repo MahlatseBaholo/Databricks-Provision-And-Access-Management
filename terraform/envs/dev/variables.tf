@@ -1,3 +1,9 @@
+variable "location" {
+  description = "The Azure region short name (e.g., euw, eus, usw2)"
+  type        = string
+  default     = "san" 
+}
+
 variable "subscription_id" {
   type = string
 }
