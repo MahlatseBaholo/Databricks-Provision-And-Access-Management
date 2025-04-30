@@ -49,8 +49,8 @@ stages:
     condition: succeeded('tfvalidate')
     jobs:
       - job: RunSnykIaCScan
-          displayName: 'Run Snyk IaC Test'
-          steps:
+        displayName: 'Run Snyk IaC Test'
+        steps:
           - task: NodeTool@0
             inputs:
               versionSpec: '18.x'
