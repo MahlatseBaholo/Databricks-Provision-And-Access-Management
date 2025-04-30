@@ -11,6 +11,7 @@ variables:
   key: 'manage/terraform.tfstate'
   azureSubscription: 'AES 2.0 Dev - SP'
   keyVaultName: 'sasol-dev-aes-key'
+  group: snyk-variable-group
 
 stages:
   - stage: tfvalidate
@@ -65,7 +66,7 @@ stages:
 
           - script: |
               snyk iac test --severity-threshold=medium --path=$(System.DefaultWorkingDirectory)/terraform/envs/dev/
-            displayName: 'Run Snyk IaC Test'
+            displayName: 'run Snyk IaC Test'
 
   - stage: tfplan
     displayName: "Terraform Plan"
