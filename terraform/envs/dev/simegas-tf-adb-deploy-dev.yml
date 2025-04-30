@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  resourcegroup: 'sasoleuw-simegas-dev-rg'
+  resourcegroup: 'sasolzan-simegas-dev-terraform-rg'
   accountname: 'sasoldevsimegasterraform'
   containername: 'sasol-dev-simegas-dbw'
   key: 'manage/terraform.tfstate'
