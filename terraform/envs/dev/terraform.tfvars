@@ -3,7 +3,6 @@
 ##############################################
 group_names = ["AES-DATAOPERATIONS", "AES-ADMIN"]
 
-
 permission_assignments = {
   "AES-DATAOPERATIONS" = {
     principal_id = "AES-DATAOPERATIONS"  
