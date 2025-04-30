@@ -210,7 +210,7 @@ stages:
                 az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
 
           - task: TerraformInstaller@1
-            displayName: Install Terraform
+            displayName: install Terraform
             inputs:
               terraformVersion: 'latest'
 
