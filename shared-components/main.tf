@@ -8,8 +8,8 @@ resource "azurerm_resource_group" "sasoleuw-simegas-dev-rg" {
   location = "southafricanorth"
 }
 
-resource "azurerm_storage_account" "sasolzanwaescatalog" {
-  name                      = "sasolzanwaescatalog"
+resource "azurerm_storage_account" "sasolzansimegascatalog" {
+  name                      = "sasolzansimegascatalog"
   resource_group_name       = "sasoleuw-simegas-dev-rg"
   location                  = azurerm_resource_group.sasoleuw-simegas-dev-rg.location
   account_tier              = "Standard"
@@ -19,14 +19,14 @@ resource "azurerm_storage_account" "sasolzanwaescatalog" {
 
 resource "azurerm_storage_container" "metastore" {
   name                  = "metastore"
-  storage_account_name  = azurerm_storage_account.sasolzanwaescatalog.name
+  storage_account_name  = azurerm_storage_account.sasolzansimegascatalog.name
   container_access_type = "private"
 }
 
 resource "databricks_metastore" "metastore" {
   provider      = databricks.azure_account
   name          = "metastore"
-  storage_root  = "abfss://metastore@sasolzanwaescatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
+  storage_root  = "abfss://metastore@sasolzansimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
   #owner         = "MetastoreAdmins"
   region        = "southafricanorth"
 #  sku           = "premium"
