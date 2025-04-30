@@ -131,9 +131,8 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 
 ## ✅ Tips & Best Practices
 
-- 🔁 Use a separate state file per environment.
 - 🔐 Secrets to be rotated in Azure Key Vault after 180 days.
-- 🛡️ Grant access via Azure AD groups using SCIM for least privilege.
+- 🛡️ Users will be granted access via Azure AD groups using SCIM for least privilege.
 
 ## ✅ Troubleshooting
  
