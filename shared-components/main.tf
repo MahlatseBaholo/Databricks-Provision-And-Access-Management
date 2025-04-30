@@ -3,8 +3,8 @@ resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
   location = "southafricanorth"
 }
 
-resource "azurerm_resource_group" "sasolzan-simegas-dev-terraform-rg" {
-  name     = "sasolzan-simegas-dev-terraform-rg"
+resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
+  name     = "sasolsan-simegas-dev-terraform-rg"
   location = "southafricanorth"
 }
 
