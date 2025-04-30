@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
 
 resource "azurerm_storage_account" "sasolsansimegascatalog" {
   name                      = "sasolsansimegascatalog"
-  resource_group_name       = "sasolsan-simegas-dev-rg"
+  resource_group_name       = "sasolsan-simegas-unity-catalog-rg"
   location                  = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
   account_tier              = "Standard"
   account_replication_type  = "ZRS"
