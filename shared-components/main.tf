@@ -1,7 +1,7 @@
-resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
-  name     = "sasolsan-simegas-dev-rg"
-  location = "southafricanorth"
-}
+#resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
+#  name     = "sasolsan-simegas-dev-rg"
+#  location = "southafricanorth"
+#}
 
 resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
   name     = "sasolsan-simegas-dev-terraform-rg"
@@ -23,27 +23,27 @@ resource "azurerm_storage_container" "metastore" {
   container_access_type = "private"
 }
 
-resource "databricks_metastore" "metastore" {
-  provider      = databricks.azure_account
-  name          = "metastore"
-  storage_root  = "abfss://metastore@sasolsansimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
+#resource "databricks_metastore" "metastore" {
+#  provider      = databricks.azure_account
+#  name          = "metastore"
+#  storage_root  = "abfss://metastore@sasolsansimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
   #owner         = "MetastoreAdmins"
-  region        = "southafricanorth"
+#  region        = "southafricanorth"
 #  sku           = "premium"
 }
 
-resource "azurerm_databricks_workspace" "workspace" {
-  name                = var.name
-  location            = var.location
-  resource_group_name = var.resource_group_name_workspace
-  sku                 = "premium"
-}
+#resource "azurerm_databricks_workspace" "workspace" {
+#  name                = var.name
+#  location            = var.location
+#  resource_group_name = var.resource_group_name_workspace
+#  sku                 = "premium"
+#}
 
-resource "databricks_metastore_assignment" "metastore" {
-  provider      = databricks.azure_account
-  metastore_id  = databricks_metastore.metastore.id
-  workspace_id  = "3212216276919665"
-}
+#resource "databricks_metastore_assignment" "metastore" {
+#  provider      = databricks.azure_account
+#  metastore_id  = databricks_metastore.metastore.id
+#  workspace_id  = "3212216276919665"
+#}
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
   name                = "sasolsan-simegas-catalog-id"
