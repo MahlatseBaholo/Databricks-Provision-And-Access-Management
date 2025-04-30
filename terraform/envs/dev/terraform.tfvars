@@ -8,11 +8,8 @@ permission_assignments = {
   "AES-DATAOPERATIONS" = {
     principal_id = "AES-DATAOPERATIONS"  
     permissions  = ["USER"]             
-  }
-}
-
-permission_assignments = {
-  "AES-ADMIN" = {
+  },
+    "AES-ADMIN" = {
     principal_id = "AES-ADMIN"  
     permissions  = ["ADMIN"]             
   }
@@ -26,16 +23,14 @@ entitlements = {
     group_id              = "AES-DATAOPERATIONS"  
     workspace_access      = true                  
     databricks_sql_access = true                 
-  }
-}
-
-entitlements = {
+  },
   "AES-ADMIN" = {
     group_id              = "AES-ADMIN"  
     workspace_access      = true                  
     databricks_sql_access = true                 
   }
 }
+
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
@@ -66,12 +61,10 @@ autoscale = {
 # Cluster Permissions for AD Groups
 ##############################################
 cluster_permissions = {
-  "AES-DATAOPERATIONS" = ["CAN_ATTACH_TO"]     
+  "AES-DATAOPERATIONS" = ["CAN_ATTACH_TO"],
+  "AES-ADMIN" = ["CAN_ATTACH_TO"]       
 }
 
-cluster_permissions = {
-  "AES-ADMIN" = ["CAN_ATTACH_TO"]     
-}
 ##############################################
 # Serverless SQL Warehouse Configuration
 ##############################################
@@ -87,11 +80,8 @@ sql_warehouse_enable_permissions       = true
 # Serverless SQL Warehouse Permissions
 ##############################################
 sql_warehouse_permissions = {   
-  "AES-DATAOPERATIONS" = ["CAN_USE"] 
-}
-
-sql_warehouse_permissions = {   
-  "AES-DATAOPERATIONS" = ["CAN_USE"] 
+  "AES-DATAOPERATIONS" = ["CAN_USE"],
+  "AES-ADMIN" = ["CAN_USE"]  
 }
 ##############################################
 # Define and Manage Catalogs, Schemas, and Permissions
