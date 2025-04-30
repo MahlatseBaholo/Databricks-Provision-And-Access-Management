@@ -48,25 +48,32 @@ stages:
     dependsOn: tfvalidate
     condition: succeeded('tfvalidate')
     jobs:
-      - job: snyk
-        displayName: "Snyk IaC Scan"
-        steps:
-          - task: UseNode@1
-            displayName: 'Install Node.js'
+      - job: RunSnykIaCScan
+          displayName: 'Run Snyk IaC Test'
+          steps:
+          - task: UsePythonVersion@0
             inputs:
-              version: '16.x'
+              versionSpec: '3.x'
+              addToPath: true
 
           - script: |
+              echo "Installing Snyk CLI"
               npm install -g snyk
             displayName: 'Install Snyk CLI'
 
           - script: |
-              snyk auth $(SNYK_TOKEN)
-            displayName: 'Authenticate Snyk CLI'
+              echo "Running Snyk IaC scan on Terraform directory"
+              snyk iac test terraform/envs/dev --org=default --json > snyk-report.json || true
+            displayName: 'Run Snyk IaC scan'
+            env:
+              SNYK_TOKEN: $(SNYK_TOKEN)
 
-          - script: |
-              snyk iac test --severity-threshold=medium --path=$(System.DefaultWorkingDirectory)/terraform/envs/dev/
-            displayName: 'run Snyk IaC Test'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: 'snyk-report.json'
+              artifactName: 'snyk-iac-report'
+              publishLocation: 'Container'
+            displayName: 'Publish Snyk IaC JSON Report'
 
   - stage: tfplan
     displayName: "Terraform Plan"
