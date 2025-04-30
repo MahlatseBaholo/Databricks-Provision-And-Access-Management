@@ -109,7 +109,7 @@ Secrets are stored in **Azure Key Vault** and accessed via environment variables
 - `DATABRICKS_WORKSPACE_CLIENT_ID`, `DATABRICKS_WORKSPACE_CLIENT_SECRET`
 - `DATABRICKS_WORKSPACE_HOST`
 - `DATABRICKS_ACCOUNT_ID`
-- `AccessKey-sasoldevterraform` (Azure Storage backend access key)
+- `AccessKey-sasoldevsimegasterraform` (Azure Storage backend access key)
 
 Firewall rules are dynamically updated for build agent IP access to Key Vault during runtime.
 
@@ -132,18 +132,13 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 ## ✅ Tips & Best Practices
 
 - 🔁 Use a separate state file per environment.
-- 🔐 Rotate secrets regularly in Azure Key Vault.
+- 🔐 Secrets to be rotated in Azure Key Vault after 180 days.
 - 🛡️ Grant access via Azure AD groups using SCIM for least privilege.
 
 ## ✅ Troubleshooting
  
 - 🔁 If users get error "PERMINSSION DENIED: User name.surname@sasol.com does not have READ permission on scope KeyVault to perform this action" meanwhile trying to run a python notebook, please log a request on the service catalog here: 
 https://myim.service-now.com/sp?id=sc_cat_item&sys_id=c0768b14c3d69a9039011ef0e00131f9
-
-
-- 🔁 Use a separate state file per environment.
-- 🔐 Rotate secrets regularly in Azure Key Vault.
-- 🛡️ Grant access via Azure AD groups using SCIM for least privilege.
 
 ## 📬 Contact & Contribution
 
