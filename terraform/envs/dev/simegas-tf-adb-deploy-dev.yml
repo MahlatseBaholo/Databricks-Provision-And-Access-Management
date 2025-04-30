@@ -62,8 +62,13 @@ stages:
             displayName: 'Install Snyk CLI'
 
           - script: |
+              echo "Authenticating Snyk CLI with token"
+              snyk auth $(SNYK_TOKEN)
+            displayName: 'Authenticate Snyk CLI'
+
+          - script: |
               echo "Running Snyk IaC scan on Terraform directory"
-              snyk iac test terraform/envs/dev --auth-token=$(SNYK_TOKEN) --org=default --json > snyk-report.json || true
+              snyk iac test terraform/envs/dev --org=default --json > snyk-report.json || true
             displayName: 'Run Snyk IaC scan'
 
           - task: PublishBuildArtifacts@1
@@ -72,6 +77,7 @@ stages:
               artifactName: 'snyk-iac-report'
               publishLocation: 'Container'
             displayName: 'Publish Snyk IaC JSON Report'
+
 
   - stage: tfplan
     displayName: "Terraform Plan"
