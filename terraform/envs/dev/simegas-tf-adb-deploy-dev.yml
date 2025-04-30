@@ -48,7 +48,7 @@ stages:
     condition: succeeded('tfvalidate')
     jobs:
       - job: tfplan
-        displayName: "Plan"
+        displayName: "plan"
         steps:
           - bash: |
               echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
@@ -157,7 +157,7 @@ stages:
     condition: succeeded('approval')
     jobs:
       - job: tfapply
-        displayName: "Apply"
+        displayName: "apply"
         steps:
           - bash: |
               echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
