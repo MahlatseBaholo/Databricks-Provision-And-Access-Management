@@ -47,14 +47,14 @@ resource "databricks_metastore_assignment" "metastore" {
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
   name                = "sasolsan-simegas-catalog-id"
-  location            = azurerm_resource_group.sasolsan-simegas-dev-rg.location
-  resource_group_name = azurerm_resource_group.sasolsan-simegas-dev-rg.name
+  location            = azurerm_resource_group.sasolzan-simegas-unity-catalog-rg.location
+  resource_group_name = azurerm_resource_group.sasolzan-simegas-unity-catalog-rg.name
 }
 
 resource "azurerm_databricks_access_connector" "sasolsan-simegas-catalog-conncetor" {
   name                = "sasolsan-simegas-catalog-conncetor"
-  resource_group_name = azurerm_resource_group.sasolsan-simegas-dev-rg.name
-  location            = azurerm_resource_group.sasolsan-simegas-dev-rg.location
+  resource_group_name = azurerm_resource_group.sasolzan-simegas-unity-catalog-rg.name
+  location            = azurerm_resource_group.sasolzan-simegas-unity-catalog-rg.location
   identity {
     type              = "UserAssigned"
     identity_ids      = [azurerm_user_assigned_identity.sasolsan-simegas-catalog-id.id]
