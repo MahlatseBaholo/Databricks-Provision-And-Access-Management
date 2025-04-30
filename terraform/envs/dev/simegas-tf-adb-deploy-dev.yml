@@ -51,10 +51,10 @@ stages:
       - job: RunSnykIaCScan
           displayName: 'Run Snyk IaC Test'
           steps:
-          - task: UsePythonVersion@0
+          - task: NodeTool@0
             inputs:
-              versionSpec: '3.x'
-              addToPath: true
+              versionSpec: '18.x'
+            displayName: 'Install Node.js'
 
           - script: |
               echo "Installing Snyk CLI"
@@ -63,10 +63,8 @@ stages:
 
           - script: |
               echo "Running Snyk IaC scan on Terraform directory"
-              snyk iac test terraform/envs/dev --org=default --json > snyk-report.json || true
+              snyk iac test terraform/envs/dev --auth-token=$(SNYK_TOKEN) --org=default --json > snyk-report.json || true
             displayName: 'Run Snyk IaC scan'
-            env:
-              SNYK_TOKEN: $(SNYK_TOKEN)
 
           - task: PublishBuildArtifacts@1
             inputs:
