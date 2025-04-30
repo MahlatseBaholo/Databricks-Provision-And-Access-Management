@@ -121,7 +121,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 |--------|----------------------------------------|
 | ADB     | Azure Databricks                       |
 | AKV     | Azure Key Vault                        |
-| ENV     | Environment|
+| ENVS     | Environments|
 | M2M     | Machine-to-Machine OAuth2 Flow         |
 | SCIM    | System for Cross-domain Identity Mgmt. |
 | SIMEGAS    |  |
