@@ -63,7 +63,7 @@ stages:
 
           - script: |
               echo "Authenticating Snyk CLI with token"
-              snyk auth $(SNYK_TOKEN)
+              snyk auth "$SNYK_TOKEN"
             displayName: 'Authenticate Snyk CLI'
 
           - script: |
