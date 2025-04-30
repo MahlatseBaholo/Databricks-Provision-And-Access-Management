@@ -23,20 +23,19 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'AES 2.0 Dev - SP'
+            backendServiceArm: 'SIMEGAS Dev - SP'
             backendAzureRmResourceGroupName: '$(resourcegroup)'
             backendAzureRmStorageAccountName: '$(accountname)'
             backendAzureRmContainerName: '$(containername)'
             backendAzureRmKey: '$(key)'
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
         - script: |
-            terraform import azurerm_resource_group.sasoleuw-big-data-sandbox-aes-rg /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-sandbox-aes-rg
-            terraform import azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg
-            terraform import azurerm_storage_account.sasoleuwaescatalog /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg/providers/Microsoft.Storage/storageAccounts/sasoleuwaescatalog
-            terraform import azurerm_storage_container.metastore https://sasoleuwaescatalog.blob.core.windows.net/metastore
-            terraform import databricks_metastore.metastore 88ad67c1-2d9f-448a-a740-155002742426
-            terraform import databricks_metastore_assignment.metastore '3787911233650262|88ad67c1-2d9f-448a-a740-155002742426'
-            terraform import azurerm_user_assigned_identity.sasoleuw-aes-catalog-id /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasoleuw-aes-catalog-id
-            terraform import azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-aes-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasoleuw-aes-catalog-conncetor
+            terraform import azurerm_resource_group.sasoleuw-simegas-dev-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasoleuw-simegas-dev-rg            
+            terraform import azurerm_storage_account.sasolzansimegascatalog /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolzan-simegas-unity-catalog-rg/providers/Microsoft.Storage/storageAccounts/sasolzansimegascatalog
+            terraform import azurerm_storage_container.metastore https://sasolzansimegascatalog.blob.core.windows.net/metastore
+            terraform import databricks_metastore.metastore 5d82725a-eafd-46d2-9fae-2712b2c31d5f
+            terraform import databricks_metastore_assignment.metastore '3212216276919665|5d82725a-eafd-46d2-9fae-2712b2c31d5f'
+            terraform import azurerm_user_assigned_identity.sasolzan-simegas-catalog-id /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolzan-simegas-unity-catalog-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolzan-simegas-catalog-id
+            terraform import azurerm_databricks_access_connector.sasolzan-simegas-catalog-conncetor /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolzan-simegas-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasolzan-simegas-catalog-conncetor
           displayName: 'Import Resources'
           workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
