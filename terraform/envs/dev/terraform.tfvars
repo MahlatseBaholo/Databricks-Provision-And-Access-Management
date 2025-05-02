@@ -33,7 +33,7 @@ entitlements = {
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
-cluster_name              = "multi-node-sandbox-small-general-purpose"  
+cluster_name              = "multi-node-simegas-small-general-purpose"  
 spark_version             = "15.4.x-scala2.12"       
 node_type_id              = "Standard_DS3_v2"         
 driver_node_type_id       = "Standard_DS3_v2"        
@@ -67,7 +67,7 @@ cluster_permissions = {
 ##############################################
 # Serverless SQL Warehouse Configuration
 ##############################################
-sql_warehouse_name                     = "serverless-sql-warehouse-sandbox-small" 
+sql_warehouse_name                     = "serverless-sql-warehouse-simegas-small" 
 sql_warehouse_cluster_size             = "2X-Small"                                       
 sql_warehouse_max_num_clusters         = 2                                            
 sql_warehouse_min_num_clusters         = 1                                             
@@ -87,7 +87,7 @@ sql_warehouse_permissions = {
 ##############################################
 catalog_definitions = {
 
-  ai = {
+  ai_dev = {
     project = "simegas"  
     schema_names = ["bronze", "silver", "gold"] 
     catalog_access = {
