@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  resourcegroup: 'sasolsan-simegas-dev-rg'
+  resourcegroup: 'sasolsan-simegas-dev-terraform-rg'
   accountname: 'sasoldevsimegasterraform'
   containername: 'shared-components'
   key: 'metastore_azure_southafricanorth/terraform.tfstate'
@@ -34,8 +34,8 @@ stages:
             terraform import azurerm_resource_group.sasolsan-simegas-dev-terraform-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-terraform-rg
             terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
             terraform import azurerm_storage_container.metastore https://sasolsansimegascatalog.blob.core.windows.net/metastore
-            terraform import databricks_metastore.metastore 5d82725a-eafd-46d2-9fae-2712b2c31d5f
-            terraform import databricks_metastore_assignment.metastore '1584894596117397|5d82725a-eafd-46d2-9fae-2712b2c31d5f'
+            terraform import databricks_metastore.metastore_azure_southafricanorth 5d82725a-eafd-46d2-9fae-2712b2c31d5f
+            terraform import databricks_metastore_assignment.metastore_azure_southafricanorth '1584894596117397|5d82725a-eafd-46d2-9fae-2712b2c31d5f'
             terraform import azurerm_user_assigned_identity.sasolsan-simegas-catalog-id /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolsan-simegas-catalog-id
             terraform import azurerm_databricks_access_connector.sasolsan-simegas-catalog-conncetor /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasolsan-simegas-catalog-conncetor
           displayName: 'Import Resources'
