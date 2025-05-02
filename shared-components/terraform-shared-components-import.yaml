@@ -81,7 +81,8 @@ stages:
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
           - script: |
-              terraform import azurerm_resource_group.sasolsan-simegas-dev-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-rg            
+              terraform import azurerm_resource_group.sasolsan-simegas-dev-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-rg
+              terraform import azurerm_resource_group.sasolsan-simegas-unity-catalog-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg            
               terraform import azurerm_resource_group.sasolsan-simegas-dev-terraform-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-terraform-rg
               terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
               terraform import azurerm_storage_container.metastore https://sasolsansimegascatalog.blob.core.windows.net/metastore
