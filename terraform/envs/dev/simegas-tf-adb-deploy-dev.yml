@@ -9,7 +9,7 @@ variables:
   accountname: 'sasoldevsimegasterraform'
   containername: 'sasol-dev-simegas-dbw'
   key: 'manage/terraform.tfstate'
-  azureSubscription: 'AES 2.0 Dev - SP'
+  azureSubscription: 'SIMEGAS Dev - SP'
   keyVaultName: 'sasol-dev-simegas-key'
 
 stages:
