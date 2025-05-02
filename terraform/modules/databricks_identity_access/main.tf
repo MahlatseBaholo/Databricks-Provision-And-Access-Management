@@ -7,6 +7,12 @@ terraform {
   }
 }
 
+data "databricks_group" "groups" {
+  for_each    = toset(var.group_names)
+  provider    = databricks.account
+  display_name = each.value
+}
+
 resource "databricks_permission_assignment" "permission_assignment" {
   for_each    = var.permission_assignments
   provider    = databricks.workspace
