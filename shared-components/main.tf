@@ -32,23 +32,23 @@ resource "azurerm_storage_container" "metastoreazuresan" {
   container_access_type = "private"
 }
 
-resource "databricks_metastore" "metastore_azure_southafricanorth" {
-  provider      = databricks.azure_account
-  name          = "metastore_azure_southafricanorth"
-  storage_root  = "abfss://metastore_azure_southafricanorth@sasolsansimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
+#resource "databricks_metastore" "metastore_azure_southafricanorth" {
+#  provider      = databricks.azure_account
+#  name          = "metastore_azure_southafricanorth"
+#  storage_root  = "abfss://metastore_azure_southafricanorth@sasolsansimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
   #owner         = "MetastoreAdmins"
-  region        = "southafricanorth"
-  sku           = "premium"
-}
-
-#resource "azurerm_databricks_workspace" "workspace" {
-#  name                = var.name
-#  location            = var.location
-#  resource_group_name = var.resource_group_name_workspace
-#  sku                 = "premium"
+#  region        = "southafricanorth"
+#  sku           = "premium"
 #}
 
-resource "databricks_metastore_assignment" "metastore" {
+resource "azurerm_databricks_workspace" "workspace" {
+  name                = var.name
+  location            = var.location
+  resource_group_name = var.resource_group_name_workspace
+  sku                 = "premium"
+}
+
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
   provider      = databricks.azure_account
   metastore_id  = databricks_metastore.metastore.id
   workspace_id  = "1584894596117397"
