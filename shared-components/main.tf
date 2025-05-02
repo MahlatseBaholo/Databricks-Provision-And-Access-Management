@@ -51,7 +51,7 @@ resource "azurerm_storage_container" "metastore" {
 #resource "databricks_metastore_assignment" "metastore" {
 #  provider      = databricks.azure_account
 #  metastore_id  = databricks_metastore.metastore.id
-#  workspace_id  = "3212216276919665"
+#  workspace_id  = "1584894596117397"
 #}
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
