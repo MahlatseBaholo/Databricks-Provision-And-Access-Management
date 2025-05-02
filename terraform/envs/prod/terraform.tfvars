@@ -83,7 +83,7 @@ sql_warehouse_permissions = {
 # Define and Manage Catalogs, Schemas, and Permissions
 ##############################################
 catalog_definitions = {
-  ai_prod = {
+  ai-prod = {
     project = "simegas"  
     schema_names = ["bronze", "silver", "gold"] 
     catalog_access = {
