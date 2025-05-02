@@ -3,7 +3,7 @@ output "metastore_id" {
 }
 
 output "workspace_id" {
-  value = azurerm_databricks_workspace.workspace.id
+  value = azurerm_databricks_workspace.sasol-dev-simegas-dbw.id
 }
 
 output "storage_account_name" {
