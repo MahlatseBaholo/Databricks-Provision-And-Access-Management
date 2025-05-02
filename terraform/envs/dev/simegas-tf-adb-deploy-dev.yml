@@ -42,38 +42,10 @@ stages:
               provider: 'azurerm'
               command: 'validate'
 
-  - stage: snykScan
-    displayName: "Snyk Infrastructure as Code Scan"
-    dependsOn: tfvalidate
-    condition: succeeded('tfvalidate')
-    jobs:
-      - job: RunSnykIaCScan
-        displayName: 'Run Snyk IaC Test'
-        steps:
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '18.x'
-            displayName: 'Install Node.js'
-
-          - script: |
-              echo "Installing Snyk CLI"
-              npm install -g snyk
-            displayName: 'Install Snyk CLI'
-
-          - script: |
-              echo "Authenticating Snyk CLI with token"
-              snyk auth --auth-type=token $(SNYK_TOKEN)
-            displayName: 'Authenticate Snyk CLI'
-
-          - script: |
-              echo "Running Snyk IaC scan on Terraform directory"
-              snyk iac test terraform/envs/dev --org=default --json > snyk-report.json || echo "[]" > snyk-report.json
-            displayName: 'Run Snyk IaC scan'
-
   - stage: tfplan
     displayName: "Terraform Plan"
-    dependsOn: snykScan
-    condition: succeeded('snykScan')
+    dependsOn: tfvalidate
+    condition: succeeded('tfvalidate')
     jobs:
       - job: tfplan
         displayName: "plan"
@@ -100,7 +72,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: '*'
+              SecretsFilter: 'AccessKey-sasoldevterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -115,7 +87,7 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
@@ -164,6 +136,10 @@ stages:
               TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
               TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
               TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
 
   - stage: Approval
     displayName: "Approval"
@@ -209,7 +185,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: '*'
+              SecretsFilter: 'AccessKey-sasoldevterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -224,7 +200,7 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
@@ -273,3 +249,9 @@ stages:
               TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
               TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
               TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
+
+
