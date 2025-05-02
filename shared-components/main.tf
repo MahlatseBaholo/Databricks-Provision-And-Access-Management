@@ -38,7 +38,7 @@ resource "azurerm_storage_container" "metastoreazuresan" {
 }
 
 resource "databricks_metastore" "metastore_azure_southafricanorth" {
-  provider      = databricks.azure_account
+  provider      = databricks.account
   name          = "metastore_azure_southafricanorth"
   #storage_root  = "abfss://metastore_azure_southafricanorth@sasolsansimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
   #owner         = "MetastoreAdmins"
