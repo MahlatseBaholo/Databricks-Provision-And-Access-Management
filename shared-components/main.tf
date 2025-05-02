@@ -1,7 +1,7 @@
-resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
-  name     = "sasolsan-simegas-unity-catalog-rg"
-  location = "southafricanorth"
-}
+#resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
+#  name     = "sasolsan-simegas-unity-catalog-rg"
+#  location = "southafricanorth"
+#}
 
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
