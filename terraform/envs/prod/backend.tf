@@ -1,9 +1,8 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "sasoleuw-big-data-dev-aes-terraform-rg"
-    storage_account_name = "sasolterraform"
-    container_name       = "sasol-sandbox-aes-dbw"
-    key                  = "unity-catalog/terraform.tfstate"
-    access_key           = "BwPZlGrsD3EQn4B1ZrZxbPqK+51F+DuhQUYXUInfjtYgwtAx6mEzUNd+p+NZNWREiLsulbaJFBC2+ASth6AtRg=="
+    resource_group_name  = "sasolsan-simegas-dev-terraform-rg"
+    storage_account_name = "sasoldevsimegasterraform"
+    container_name       = "sasol-dev-simegas-dbw"
+    key                  = "manage/terraform.tfstate"
   }
 }
