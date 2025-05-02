@@ -55,7 +55,7 @@ resource "azurerm_databricks_workspace" "workspace" {
 
 resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
   provider      = databricks.account
-  metastore_id  = databricks_metastore.metastore.id
+  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
   workspace_id  = "1584894596117397"
 }
 
