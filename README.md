@@ -39,14 +39,16 @@ terraform/
 │       └── variables.tf
 │
 ├── modules/
-│   ├── databricks_catalog_with_access/
+│   ├── databricks_budget/
 │   ├── databricks_catalog_schema_grants/
-│   ├── databricks_cluster/
-│   ├── databricks_identity_access/
+│   ├── databricks_catalog_with_access/
+│   ├── databricks_cluster_with_permissions/
 │   ├── external_location/
+│   ├── databricks_folder_usage_permissions/
+│   ├── databricks_identity_access/  
 │   ├── sql_warehouse/
-│   ├── storage_container/
-│   └── storage_credential/
+│   ├── databricks_storage_credential/
+│   └── storage_container/
 │
 └── pipelines/
     ├── simegas-tf-adb-deploy-dev.yml
@@ -109,7 +111,7 @@ Secrets are stored in **Azure Key Vault** and accessed via environment variables
 - `DATABRICKS_WORKSPACE_CLIENT_ID`, `DATABRICKS_WORKSPACE_CLIENT_SECRET`
 - `DATABRICKS_WORKSPACE_HOST`
 - `DATABRICKS_ACCOUNT_ID`
-- `AccessKey-sasoldevsimegasterraform` (Azure Storage backend access key)
+- `AccessKey-sasoldevterraform` (Azure Storage backend access key)
 
 Firewall rules are dynamically updated for build agent IP access to Key Vault during runtime.
 
@@ -131,12 +133,15 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 
 ## ✅ Tips & Best Practices
 
-- 🔐 Secrets to be rotated in Azure Key Vault after 180 days.
-- 🛡️ Users will be granted access via Azure AD groups using SCIM for least privilege.
+- 🔁 Use a separate state file per environment.
+- 🔐 Rotate secrets regularly in Azure Key Vault.
+- 🛡️ Grant access via Azure AD groups using SCIM for least privilege.
 
 ## ✅ Troubleshooting
  
-- 🔁If users encounter the error "PERMISSION DENIED: User name.surname@sasol.com does not have READ permission on scope KeyVault to perform this action" while attempting to run a Python notebook, please submit a request through the service catalog https://myim.service-now.com/sp?id=sc_cat_item&sys_id=c0768b14c3d69a9039011ef0e00131f9
+| Error | Fix                                |
+|--------|----------------------------------------|
+| "PERMINSSION DENIED: User name.surname@sasol.com does not have READ permission on scope KeyVault to perform this action     | log a request on the service catalog here:https://myim.service-now.com/sp?id=sc_cat_item&sys_id=c0768b14c3d69a9039011ef0e00131f9                      |
 
 ## 📬 Contact & Contribution
 
