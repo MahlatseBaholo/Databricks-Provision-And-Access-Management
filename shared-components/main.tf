@@ -47,9 +47,9 @@ resource "databricks_metastore" "metastore_azure_southafricanorth" {
 }
 
 resource "azurerm_databricks_workspace" "workspace" {
-  name                = var.name
-  location            = var.location
-  resource_group_name = var.resource_group_name_workspace
+  name                = "sasol-simegas-dbw-rg"
+  location            = "southafricanorth"
+  resource_group_name = "sasolsan-simegas-dev-rg"
   sku                 = "premium"
 }
 
