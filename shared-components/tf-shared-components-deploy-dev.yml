@@ -8,7 +8,7 @@ variables:
   resourcegroup: 'sasolsan-simegas-dev-terraform-rg'
   accountname: 'sasoldevsimegasterraform'
   containername: 'shared-components'
-  key: 'metastore_azure_southafricanorth/terraform.tfstate'
+  key: 'metastoreazuresan/terraform.tfstate'
   azureSubscription: 'SIMEGAS Dev - SP'
   keyVaultName: 'sasol-dev-simegas-key'
 
