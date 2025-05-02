@@ -1,7 +1,7 @@
 data "databricks_group" "groups" {
   for_each = toset(var.group_names)
 
-  provider     = databricks.account
+  provider     = databricks.workspace
   display_name = each.value
 }
 
