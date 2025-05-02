@@ -5,14 +5,13 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  resourcegroup: 'sasolsan-simegas-dev-terraform-rg'
-  workspace_rg : 'sasolsan-simegas-dev-rg'
-  accountname: 'sasoldevsimegasterraform'
+  resourcegroup: 'sasolsan-simegas-$(env)-terraform-rg'
+  workspace_rg : 'sasolsan-simegas-$(env)-rg'
+  accountname: 'sasol$(env)simegasterraform'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
-  azureSubscription: 'SIMEGAS Dev - SP'
-  keyVaultName: 'sasol-dev-simegas-key'
-  env: dev
+  azureSubscription: 'SIMEGAS $(env) - SP'
+  keyVaultName: 'sasol-$(env)-simegas-key'
   
 stages:
   - stage: tfimport
