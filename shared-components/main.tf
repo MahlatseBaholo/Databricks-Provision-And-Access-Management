@@ -1,9 +1,3 @@
-resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
-  name     = "sasolsan-simegas-unity-catalog-rg"
-  location = "southafricanorth"
-}
-
-
 resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
   name     = "sasolsan-simegas-dev-rg"
   location = "southafricanorth"
@@ -14,7 +8,10 @@ resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
   location = "southafricanorth"
 }
 
-
+resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
+  name     = "sasolsan-simegas-unity-catalog-rg"
+  location = "southafricanorth"
+}
 
 resource "azurerm_storage_account" "sasolsansimegascatalog" {
   name                      = "sasolsansimegascatalog"
@@ -43,10 +40,7 @@ resource "azurerm_storage_container" "metastoreazuresan" {
 resource "databricks_metastore" "metastore_azure_southafricanorth" {
   provider      = databricks.account
   name          = "metastore_azure_southafricanorth"
-  #storage_root  = "abfss://metastore_azure_southafricanorth@sasolsansimegascatalog.dfs.core.windows.net/managed-tables/88ad67c1-2d9f-448a-a740-155002742426"
-  #owner         = "MetastoreAdmins"
   region        = "southafricanorth"
-#  sku           = "premium"
 }
 
 resource "azurerm_databricks_workspace" "workspace" {
