@@ -5,12 +5,12 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  resourcegroup: 'sasolsan-simegas-dev-terraform-rg'
-  accountname: 'sasoldevsimegasterraform'
+  resourcegroup: 'sasolsan-simegas-$(env)-terraform-rg'
+  accountname: 'sasol$(env)simegasterraform'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
-  azureSubscription: 'SIMEGAS Dev - SP'
-  keyVaultName: 'sasol-dev-simegas-key'
+  azureSubscription: 'SIMEGAS $(env) - SP'
+  keyVaultName: 'sasol-$(env)-simegas-key'
 
 stages:
   - stage: tfvalidate
@@ -72,12 +72,12 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasoldevsimegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol$(env)simegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
               echo "Setting environment variables for Terraform..."
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoldevsimegasterraform)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)simegasterraform)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
@@ -185,12 +185,12 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasoldevsimegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol$(env)simegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
               echo "Setting environment variables for Terraform..."
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoldevsimegasterraform)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)simegasterraform)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
