@@ -2,14 +2,14 @@ terraform {
   required_providers {
     databricks = {
       source = "databricks/databricks"
-      configuration_aliases = [databricks.account,databricks.workspace]
+      configuration_aliases = [databricks.account, databricks.workspace]
     }
   }
 }
 
 data "databricks_group" "groups" {
   for_each    = toset(var.group_names)
-  provider    = databricks.account
+  provider    = databricks.workspace
   display_name = each.value
 }
 
