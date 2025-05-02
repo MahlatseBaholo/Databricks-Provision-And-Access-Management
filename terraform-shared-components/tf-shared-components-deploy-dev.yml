@@ -34,7 +34,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-shared-components/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
 
           - task: TerraformTaskV4@4
             displayName: validate
@@ -72,7 +72,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: '*'
+              SecretsFilter: 'AccessKey-sasoldevterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -87,7 +87,7 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
@@ -115,7 +115,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-shared-components/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
 
           - task: TerraformTaskV4@4
             displayName: plan
@@ -123,7 +123,7 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: $(azureSubscription)
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-shared-components/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
             env:
               ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
@@ -136,6 +136,10 @@ stages:
               TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
               TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
               TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
 
   - stage: Approval
     displayName: "Approval"
@@ -181,7 +185,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: '*'
+              SecretsFilter: 'AccessKey-sasoldevterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -196,7 +200,7 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
@@ -224,7 +228,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-shared-components/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
 
           - task: TerraformTaskV4@4
             displayName: apply
@@ -232,7 +236,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: $(azureSubscription)
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-shared-components/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
             env:
               ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
@@ -245,3 +249,9 @@ stages:
               TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
               TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
               TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
+
+
