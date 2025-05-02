@@ -1,3 +1,14 @@
+#module "databricks_budgets" {
+#  source = "../../modules/databricks_budget"
+#  providers = {
+#    databricks.account = databricks.account
+#    databricks.workspace = databricks.workspace
+    #databricks = databricks.account
+#  }
+
+#  budgets = var.budgets
+#}
+
 module "databricks_identity_access" {
   source = "../../modules/databricks_identity_access"
   
@@ -13,20 +24,20 @@ module "databricks_identity_access" {
 module "databricks_cluster" {
   source = "../../modules/databricks_cluster_with_permissions"
 
-  cluster_name         = var.cluster_name
-  spark_version        = var.spark_version
-  node_type_id         = var.node_type_id
-  driver_node_type_id  = var.driver_node_type_id
-  autotermination_minutes = var.autotermination_minutes
-  enable_elastic_disk  = var.enable_elastic_disk
-  policy_id            = var.policy_id
+  cluster_name                 = var.cluster_name
+  spark_version                = var.spark_version
+  node_type_id                 = var.node_type_id
+  driver_node_type_id          = var.driver_node_type_id
+  autotermination_minutes      = var.autotermination_minutes
+  enable_elastic_disk          = var.enable_elastic_disk
+  policy_id                    = var.policy_id
   enable_local_disk_encryption = var.enable_local_disk_encryption
-  data_security_mode   = var.data_security_mode
-  runtime_engine       = var.runtime_engine
-  apply_policy_default_values = var.apply_policy_default_values
-  azure_attributes     = var.azure_attributes
-  autoscale            = var.autoscale
-  cluster_permissions  = var.cluster_permissions
+  data_security_mode           = var.data_security_mode
+  runtime_engine               = var.runtime_engine
+  apply_policy_default_values  = var.apply_policy_default_values
+  azure_attributes             = var.azure_attributes
+  autoscale                    = var.autoscale
+  cluster_permissions          = var.cluster_permissions
   providers = {
     databricks = databricks.workspace
   }
@@ -116,3 +127,15 @@ module "databricks_catalog_schema_grants" {
     databricks = databricks.workspace
   }
 }
+
+module "folder_permissions" {
+  source = "../../modules/databricks_folder_usage_permissions"
+
+  directory_path  = var.folder_path
+  access_controls = var.access_controls
+
+  providers = {
+    databricks = databricks.workspace
+  }
+}
+
