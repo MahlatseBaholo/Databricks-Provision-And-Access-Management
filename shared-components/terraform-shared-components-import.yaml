@@ -9,7 +9,6 @@ variables:
   workspace_rg : 'sasolsan-simegas-dev-rg'
   accountname: 'sasoldevsimegasterraform'
   containername: 'shared-components'
-  metastore_id: '5d82725a-eafd-46d2-9fae-2712b2c31d5f'
   metastore_name : 'metastore_azure_southafricanorth'
   workspace_id: '1584894596117397'
   workspace_name : 'sasol-dev-simegas-dbw'
@@ -44,7 +43,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasoldevsimegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,ServicePrincipal-DevOps-ClientSecret,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasoldevsimegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,MetastoreID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,ServicePrincipal-DevOps-ClientSecret,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -53,8 +52,10 @@ stages:
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
-              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
+              echo "##vso[task.setvariable variable=METASTORE_ID;issecret=true]$(MetastoreID)"
+              echo "##vso[task.setvariable variable=METASTORE_NAME;issecret=true]$(Metastore-Name)"
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
@@ -93,8 +94,8 @@ stages:
               terraform import azurerm_storage_account.$(accountname) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(resourcegroup)/providers/Microsoft.Storage/storageAccounts/$(accountname)
               terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
               terraform import azurerm_storage_container.metastoreazuresan https://sasolsansimegascatalog.blob.core.windows.net/metastoreazuresan
-              terraform import databricks_metastore.$(metastore_name) $(metastore_id)
-              terraform import databricks_metastore_assignment.$(metastore_name) '$(workspace_id)|$(metastore_id)'
+              terraform import databricks_metastore.$(METASTORE_NAME) $(METASTORE_ID)
+              terraform import databricks_metastore_assignment.$(METASTORE_NAME) '$(WORKSPACE_ID)|$(METASTORE_ID)'
               terraform import azurerm_user_assigned_identity.sasolsan-simegas-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolsan-simegas-catalog-id
               terraform import azurerm_databricks_access_connector.sasolsan-simegas-catalog-connector /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasolsan-simegas-catalog-connector
             displayName: 'Import Resources'
