@@ -50,7 +50,7 @@ terraform/
 │
 └── pipelines/
     ├── simegas-tf-adb-deploy-dev.yml
-    ├── simegas-tf-adb-deploy-preprod.yml
+    ├── simegas-tf-adb-deploy-qa.yml
     └── simegas-tf-adb-deploy-prod.yml
 ```
 
