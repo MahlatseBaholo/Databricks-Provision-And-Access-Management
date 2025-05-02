@@ -7,7 +7,7 @@ pool:
 variables:
   resourcegroup: 'sasolsan-simegas-dev-terraform-rg'
   accountname: 'sasoldevsimegasterraform'
-  containername: 'sasol-dev-simegas-dbw'
+  containername: 'shared-components'
   key: 'manage/terraform.tfstate'
   azureSubscription: 'SIMEGAS Dev - SP'
   keyVaultName: 'sasol-dev-simegas-key'
