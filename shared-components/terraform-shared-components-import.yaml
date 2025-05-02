@@ -10,7 +10,7 @@ variables:
   containername: 'shared-components'
   key: 'metastore_azure_southafricanorth/terraform.tfstate'
   azureSubscription: 'SIMEGAS Dev - SP'
-  keyVaultName: 'sasol-dev-aes-key'
+  keyVaultName: 'sasol-dev-simegas-key'
 
 stages:
   - stage: tfimport
@@ -91,3 +91,19 @@ stages:
               terraform import azurerm_databricks_access_connector.sasolsan-simegas-catalog-conncetor /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasolsan-simegas-catalog-conncetor
             displayName: 'Import Resources'
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
+            env:
+              ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+              TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
+              TF_VAR_tenant_id: $(ARM_TENANT_ID)
+              TF_VAR_client_id: $(ARM_CLIENT_ID)
+              TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
+              TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              TF_VAR_account_client_secret: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              TF_VAR_workspace_client_id: $(DATABRICKS_WORKSPACE_CLIENT_ID)
+              TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
+              TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
+              TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
