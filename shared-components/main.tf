@@ -28,7 +28,6 @@ resource "azurerm_storage_account" "sasoldevsimegasterraform" {
   location                  = azurerm_resource_group.sasolsan-simegas-dev-terraform-rg.location
   account_tier              = "Standard"
   account_replication_type  = "LRS"
-  is_hns_enabled            = true
 }
 
 resource "azurerm_storage_container" "metastoreazuresan" {
