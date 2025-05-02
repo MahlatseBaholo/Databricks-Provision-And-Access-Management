@@ -27,7 +27,7 @@ resource "azurerm_storage_account" "sasoldevsimegasterraform" {
   resource_group_name       = "sasolsan-simegas-dev-terraform-rg"
   location                  = azurerm_resource_group.sasolsan-simegas-dev-terraform-rg.location
   account_tier              = "Standard"
-  account_replication_type  = "ZRS"
+  account_replication_type  = "LRS"
   is_hns_enabled            = true
 }
 
