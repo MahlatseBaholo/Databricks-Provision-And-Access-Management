@@ -147,8 +147,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 
 For questions, updates, or to contribute:
 - Contact: Platform Engineer (Mahlatse.Baholo@sasol.com), Platform Owner (Vusi.Sithole@sasol.com)
-- PRs: Open a pull request against the `main` branch
-- Bugs: Raise an issue in the tracker
+- PRs: Open a pull request against the `main` branch and forward to Platform Engineer for approval
 
 ---
 
