@@ -2,7 +2,7 @@
 
 ## 🧱 Project Overview
 
-This Terraform-based infrastructure-as-code project provisions and manages Azure Databricks resources across different modules and environments (e.g., `dev`, `prod`). It supports modular deployments, SCIM-based access control, secure credential handling, and automated Azure DevOps CI/CD pipelines.
+This Terraform-based infrastructure-as-code project provisions and manages Azure Databricks resources across different modules and environments (e.g., `dev`,`qa`, `prod`). It supports modular deployments, SCIM-based access control, secure credential handling, and automated Azure DevOps CI/CD pipelines.
 
 ---
 
@@ -139,7 +139,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
  
 | Error | Fix                                |
 |--------|----------------------------------------|
-| "PERMINSSION DENIED: User name.surname@sasol.com does not have READ permission on scope KeyVault to perform this action     | log a request on the service catalog here:https://myim.service-now.com/sp?id=sc_cat_item&sys_id=c0768b14c3d69a9039011ef0e00131f9                      |
+| "PERMINSSION DENIED: User name.surname@sasol.com does not have READ permission on scope KeyVault to perform this action     | Log a request on the service catalog here:https://myim.service-now.com/sp?id=sc_cat_item&sys_id=c0768b14c3d69a9039011ef0e00131f9                      |
 
 ## 📬 Contact & Contribution
 
