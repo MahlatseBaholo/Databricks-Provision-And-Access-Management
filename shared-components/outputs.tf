@@ -1,5 +1,5 @@
 output "metastore_id" {
-  value = databricks_metastore.metastore.id
+  value = databricks_metastore.metastore_azure_southafricanorth.id
 }
 
 output "workspace_id" {
