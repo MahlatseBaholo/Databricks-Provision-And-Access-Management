@@ -17,6 +17,15 @@ resource "azurerm_storage_account" "sasolsansimegascatalog" {
   is_hns_enabled            = true
 }
 
+resource "azurerm_storage_account" "sasoldevsimegasterraform" {
+  name                      = "sasoldevsimegasterraform"
+  resource_group_name       = "sasolsan-simegas-dev-terraform-rg"
+  location                  = azurerm_resource_group.sasolsan-simegas-dev-terraform-rg.location
+  account_tier              = "Standard"
+  account_replication_type  = "ZRS"
+  is_hns_enabled            = true
+}
+
 resource "azurerm_storage_container" "metastore" {
   name                  = "metastore"
   storage_account_name  = azurerm_storage_account.sasolsansimegascatalog.name
