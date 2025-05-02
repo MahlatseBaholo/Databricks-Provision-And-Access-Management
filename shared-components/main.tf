@@ -8,6 +8,11 @@ resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
   location = "southafricanorth"
 }
 
+resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
+  name     = "sasolsan-simegas-unity-catalog-rg"
+  location = "southafricanorth"
+}
+
 resource "azurerm_storage_account" "sasolsansimegascatalog" {
   name                      = "sasolsansimegascatalog"
   resource_group_name       = "sasolsan-simegas-unity-catalog-rg"
