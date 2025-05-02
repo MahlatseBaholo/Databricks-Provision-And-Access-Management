@@ -250,7 +250,6 @@ stages:
               TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
               TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
               TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
-              TF_VAR_env: $(ENV)
               DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
               DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
               DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
