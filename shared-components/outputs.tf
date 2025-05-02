@@ -35,5 +35,5 @@ output "workspace_resource_group_name" {
 }
 
 output "metastore_assignment" {
-  value = databricks_metastore_assignment.metastore
+  value = databricks_metastore_assignment.metastore_azure_southafricanorth
 }
