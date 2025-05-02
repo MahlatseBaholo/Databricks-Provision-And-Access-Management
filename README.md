@@ -67,7 +67,7 @@ terraform/
 | `databricks_catalog_with_access` | Creates catalogs, schemas, and assigns access                  |
 | `databricks_cluster_with_permissions`            | Provisions Databricks clusters                                 |
 | `databricks_external_location`             | Creates external locations pointing to mounted storage         |
-| `databricks_folder_usage_permissions` | Grants access to SCIM-synced Azure AD groups                |
+| `databricks_folder_usage_permissions` | Grants access to folders                |
 | `databricks_identity_access`    | Queries Azure AD groups via SCIM                               |
 | `databricks_sql_warehouse`                 | Creates SQL warehouses                                         |
 | `databricks_storage_credential` | Creates Databricks storage credentials                         |
