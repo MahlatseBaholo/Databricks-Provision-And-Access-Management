@@ -44,8 +44,8 @@ stages:
 
   - stage: tfplan
     displayName: "Terraform Plan"
-    dependsOn: snykScan
-    condition: succeeded('snykScan')
+    dependsOn: tfvalidate
+    condition: succeeded('tfvalidate')
     jobs:
       - job: tfplan
         displayName: "plan"
