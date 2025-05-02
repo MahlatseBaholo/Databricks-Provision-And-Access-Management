@@ -84,7 +84,7 @@ stages:
               terraform import azurerm_resource_group.sasolsan-simegas-dev-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-rg
               terraform import azurerm_resource_group.sasolsan-simegas-unity-catalog-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg            
               terraform import azurerm_resource_group.sasolsan-simegas-dev-terraform-rg /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-terraform-rg
-              terraform import azurerm_databricks_workspace.sasol-dev-simegas-dbw /subscriptions/53b5fe7d-2477-4a93-943a-af5571bf146c/resourceGroups/sasoleuw-big-data-dev-aes-rg/providers/Microsoft.Databricks/workspaces/sasol-dev-simegas-dbw
+              terraform import azurerm_databricks_workspace.sasol-dev-simegas-dbw /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-rg/providers/Microsoft.Databricks/workspaces/sasol-dev-simegas-dbw
               terraform import azurerm_storage_account.sasoldevsimegasterraform /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-dev-terraform-rg/providers/Microsoft.Storage/storageAccounts/sasoldevsimegasterraform
               terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/4a044c24-1775-4ff2-9395-2b5b39bfb09a/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
               terraform import azurerm_storage_container.metastoreazuresan https://sasolsansimegascatalog.blob.core.windows.net/metastoreazuresan
