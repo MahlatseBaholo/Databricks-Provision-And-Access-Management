@@ -33,7 +33,7 @@ entitlements = {
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
-cluster_name              = "multi-node-sandbox-small-general-purpose"  
+cluster_name              = "multi-node-simegas-small-general-purpose"  
 spark_version             = "15.4.x-scala2.12"       
 node_type_id              = "Standard_DS3_v2"         
 driver_node_type_id       = "Standard_DS3_v2"        
@@ -67,7 +67,7 @@ cluster_permissions = {
 ##############################################
 # Serverless SQL Warehouse Configuration
 ##############################################
-sql_warehouse_name                     = "serverless-sql-warehouse-sandbox-small" 
+sql_warehouse_name                     = "serverless-sql-warehouse-simegas-small" 
 sql_warehouse_cluster_size             = "2X-Small"                                       
 sql_warehouse_max_num_clusters         = 2                                            
 sql_warehouse_min_num_clusters         = 1                                             
@@ -87,31 +87,28 @@ sql_warehouse_permissions = {
 ##############################################
 catalog_definitions = {
 
-  ai = {
+  ai_qa = {
     project = "simegas"  
     schema_names = ["bronze", "silver", "gold"] 
     catalog_access = {
       "GenAI-Developers" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+        "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ]
     }
     schema_access = {
       bronze = {
         "GenAI-Developers" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       },
       silver = {
         "GenAI-Developers" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       },
       gold = {
         "GenAI-Developers" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       }
     }
@@ -131,13 +128,5 @@ access_controls = [
   {
     group_name       = "users"
     permission_level = "CAN_RUN"
-  },
-  {
-    group_name       = "users"
-    permission_level = "CAN_EDIT"
-  },
-  {
-    group_name       = "users"
-    permission_level = "CAN_MANAGE"
   }
 ]
