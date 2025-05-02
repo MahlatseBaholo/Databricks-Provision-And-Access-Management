@@ -17,6 +17,7 @@ terraform/
 │   │   ├── locals.tf
 │   │   ├── main.tf
 │   │   ├── providers.tf
+│   │   ├── simegas-tf-adb-deploy-dev.yml
 │   │   ├── terraform.tfvars
 │   │   └── variables.tf
 │   ├── preprod/
@@ -25,6 +26,7 @@ terraform/
 │   │   ├── locals.tf
 │   │   ├── main.tf
 │   │   ├── providers.tf
+│   │   ├── simegas-tf-adb-deploy-qa.yml
 │   │   ├── terraform.tfvars
 │   │   └── variables.tf
 │   └── prod/
@@ -33,25 +35,21 @@ terraform/
 │       ├── locals.tf
 │       ├── main.tf
 │       ├── providers.tf
+│       ├── simegas-tf-adb-deploy-prod.yml
 │       ├── terraform.tfvars
 │       └── variables.tf
 │
-├── modules/
-│   ├── databricks_budget/
-│   ├── databricks_catalog_schema_grants/
-│   ├── databricks_catalog_with_access/
-│   ├── databricks_cluster_with_permissions/
-│   ├── external_location/
-│   ├── databricks_folder_usage_permissions/
-│   ├── databricks_identity_access/  
-│   ├── databricks_sql_warehouse/
-│   ├── databricks_storage_credential/
-│   └── storage_container/
-│
-└── pipelines/
-    ├── simegas-tf-adb-deploy-dev.yml
-    ├── simegas-tf-adb-deploy-qa.yml
-    └── simegas-tf-adb-deploy-prod.yml
+└── modules/
+   ├── databricks_budget/
+   ├── databricks_catalog_schema_grants/
+   ├── databricks_catalog_with_access/
+   ├── databricks_cluster_with_permissions/
+   ├── external_location/
+   ├── databricks_folder_usage_permissions/
+   ├── databricks_identity_access/  
+   ├── databricks_sql_warehouse/
+   ├── databricks_storage_credential/
+   └── storage_container/
 ```
 
 ---
