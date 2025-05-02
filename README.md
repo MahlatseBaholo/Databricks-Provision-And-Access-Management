@@ -137,7 +137,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 - 🔐 Rotate secrets regularly in Azure Key Vault.
 - 🛡️ Grant access via Azure AD groups using SCIM for least privilege.
 
-## ✅ Troubleshooting
+## 🛠️ Troubleshooting
  
 | Error | Fix                                |
 |--------|----------------------------------------|
