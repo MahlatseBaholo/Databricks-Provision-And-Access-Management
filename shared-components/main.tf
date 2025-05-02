@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "sasolsansimegascatalog" {
   resource_group_name       = "sasolsan-simegas-unity-catalog-rg"
   location                  = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
   account_tier              = "Standard"
-  account_replication_type  = "ZRS"
+  account_replication_type  = "LRS"
   is_hns_enabled            = true
 }
 
