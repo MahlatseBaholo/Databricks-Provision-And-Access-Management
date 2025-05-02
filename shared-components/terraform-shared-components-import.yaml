@@ -52,7 +52,7 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
               echo "##vso[task.setvariable variable=METASTORE_ID;issecret=true]$(MetastoreID)"
-              echo "##vso[task.setvariable variable=METASTORE_NAME;issecret=true]$(Metastore-Name)"
+              echo "##vso[task.setvariable variable=METASTORE_NAME;issecret=true]$(METASTORE-NAME)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace-ID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_NAME;issecret=true]$(Databricks-Workspace-Name)"
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
