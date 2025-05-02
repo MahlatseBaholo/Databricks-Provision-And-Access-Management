@@ -1,7 +1,7 @@
-#resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
-#  name     = "sasolsan-simegas-dev-rg"
-#  location = "southafricanorth"
-#}
+resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
+  name     = "sasolsan-simegas-dev-rg"
+  location = "southafricanorth"
+}
 
 resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
   name     = "sasolsan-simegas-dev-terraform-rg"
@@ -48,11 +48,11 @@ resource "azurerm_storage_container" "metastore" {
 #  sku                 = "premium"
 #}
 
-#resource "databricks_metastore_assignment" "metastore" {
-#  provider      = databricks.azure_account
-#  metastore_id  = databricks_metastore.metastore.id
-#  workspace_id  = "1584894596117397"
-#}
+resource "databricks_metastore_assignment" "metastore" {
+  provider      = databricks.azure_account
+  metastore_id  = databricks_metastore.metastore.id
+  workspace_id  = "1584894596117397"
+}
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
   name                = "sasolsan-simegas-catalog-id"
