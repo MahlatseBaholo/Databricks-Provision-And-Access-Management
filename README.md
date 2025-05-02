@@ -19,7 +19,6 @@ terraform/
 │   │   ├── providers.tf
 │   │   ├── terraform.tfvars
 │   │   └── variables.tf
-│
 │   ├── preprod/
 │   │   ├── backend.tf
 │   │   ├── data.tf
@@ -28,7 +27,6 @@ terraform/
 │   │   ├── providers.tf
 │   │   ├── terraform.tfvars
 │   │   └── variables.tf
-│
 │   └── prod/
 │       ├── backend.tf
 │       ├── data.tf
