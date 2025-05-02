@@ -1,5 +1,24 @@
+variable "budgets" {
+  description = "Map of budget configurations to be passed to the module"
+  type = map(object({
+    alert_config = object({
+      time_period        = string
+      trigger_type       = string
+      quantity_type      = string
+      quantity_threshold = string
+      action_configurations = list(object({
+        action_type = string
+        target      = string
+      }))
+    })
+    filter = object({
+      workspace_ids = list(string)
+    })
+  }))
+}
+
 variable "location" {
-  description = "The Azure region short name (e.g., euw, eus, usw2)"
+  description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
   type        = string
   default     = "san" 
 }
@@ -195,3 +214,17 @@ variable "catalog_definitions" {
     schema_access  = map(map(list(string)))
   }))
 }
+
+variable "folder_path" {
+  type        = string
+  description = "Path of the folder"
+}
+
+variable "access_controls" {
+  type = list(object({
+    group_name       = string
+    permission_level = string
+  }))
+  description = "List of permissions to assign to the folder"
+}
+
