@@ -46,7 +46,7 @@ terraform/
 │   ├── external_location/
 │   ├── databricks_folder_usage_permissions/
 │   ├── databricks_identity_access/  
-│   ├── sql_warehouse/
+│   ├── databricks_sql_warehouse/
 │   ├── databricks_storage_credential/
 │   └── storage_container/
 │
@@ -62,14 +62,16 @@ terraform/
 
 | Module                          | Description                                                    |
 |---------------------------------|----------------------------------------------------------------|
-| `databricks_catalog_with_access` | Creates catalogs, schemas, and assigns access                  |
+| `databricks_budget` | Creates budgets and send notifications to workspace owner                  |
 | `databricks_catalog_schema_grants` | Grants access to SCIM-synced Azure AD groups                |
-| `databricks_cluster`            | Provisions Databricks clusters                                 |
+| `databricks_catalog_with_access` | Creates catalogs, schemas, and assigns access                  |
+| `databricks_cluster_with_permissions`            | Provisions Databricks clusters                                 |
+| `databricks_external_location`             | Creates external locations pointing to mounted storage         |
+| `databricks_folder_usage_permissions` | Grants access to SCIM-synced Azure AD groups                |
 | `databricks_identity_access`    | Queries Azure AD groups via SCIM                               |
-| `external_location`             | Creates external locations pointing to mounted storage         |
-| `sql_warehouse`                 | Creates SQL warehouses                                         |
-| `storage_container`             | Provisions Azure Storage containers                            |
-| `storage_credential`            | Creates Databricks storage credentials                         |
+| `databricks_sql_warehouse`                 | Creates SQL warehouses                                         |
+| `databricks_storage_credential` | Creates Databricks storage credentials                         |
+| `storage_container`            |Provisions Azure Storage containers                          |
 
 ---
 
