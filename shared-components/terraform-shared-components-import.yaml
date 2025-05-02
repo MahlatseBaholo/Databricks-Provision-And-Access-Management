@@ -9,12 +9,63 @@ variables:
   accountname: 'sasoldevsimegasterraform'
   containername: 'shared-components'
   key: 'metastore_azure_southafricanorth/terraform.tfstate'
+  azureSubscription: 'AES 2.0 Dev - SP'
+  keyVaultName: 'sasol-dev-aes-key'
 
 stages:
   - stage: tfimport
     jobs:
       - job: tfimport
         steps:
+          - bash: |
+              echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
+            displayName: 'set variable currentip'
+
+          - bash: echo "Current Build Agent IP is $(currentip)"
+            displayName: 'display variable currentip'
+
+          - task: AzureCLI@2
+            displayName: 'add IP to Key Vault firewall'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo "Adding IP $(currentip) to Key Vault"
+                az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
+
+          - task: AzureKeyVault@2
+            displayName: 'get secrets from Azure Key Vault'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              KeyVaultName: $(keyVaultName)
+              SecretsFilter: 'AccessKey-sasoldevsimegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              RunAsPreJob: false
+
+          - script: |
+              echo "Setting environment variables for Terraform..."
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoldevsimegasterraform)"
+              echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
+              echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
+            displayName: 'set Env Vars from Secrets'
+
+          - task: AzureCLI@2
+            displayName: 'remove IP from Key Vault firewall'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo "Removing IP $(currentip) from Key Vault"
+                az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
         - task: TerraformInstaller@0
           inputs:
             terraformVersion: 'latest'
