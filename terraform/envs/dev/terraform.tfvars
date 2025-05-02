@@ -87,7 +87,7 @@ sql_warehouse_permissions = {
 ##############################################
 catalog_definitions = {
 
-  ai_dev = {
+  ai-dev = {
     project = "simegas"  
     schema_names = ["bronze", "silver", "gold"] 
     catalog_access = {
