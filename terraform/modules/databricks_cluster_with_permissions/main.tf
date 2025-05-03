@@ -13,12 +13,6 @@ resource "databricks_cluster" "this" {
   node_type_id            = var.node_type_id
   driver_node_type_id     = var.driver_node_type_id
   autotermination_minutes = var.autotermination_minutes
-  enable_elastic_disk     = var.enable_elastic_disk
-  policy_id               = var.policy_id
-  enable_local_disk_encryption = var.enable_local_disk_encryption
-  data_security_mode      = var.data_security_mode
-  runtime_engine          = var.runtime_engine
-  apply_policy_default_values = var.apply_policy_default_values
 
   azure_attributes {
     first_on_demand     = var.azure_attributes.first_on_demand
