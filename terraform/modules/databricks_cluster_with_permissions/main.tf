@@ -13,6 +13,7 @@ resource "databricks_cluster" "this" {
   node_type_id            = var.node_type_id
   driver_node_type_id     = var.driver_node_type_id
   autotermination_minutes = var.autotermination_minutes
+  data_security_mode      = var.data_security_mode
 
   azure_attributes {
     first_on_demand     = var.azure_attributes.first_on_demand
