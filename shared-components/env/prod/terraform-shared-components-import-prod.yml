@@ -85,7 +85,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
-              backendServiceArm: 'SIMEGAS Dev - SP'
+              backendServiceArm: '$(azureSubscription)'
               backendAzureRmResourceGroupName: '$(resourcegroup)'
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
