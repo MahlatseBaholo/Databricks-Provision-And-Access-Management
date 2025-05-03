@@ -31,6 +31,7 @@ module "databricks_cluster" {
   autotermination_minutes      = var.autotermination_minutes
   azure_attributes             = var.azure_attributes
   autoscale                    = var.autoscale
+  data_security_mode           = var.data_security_mode
   cluster_permissions          = var.cluster_permissions
   providers = {
     databricks = databricks.workspace
