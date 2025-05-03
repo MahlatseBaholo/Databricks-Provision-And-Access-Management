@@ -89,14 +89,3 @@ module "databricks_catalog_schema_grants" {
     databricks = databricks.workspace
   }
 }
-
-module "folder_permissions" {
-  source = "../../modules/databricks_folder_usage_permissions"
-
-  directory_path  = var.folder_path
-  access_controls = var.access_controls
-
-  providers = {
-    databricks = databricks.workspace
-  }
-}
