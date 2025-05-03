@@ -10,7 +10,6 @@ parameters:
     default: dev
 
 variables:
-  path : '${{ parameters.env }}'
   resourcegroup: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
   workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
   accountname: 'sasol${{ parameters.env }}simegasterraform'
