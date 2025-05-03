@@ -1,8 +1,8 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "sasolsan-simegas-dev-terraform-rg"
-    storage_account_name = "sasoldevsimegastf"
-    container_name       = "sasol-dev-simegas-dbw"
+    resource_group_name  = "sasolsan-simegas-prod-terraform-rg"
+    storage_account_name = "sasolprodsimegastf"
+    container_name       = "sasol-prod-simegas-dbw"
     key                  = "databricks-metastore-assignment/terraform.tfstate"
   }
 }
