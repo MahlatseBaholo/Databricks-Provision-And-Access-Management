@@ -29,6 +29,17 @@ resource "azurerm_storage_container" "sasol-dev-simegas-dbw" {
   container_access_type = "private"
 }
 
+resource "databricks_metastore" "metastore_azure_southafricanorth" {
+  provider      = databricks.account
+  name          = "metastore_azure_southafricanorth"
+  location      = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
+}
+
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+  provider      = databricks.account
+  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
+  workspace_id  = azurerm_databricks_workspace.sasol-dev-simegas-dbw.id
+
 module "databricks_identity_access" {
   source = "../../modules/databricks_identity_access"
   
@@ -60,11 +71,11 @@ module "storage_credential" {
   }
 }
 
-resource "null_resource" "metastore_assignment_dependency" {
-  triggers = {
-    metastore_assignment_id = data.terraform_remote_state.metastoreazuresan.outputs.metastore_assignment.id
-  }
-}
+#resource "null_resource" "metastore_assignment_dependency" {
+#  triggers = {
+#    metastore_assignment_id = data.terraform_remote_state.metastoreazuresan.outputs.metastore_assignment.id
+#  }
+#}
 
 module "external_location" {
   source = "../../modules/databricks_external_location"
@@ -80,7 +91,8 @@ module "external_location" {
     databricks = databricks.workspace
   }
   depends_on = [
-    null_resource.metastore_assignment_dependency,
+    #null_resource.metastore_assignment_dependency,
+    databricks_metastore_assignment,
     module.storage_container,
     module.storage_credential
   ]
