@@ -3,11 +3,27 @@ resource "azurerm_resource_group" "sasolsan-simegas-qa-rg" {
   location = "southafricanorth"
 }
 
+resource "azurerm_databricks_workspace" "sasol-qa-simegas-dbw" {
+  name                = "sasol-qa-simegas-dbw"
+  location            = "southafricanorth"
+  resource_group_name = "sasolsan-simegas-qa-rg"
+  sku                 = "premium"
+}
+
 resource "azurerm_resource_group" "sasolsan-simegas-qa-terraform-rg" {
   name     = "sasolsan-simegas-qa-terraform-rg"
   location = "southafricanorth"
 }
 
+resource "azurerm_storage_account" "sasolqasimegastf" {
+  name                      = "sasolqasimegastf"
+  resource_group_name       = "sasolsan-simegas-qa-terraform-rg"
+  location                  = azurerm_resource_group.sasolsan-simegas-qa-terraform-rg.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+}
+
+##############3333
 resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
   name     = "sasolsan-simegas-unity-catalog-rg"
   location = "southafricanorth"
@@ -22,14 +38,6 @@ resource "azurerm_storage_account" "sasolsansimegascatalog" {
   is_hns_enabled            = true
 }
 
-resource "azurerm_storage_account" "sasolqasimegastf" {
-  name                      = "sasolqasimegastf"
-  resource_group_name       = "sasolsan-simegas-qa-terraform-rg"
-  location                  = azurerm_resource_group.sasolsan-simegas-qa-terraform-rg.location
-  account_tier              = "Standard"
-  account_replication_type  = "LRS"
-}
-
 resource "azurerm_storage_container" "metastoreazuresan" {
   name                  = "metastoreazuresan"
   storage_account_name  = azurerm_storage_account.sasolsansimegascatalog.name
@@ -40,13 +48,6 @@ resource "databricks_metastore" "metastore_azure_southafricanorth" {
   provider      = databricks.account
   name          = "metastore_azure_southafricanorth"
   region        = "southafricanorth"
-}
-
-resource "azurerm_databricks_workspace" "sasol-qa-simegas-dbw" {
-  name                = "sasol-qa-simegas-dbw"
-  location            = "southafricanorth"
-  resource_group_name = "sasolsan-simegas-qa-rg"
-  sku                 = "premium"
 }
 
 resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
