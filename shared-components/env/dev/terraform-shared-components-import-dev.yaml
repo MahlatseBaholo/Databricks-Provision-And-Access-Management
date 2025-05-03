@@ -10,6 +10,7 @@ parameters:
     default: dev
 
 variables:
+  path : '${{ parameters.env }}'
   resourcegroup: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
   workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
   accountname: 'sasol${{ parameters.env }}simegasterraform'
@@ -89,7 +90,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/${{ parameters.env }/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/$(path)/'
           - script: |
               terraform import azurerm_resource_group.$(workspace_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)
               terraform import azurerm_resource_group.sasolsan-simegas-unity-catalog-rg /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/sasolsan-simegas-unity-catalog-rg            
@@ -103,7 +104,7 @@ stages:
               terraform import azurerm_user_assigned_identity.sasolsan-simegas-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolsan-simegas-catalog-id
               terraform import azurerm_databricks_access_connector.sasolsan-simegas-catalog-connector /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/sasolsan-simegas-unity-catalog-rg/providers/Microsoft.Databricks/accessConnectors/sasolsan-simegas-catalog-connector
             displayName: 'Import Resources'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/${{ parameters.env }/'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/$(path)/'
             env:
               ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
