@@ -6,7 +6,7 @@ pool:
 
 parameters:
   - name: env
-    default: dev
+    default: prod
 
 variables:
   env: '${{ parameters.env }}'
