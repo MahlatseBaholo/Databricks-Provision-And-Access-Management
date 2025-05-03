@@ -56,7 +56,7 @@ module "external_location" {
     data.terraform_remote_state.metastoreazuresan.outputs.storage_account_name
   )
   credential_name = module.storage_credential[each.key].storage_credential_id
-  read_group      = var.external_location_read_group
+  #read_group      = var.external_location_read_group
 
   providers = {
     databricks = databricks.workspace
