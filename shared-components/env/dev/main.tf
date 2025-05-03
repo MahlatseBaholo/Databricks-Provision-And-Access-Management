@@ -22,8 +22,8 @@ resource "azurerm_storage_account" "sasolsansimegascatalog" {
   is_hns_enabled            = true
 }
 
-resource "azurerm_storage_account" "sasoldevsimegasterraform" {
-  name                      = "sasoldevsimegasterraform"
+resource "azurerm_storage_account" "sasoldevsimegastf" {
+  name                      = "sasoldevsimegastf"
   resource_group_name       = "sasolsan-simegas-dev-terraform-rg"
   location                  = azurerm_resource_group.sasolsan-simegas-dev-terraform-rg.location
   account_tier              = "Standard"
