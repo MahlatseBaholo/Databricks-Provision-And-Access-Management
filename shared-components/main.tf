@@ -39,19 +39,19 @@ resource "databricks_metastore" "metastore_azure_southafricanorth" {
   location      = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
 }
 
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth_dev" {
   provider      = databricks.account
   metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
   workspace_id  = "1584894596117397"
 }
 
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth_qa" {
   provider      = databricks.account
   metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
   workspace_id  = "1803701311157133"
 }
 
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth_prod" {
   provider      = databricks.account
   metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
   workspace_id  = "1910321470216143"
