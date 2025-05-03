@@ -1,13 +1,27 @@
-#module "databricks_budgets" {
-#  source = "../../modules/databricks_budget"
-#  providers = {
-#    databricks.account = databricks.account
-#    databricks.workspace = databricks.workspace
-    #databricks = databricks.account
-#  }
+resource "azurerm_resource_group" "sasolsan-simegas-qa-rg" {
+  name     = "sasolsan-simegas-qa-rg"
+  location = "southafricanorth"
+}
 
-#  budgets = var.budgets
-#}
+resource "azurerm_databricks_workspace" "sasol-qa-simegas-dbw" {
+  name                = "sasol-qa-simegas-dbw"
+  location            = "southafricanorth"
+  resource_group_name = "sasolsan-simegas-qa-rg"
+  sku                 = "premium"
+}
+
+resource "azurerm_resource_group" "sasolsan-simegas-qa-terraform-rg" {
+  name     = "sasolsan-simegas-qa-terraform-rg"
+  location = "southafricanorth"
+}
+
+resource "azurerm_storage_account" "sasolqasimegastf" {
+  name                      = "sasolqasimegastf"
+  resource_group_name       = "sasolsan-simegas-qa-terraform-rg"
+  location                  = azurerm_resource_group.sasolsan-simegas-qa-terraform-rg.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+}
 
 module "databricks_identity_access" {
   source = "../../modules/databricks_identity_access"
