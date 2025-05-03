@@ -4,13 +4,17 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+parameters:
+  - name: env
+    default: dev
+
 variables:
-  resourcegroup: 'sasolsan-simegas-dev-terraform-rg'
-  accountname: 'sasoldevsimegasterraform'
-  containername: 'sasol-dev-simegas-dbw'
+  resourcegroup: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
+  accountname: 'sasol${{ parameters.env }}simegasterraform'
+  containername: 'sasol-${{ parameters.env }}-simegas-dbw'
   key: 'manage/terraform.tfstate'
-  azureSubscription: 'SIMEGAS Dev - SP'
-  keyVaultName: 'sasol-dev-simegas-key'
+  azureSubscription: 'SIMEGAS ${{ parameters.env }} - SP'
+  keyVaultName: 'sasol-${{ parameters.env }}-simegas-key'
 
 stages:
   - stage: tfvalidate
@@ -34,7 +38,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/${{ parameters.env }}/'
 
           - task: TerraformTaskV4@4
             displayName: validate
@@ -72,12 +76,13 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasoldevsimegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol${{ parameters.env }}simegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,ServicePrincipal-DevOps-ClientSecret,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
               echo "Setting environment variables for Terraform..."
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoldevsimegasterraform)"
+              echo "##vso[task.setvariable variable=ENV]${{ parameters.env }}"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol${{ parameters.env }}simegasterraform)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
@@ -115,7 +120,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/${{ parameters.env }}/'
 
           - task: TerraformTaskV4@4
             displayName: plan
@@ -123,7 +128,7 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: $(azureSubscription)
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/${{ parameters.env }}/'
             env:
               ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
@@ -185,12 +190,12 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasoldevsimegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol${{ parameters.env }}simegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
               echo "Setting environment variables for Terraform..."
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoldevsimegasterraform)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol${{ parameters.env }}simegasterraform)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
@@ -228,7 +233,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/${{ parameters.env }}/'
 
           - task: TerraformTaskV4@4
             displayName: apply
@@ -236,7 +241,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: $(azureSubscription)
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/dev/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/${{ parameters.env }}/'
             env:
               ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
@@ -253,4 +258,5 @@ stages:
               DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
               DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
               DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
+
 
