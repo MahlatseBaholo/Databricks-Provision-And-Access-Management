@@ -10,9 +10,7 @@ parameters:
     default: dev
 
 variables:
-  env: '${{ parameters.env }}'
   metastore_rg: 'sasolsan-simegas-unity-catalog-rg'
-  workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
   tfstate_storage: 'sasolsansimegasterraform'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
