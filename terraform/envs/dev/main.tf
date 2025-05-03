@@ -1,18 +1,21 @@
-resource "azurerm_resource_group" "databricks_rg" {
-  name     = var.resource_group_name
-  location = var.location
+resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
+  name     = "sasolsan-simegas-dev-rg"
+  location = "southafricanorth" 
 }
 
-resource "azurerm_databricks_workspace" "workspace" {
-  name                = var.databricks_workspace_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  sku                 = var.databricks_sku
+resource "azurerm_databricks_workspace" "sasol-dev-simegas-dbw" {
+  name                = "sasol-dev-simegas-dbw"
+  location            = "southafricanorth"
+  resource_group_name = "sasolsan-simegas-dev-rg"
+  sku                 = "premium"
 }
 
-resource "azurerm_resource_group" "terraform_rg" {
-  name     = var.terraform_resource_group_name
-  location = var.location
+resource "azurerm_storage_account" "sasoldevsimegastf" {
+  name                     = "sasoldevsimegastf"
+  resource_group_name      = "sasolsan-simegas-dev-terraform-rg"
+  location                 = "southafricanorth"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
 resource "azurerm_storage_account" "tfstate_storage" {
