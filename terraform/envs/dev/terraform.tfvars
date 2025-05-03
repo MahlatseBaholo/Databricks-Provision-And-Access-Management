@@ -38,6 +38,7 @@ spark_version             = "15.4.x-scala2.12"
 node_type_id              = "Standard_DS3_v2"         
 driver_node_type_id       = "Standard_DS3_v2"        
 autotermination_minutes   = 10                                                                         
+data_security_mode        = "USER_ISOLATION"
 
 azure_attributes = {
   first_on_demand        = 1                             
