@@ -18,6 +18,6 @@ resource "databricks_grants" "external_location_read" {
   external_location   = databricks_external_location.this.id
   grant {
     principal  = var.read_group
-    privileges = ["READ_EXTERNAL_LOCATION", "READ_FILES"]
+    privileges = ["READ_FILES"]
   }
 }
