@@ -25,11 +25,21 @@ resource "databricks_metastore" "metastore_azure_southafricanorth" {
 }
 
 resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
-  provider     = databricks.account
-  for_each     = toset(var.workspace_ids)
+  provider      = databricks.account
+  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
+  workspace_id  = "1584894596117397"
+}
 
-  metastore_id = databricks_metastore.metastore_azure_southafricanorth.id
-  workspace_id = each.key
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+  provider      = databricks.account
+  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
+  workspace_id  = "1584894596117397"
+}
+
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+  provider      = databricks.account
+  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
+  workspace_id  = "1584894596117397"
 }
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
