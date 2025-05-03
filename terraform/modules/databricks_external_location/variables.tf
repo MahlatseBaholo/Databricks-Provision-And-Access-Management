@@ -12,8 +12,8 @@ variable "credential_name" {
   type        = string
 }
 
-variable "read_group" {
-  description = "Optional group name to grant read access"
-  type        = string
-  default     = null
-}
+#variable "read_group" {
+#  description = "Optional group name to grant read access"
+ # type        = string
+ # default     = null
+#}
