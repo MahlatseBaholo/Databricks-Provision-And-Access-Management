@@ -84,7 +84,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
-              backendServiceArm: '$(azureSubscription)'
+              #backendServiceArm: '$(azureSubscription)'
               backendAzureRmResourceGroupName: '$(terraform_rg)'
               backendAzureRmStorageAccountName: '$(tfstate_storage)'
               backendAzureRmContainerName: '$(containername)'
