@@ -7,7 +7,7 @@ pool:
 
 parameters:
   - name: env
-    default: dev
+    default: qa
 
 variables:
   resourcegroup: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
