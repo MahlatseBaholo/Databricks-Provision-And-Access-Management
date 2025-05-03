@@ -23,13 +23,6 @@ resource "azurerm_storage_account" "sasoldevsimegastf" {
   account_replication_type = "LRS"
 }
 
-resource "azurerm_storage_account" "sasoldevsimegastf" {
-  name                      = "sasoldevsimegastf"
-  resource_group_name       = "sasolsan-simegas-dev-terraform-rg"
-  location                  = azurerm_resource_group.sasolsan-simegas-dev-terraform-rg.location
-  account_tier              = "Standard"
-  account_replication_type  = "LRS"
-}
 
 module "databricks_identity_access" {
   source = "../../modules/databricks_identity_access"
