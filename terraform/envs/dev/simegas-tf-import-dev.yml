@@ -87,7 +87,7 @@ stages:
               command: 'init'
               backendServiceArm: '$(azureSubscription)'
               backendAzureRmResourceGroupName: '$(terraform_rg)'
-              backendAzureRmStoragetfstate_storage: '$(tfstate_storage)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
