@@ -27,10 +27,10 @@ provider "databricks" {
   account_id      = var.account_id
   #azure_client_id = var.client_id
   #azure_client_secret = var.client_secret
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  #client_id       = var.account_client_id
-  #client_secret   = var.account_client_secret
+  #client_id       = var.client_id
+  #client_secret   = var.client_secret
+  client_id       = var.account_client_id
+  client_secret   = var.account_client_secret
   azure_tenant_id = var.tenant_id
   auth_type       = "oauth-m2m"
 }
