@@ -47,6 +47,8 @@ module "sql_warehouse" {
   auto_stop_mins             = var.sql_warehouse_auto_stop_mins
   enable_serverless_compute  = var.sql_warehouse_enable_serverless_compute
   tags                       = var.sql_warehouse_tags
+  warehouse_type             = var.warehouse_type
+
   enable_permissions         = var.sql_warehouse_enable_permissions
   permissions                = var.sql_warehouse_permissions
   providers = {
