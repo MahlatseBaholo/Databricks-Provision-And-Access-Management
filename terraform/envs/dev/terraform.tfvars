@@ -37,13 +37,7 @@ cluster_name              = "multi-node-simegas-small-general-purpose"
 spark_version             = "15.4.x-scala2.12"       
 node_type_id              = "Standard_DS3_v2"         
 driver_node_type_id       = "Standard_DS3_v2"        
-autotermination_minutes   = 10                       
-enable_elastic_disk       = true                      
-policy_id                 = "00186FF012D0AE5B"        
-enable_local_disk_encryption = false                  
-data_security_mode        = "USER_ISOLATION"          
-runtime_engine            = "STANDARD"                 
-apply_policy_default_values = false                  
+autotermination_minutes   = 10                                                                         
 
 azure_attributes = {
   first_on_demand        = 1                             
