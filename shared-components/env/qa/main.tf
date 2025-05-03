@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
 
 resource "azurerm_storage_account" "sasolsansimegascatalog" {
   name                      = "sasolsansimegascatalog"
-  resource_group_name       = "sasolsan-simegas-unity-catalog-rg"
+  resource_group_name       = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.name
   location                  = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
   account_tier              = "Standard"
   account_replication_type  = "LRS"
@@ -21,7 +21,7 @@ resource "azurerm_storage_container" "metastoreazuresan" {
 resource "databricks_metastore" "metastore_azure_southafricanorth" {
   provider      = databricks.account
   name          = "metastore_azure_southafricanorth"
-  region        = "southafricanorth"
+  location      = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
 }
 
 resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
