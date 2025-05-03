@@ -12,7 +12,7 @@ parameters:
 variables:
   env: '${{ parameters.env }}'
   terraform_rg: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
-  databricks_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
+  workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
   tfstate_storage: 'sasol${{ parameters.env }}simegastf'
   containername: 'sasol-${{ parameters.env }}-simegas-dbw'
   key: 'manage/terraform.tfstate'
@@ -92,8 +92,8 @@ stages:
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
           - script: |
-              terraform import azurerm_resource_group.$(databricks_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(databricks_rg)
-              terraform import azurerm_databricks_workspace.$(DATABRICKS_WORKSPACE_NAME) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(databricks_rg)/providers/Microsoft.Databricks/workspaces/$(DATABRICKS_WORKSPACE_NAME)
+              terraform import azurerm_resource_group.$(workspace_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)
+              terraform import azurerm_databricks_workspace.$(DATABRICKS_WORKSPACE_NAME) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)/providers/Microsoft.Databricks/workspaces/$(DATABRICKS_WORKSPACE_NAME)
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(terraform_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
             displayName: 'Import Resources'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
