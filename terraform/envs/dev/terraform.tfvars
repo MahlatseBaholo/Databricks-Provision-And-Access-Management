@@ -36,29 +36,29 @@ entitlements = {
 ##############################################
 catalog_definitions = {
 
-  test2-dev = {
+  ai-dev = {
     project = "simegas"  
     schema_names = ["bronze", "silver", "gold"] 
     catalog_access = {
-      "SIMEGAS-ADMIN" = [
+      "GenAI-Developers" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ]
     }
     schema_access = {
       bronze = {
-        "SIMEGAS-ADMIN" = [
+        "GenAI-Developers" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "SIMEGAS-ADMIN" = [
+        "GenAI-Developers" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "SIMEGAS-ADMIN" = [
+        "GenAI-Developers" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
