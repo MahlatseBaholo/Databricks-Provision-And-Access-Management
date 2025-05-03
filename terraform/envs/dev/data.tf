@@ -8,8 +8,8 @@ data "databricks_group" "groups" {
 data "terraform_remote_state" "metastoreazuresan" {
   backend = "azurerm"
   config = {
-    resource_group_name  = "sasolsan-simegas-${var.env}-terraform-rg"
-    storage_account_name = "sasol${var.env}simegasterraform"
+    resource_group_name  = "sasolsan-simegas-dev-terraform-rg"
+    storage_account_name = "sasoldevsimegasterraform"
     container_name       = "shared-components"
     key                  = "metastoreazuresan/terraform.tfstate"
   }
