@@ -3,6 +3,21 @@ resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
   location = "southafricanorth"
 }
 
+resource "azurerm_storage_account" "sasolsansimegasterraform" {
+  name                      = "sasolsansimegasterraform"
+  resource_group_name       = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.name
+  location                  = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+  is_hns_enabled            = true
+}
+
+resource "azurerm_storage_container" "shared-components" {
+  name                  = "shared-components"
+  storage_account_name  = azurerm_storage_account.sasolsansimegasterraform.name
+  container_access_type = "private"
+}
+
 resource "azurerm_storage_account" "sasolsansimegascatalog" {
   name                      = "sasolsansimegascatalog"
   resource_group_name       = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.name
