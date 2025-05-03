@@ -1,9 +1,3 @@
-variable "location_abbr" {
-  description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
-  type        = string
-  default     = "san" 
-}
-
 variable "subscription_id" {
   type = string
 }
