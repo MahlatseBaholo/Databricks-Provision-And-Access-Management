@@ -9,7 +9,7 @@ data "terraform_remote_state" "metastore" {
   backend = "azurerm"
   config = {
     resource_group_name  = "sasolsan-simegas-qa-terraform-rg"
-    storage_account_name = "sasolqasimegasterraform"
+    storage_account_name = "sasolqasimegastf"
     container_name       = "shared-components"
     key                  = "metastoreazuresan/terraform.tfstate"
   }
