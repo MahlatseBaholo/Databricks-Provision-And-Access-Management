@@ -18,9 +18,9 @@ data "terraform_remote_state" "metastoreazuresan" {
 data "terraform_remote_state" "databricks-metastore-assignment" {
   backend = "azurerm"
   config = {
-    resource_group_name  = "sasolsan-simegas-dev-terraform-rg"
-    storage_account_name = "sasoldevsimegastf"
-    container_name       = "sasol-dev-simegas-dbw"
+    resource_group_name  = "sasolsan-simegas-qa-terraform-rg"
+    storage_account_name = "sasolqasimegastf"
+    container_name       = "sasol-qa-simegas-dbw"
     key                  = "databricks-metastore-assignment/terraform.tfstate"
   }
 }
