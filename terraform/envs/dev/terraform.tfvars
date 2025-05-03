@@ -36,7 +36,7 @@ entitlements = {
 ##############################################
 catalog_definitions = {
 
-  ai-dev = {
+  test-dev = {
     project = "simegas"  
     schema_names = ["bronze", "silver", "gold"] 
     catalog_access = {
