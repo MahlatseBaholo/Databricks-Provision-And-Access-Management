@@ -6,17 +6,16 @@ pool:
 
 parameters:
   - name: env
-    default: qa
+    default: dev
 
 variables:
-  env: '${{ parameters.env }}'
   metastore_rg: 'sasolsan-simegas-unity-catalog-rg'
-  workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
   tfstate_storage: 'sasolsansimegasterraform'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
   azureSubscription: 'SIMEGAS ${{ parameters.env }} - SP'
   keyVaultName: 'sasol-${{ parameters.env }}-simegas-key'
+
 
 stages:
   - stage: tfvalidate
