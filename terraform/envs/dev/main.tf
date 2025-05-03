@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
 
 resource "azurerm_databricks_workspace" "sasol-dev-simegas-dbw" {
   name                = "sasol-dev-simegas-dbw"
-  location            = "southafricanorth"
+  location            = azurerm_resource_group.sasolsan-simegas-dev-rg.location
   resource_group_name = azurerm_resource_group.sasolsan-simegas-dev-rg.name
   sku                 = "premium"
 }
@@ -18,7 +18,7 @@ resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
 resource "azurerm_storage_account" "sasoldevsimegastf" {
   name                     = "sasoldevsimegastf"
   resource_group_name      = azurerm_resource_group.sasolsan-simegas-dev-terraform-rg.name
-  location                 = "southafricanorth"
+  location                 = azurerm_resource_group.sasolsan-simegas-dev-rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
