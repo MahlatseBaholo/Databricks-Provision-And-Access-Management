@@ -20,7 +20,8 @@ permission_assignments = {
 entitlements = {
   "GenAI-Developers" = {
     group_id              = "GenAI-Developers"  
-    workspace_access      = true                                   
+    workspace_access      = true
+    databricks_sql_access = false                                   
   },
   "SIMEGAS-ADMIN" = {
     group_id              = "SIMEGAS-ADMIN"  
