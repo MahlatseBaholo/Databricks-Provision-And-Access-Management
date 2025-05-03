@@ -15,24 +15,19 @@ provider "azurerm" {
   features {}
   skip_provider_registration = true
 
-  #subscription_id = var.subscription_id
-  #tenant_id       = var.tenant_id
-  #client_id       = var.client_id
-  #client_secret   = var.client_secret
+  subscription_id = var.subscription_id
+  tenant_id       = var.tenant_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
 }
 
 provider "databricks" {
   alias         = "account"
   host          = "https://accounts.azuredatabricks.net"
-  account_id      = var.account_id
-  #azure_client_id = var.client_id
-  #azure_client_secret = var.client_secret
-  #client_id       = var.client_id
-  #client_secret   = var.client_secret
-  client_id       = var.account_client_id
-  client_secret   = var.account_client_secret
-  #azure_tenant_id = var.tenant_id
-  auth_type       = "oauth-m2m"
+  account_id    = var.account_id
+  client_id     = var.account_client_id
+  client_secret = var.account_client_secret
+  auth_type     = "oauth-m2m"
 }
 
 provider "databricks" {
