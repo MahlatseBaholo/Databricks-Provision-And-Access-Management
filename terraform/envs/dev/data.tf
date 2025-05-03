@@ -5,7 +5,7 @@ data "databricks_group" "groups" {
   display_name = each.value
 }
 
-data "terraform_remote_state" "metastore" {
+data "terraform_remote_state" "metastoreazuresan" {
   backend = "azurerm"
   config = {
     resource_group_name  = "sasolsan-simegas-dev-terraform-rg"
