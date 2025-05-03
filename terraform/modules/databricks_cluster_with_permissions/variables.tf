@@ -35,6 +35,11 @@ variable "autoscale" {
   type        = map(any)
 }
 
+variable "data_security_mode" {
+  description = "Unity Catalog enablement"
+  type        = string
+}
+
 variable "cluster_permissions" {
   description = "Permissions for the cluster"
   type        = map(list(string))
