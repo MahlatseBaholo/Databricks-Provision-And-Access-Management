@@ -1,9 +1,3 @@
-variable "workspace_ids" {
-  description = "List of workspace IDs to assign the metastore to"
-  type        = list(string)
-  default     = ["1803701311157133", "workspace_id_2", "workspace_id_3"]
-}
-
 variable "subscription_id" {
   type = string
 }
