@@ -25,12 +25,6 @@ resource "databricks_metastore" "metastore_azure_southafricanorth" {
 }
 
 resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
-  provider      = databricks.account
-  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
-  workspace_id  = "1803701311157133"
-}
-
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
   provider     = databricks.account
   for_each     = toset(var.workspace_ids)
 
