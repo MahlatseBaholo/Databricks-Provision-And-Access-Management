@@ -52,7 +52,7 @@ resource "azurerm_databricks_workspace" "sasol-qa-simegas-dbw" {
 resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
   provider      = databricks.account
   metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
-  workspace_id  = "1584894596117397"
+  workspace_id  = "1803701311157133"
 }
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
