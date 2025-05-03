@@ -89,7 +89,7 @@ stages:
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/${{ parameters.env }/'
           - script: |
               terraform import azurerm_resource_group.$(workspace_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)
               terraform import azurerm_resource_group.sasolsan-simegas-unity-catalog-rg /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/sasolsan-simegas-unity-catalog-rg            
