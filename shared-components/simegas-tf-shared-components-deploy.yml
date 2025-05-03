@@ -9,8 +9,10 @@ parameters:
     default: qa
 
 variables:
-  resourcegroup: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
-  accountname: 'sasol${{ parameters.env }}simegastf'
+  env: '${{ parameters.env }}'
+  metastore_rg: 'sasolsan-simegas-unity-catalog-rg'
+  workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
+  tfstate_storage: 'sasolsansimegasterraform'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
   azureSubscription: 'SIMEGAS ${{ parameters.env }} - SP'
@@ -34,8 +36,8 @@ stages:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: $(azureSubscription)
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
-              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmResourceGroupName: '$(metastore_rg)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
@@ -115,8 +117,8 @@ stages:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: $(azureSubscription)
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
-              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmResourceGroupName: '$(metastore_rg)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
@@ -228,8 +230,8 @@ stages:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: $(azureSubscription)
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
-              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmResourceGroupName: '$(metastore_rg)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
