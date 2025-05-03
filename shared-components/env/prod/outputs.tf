@@ -3,7 +3,7 @@ output "metastore_id" {
 }
 
 output "workspace_id" {
-  value = azurerm_databricks_workspace.sasol-dev-simegas-dbw.id
+  value = azurerm_databricks_workspace.sasol-prod-simegas-dbw.id
 }
 
 output "storage_account_name" {
@@ -31,7 +31,7 @@ output "unity_catalog_resource_group_name" {
 }
 
 output "workspace_resource_group_name" {
-  value = azurerm_resource_group.sasolsan-simegas-dev-rg.name
+  value = azurerm_resource_group.sasolsan-simegas-prod-rg.name
 }
 
 output "metastore_assignment" {
