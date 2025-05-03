@@ -2,12 +2,18 @@ variable "name" {
   type = string
 }
 
-variable "credential_name" {
-  description = "The name or ID of the storage credential"
+variable "url" {
+  description = "The abfss URL of the external location"
   type        = string
 }
 
-variable "url" {
-  description = "The URL for the external location"
+variable "credential_name" {
+  description = "Databricks credential to access the external location"
   type        = string
+}
+
+variable "read_group" {
+  description = "Optional group name to grant read access"
+  type        = string
+  default     = null
 }
