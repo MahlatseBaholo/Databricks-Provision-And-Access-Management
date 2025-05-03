@@ -65,13 +65,14 @@ cluster_permissions = {
 ##############################################
 # Serverless SQL Warehouse Configuration
 ##############################################
-sql_warehouse_name                     = "serverless-sql-warehouse-simegas-small" 
-sql_warehouse_cluster_size             = "2X-Small"                                       
-sql_warehouse_max_num_clusters         = 2                                            
-sql_warehouse_min_num_clusters         = 1                                             
-sql_warehouse_auto_stop_mins           = 5                                             
+sql_warehouse_name                      = "serverless-sql-warehouse-simegas-small" 
+sql_warehouse_cluster_size              = "2X-Small"                                       
+sql_warehouse_max_num_clusters          = 2                                            
+sql_warehouse_min_num_clusters          = 1                                             
+sql_warehouse_auto_stop_mins            = 5                                             
 sql_warehouse_enable_serverless_compute = true                                         
-sql_warehouse_enable_permissions       = true                                          
+sql_warehouse_enable_permissions        = true
+warehouse_type                          = "PRO"                                          
 
 ##############################################
 # Serverless SQL Warehouse Permissions
