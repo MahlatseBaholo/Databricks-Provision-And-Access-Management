@@ -33,30 +33,6 @@ resource "azurerm_storage_container" "metastoreazuresan" {
   container_access_type = "private"
 }
 
-resource "databricks_metastore" "metastore_azure_southafricanorth" {
-  provider      = databricks.account
-  name          = "metastore_azure_southafricanorth"
-  location      = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
-}
-
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth_dev" {
-  provider      = databricks.account
-  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
-  workspace_id  = "1584894596117397"
-}
-
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth_qa" {
-  provider      = databricks.account
-  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
-  workspace_id  = "1803701311157133"
-}
-
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth_prod" {
-  provider      = databricks.account
-  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
-  workspace_id  = "1910321470216143"
-}
-
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
   name                = "sasolsan-simegas-catalog-id"
   location            = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
