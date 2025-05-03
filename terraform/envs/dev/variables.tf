@@ -6,19 +6,19 @@ variable "location" {
 
 variable "resource_group_name" {
   type        = string
-  default     = "sasolsan-simegas-qa-rg"
+  default     = "sasolsan-simegas-dev-rg"
   description = "Name of the resource group for Databricks"
 }
 
 variable "terraform_resource_group_name" {
   type        = string
-  default     = "sasolsan-simegas-qa-terraform-rg"
+  default     = "sasolsan-simegas-dev-terraform-rg"
   description = "Name of the resource group for Terraform state storage"
 }
 
 variable "databricks_workspace_name" {
   type        = string
-  default     = "sasol-qa-simegas-dbw"
+  default     = "sasol-dev-simegas-dbw"
   description = "Name of the Databricks workspace"
 }
 
@@ -30,11 +30,11 @@ variable "databricks_sku" {
 
 variable "storage_account_name" {
   type        = string
-  default     = "sasolqasimegastf"
+  default     = "sasoldevsimegastf"
   description = "Name of the storage account for Terraform backend"
 }
 
-variable "location" {
+variable "location_abbr" {
   description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
   type        = string
   default     = "san" 
