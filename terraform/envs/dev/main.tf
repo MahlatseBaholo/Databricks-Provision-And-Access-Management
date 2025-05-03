@@ -29,11 +29,11 @@ module "storage_credential" {
   }
 }
 
-#resource "null_resource" "metastore_assignment_dependency" {
-#  triggers = {
-#    metastore_assignment_id = data.terraform_remote_state.metastoreazuresan.outputs.metastore_assignment.id
-#  }
-#}
+resource "null_resource" "metastore_assignment_dependency" {
+  triggers = {
+    metastore_assignment_id = data.terraform_remote_state.databricks-metastore-assignment.outputs.metastore_assignment.id
+  }
+}
 
 module "external_location" {
   source = "../../modules/databricks_external_location"
@@ -49,8 +49,7 @@ module "external_location" {
     databricks = databricks.workspace
   }
   depends_on = [
-    #null_resource.metastore_assignment_dependency,
-    databricks_metastore_assignment,
+    null_resource.metastore_assignment_dependency,
     module.storage_container,
     module.storage_credential
   ]
