@@ -31,7 +31,7 @@ module "storage_credential" {
 
 resource "null_resource" "metastore_assignment_dependency" {
   triggers = {
-    metastore_assignment_id = data.terraform_remote_state.databricks-metastore-assignment.outputs.metastore_assignment.id
+    metastore_assignment_id = data.terraform_remote_state.metastore_assignment.outputs.metastore_assignment.id
   }
 }
 
