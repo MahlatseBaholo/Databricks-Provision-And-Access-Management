@@ -13,7 +13,7 @@ variables:
   env: '${{ parameters.env }}'
   resourcegroup: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
   workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
-  accountname: 'sasol${{ parameters.env }}simegasterraform'
+  accountname: 'sasol${{ parameters.env }}simegastf'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
   azureSubscription: 'SIMEGAS ${{ parameters.env }} - SP'
@@ -46,12 +46,12 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasol${{ parameters.env }}simegasterraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,MetastoreID,METASTORE-NAME,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ID,Databricks-Workspace-Name,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol${{ parameters.env }}simegastf,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,MetastoreID,METASTORE-NAME,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ID,Databricks-Workspace-Name,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
               echo "Setting environment variables for Terraform..."
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol${{ parameters.env }}simegasterraform)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol${{ parameters.env }}simegastf)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
