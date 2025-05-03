@@ -7,7 +7,7 @@ pool:
 
 parameters:
   - name: env
-    default: qa
+    default: dev
 
 variables:
   env: '${{ parameters.env }}'
