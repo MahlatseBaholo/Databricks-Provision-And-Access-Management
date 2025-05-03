@@ -97,6 +97,11 @@ variable "autotermination_minutes" {
   type        = number
 }
 
+variable "data_security_mode" {
+  description = "Unity Catalog enablement"
+  type        = string
+}
+
 variable "azure_attributes" {
   description = "Azure attributes block"
   type        = map(any)
