@@ -51,6 +51,7 @@ module "sql_warehouse" {
 
   enable_permissions         = var.sql_warehouse_enable_permissions
   permissions                = var.sql_warehouse_permissions
+  depends_on = [module.databricks_cluster]
   providers = {
     databricks = databricks.workspace
   }
