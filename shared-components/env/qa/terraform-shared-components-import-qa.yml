@@ -13,7 +13,7 @@ variables:
   env: '${{ parameters.env }}'
   metastore_rg: 'sasolsan-simegas-unity-catalog-rg'
   workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
-  accountname: 'sasolsansimegascatalog'
+  tfstate_storage: 'sasolsansimegasterraform'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
   azureSubscription: 'SIMEGAS ${{ parameters.env }} - SP'
@@ -87,7 +87,7 @@ stages:
               command: 'init'
               backendServiceArm: '$(azureSubscription)'
               backendAzureRmResourceGroupName: '$(metastore_rg)'
-              backendAzureRmStorageAccountName: '$(accountname)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/$(env)/'
@@ -95,7 +95,7 @@ stages:
               terraform import azurerm_resource_group.$(workspace_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
               terraform import azurerm_databricks_workspace.$(DATABRICKS_WORKSPACE_NAME) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)/providers/Microsoft.Databricks/workspaces/$(DATABRICKS_WORKSPACE_NAME)
-              terraform import azurerm_storage_account.$(accountname) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(accountname)
+              terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
               terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
               terraform import azurerm_storage_container.metastoreazuresan https://sasolsansimegascatalog.blob.core.windows.net/metastoreazuresan
               terraform import azurerm_storage_container.shared-components https://sasolsansimegasterraform.blob.core.windows.net/shared-components
