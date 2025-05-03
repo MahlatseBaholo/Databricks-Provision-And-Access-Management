@@ -1,3 +1,8 @@
+variable "env" {
+  description = "Environment variable (e.g.dev, qa, prod)"
+  type        = string 
+}
+
 variable "location" {
   description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
   type        = string
