@@ -65,23 +65,6 @@ module "external_location" {
   }
 }
 
-resource "databricks_grants" "external_location_read" {
-  for_each = local.storage_definitions
-
-  external_location = module.external_location[each.key].name
-
-  dynamic "grant" {
-    content {
-      principal  = var.external_location_read_group
-      privileges = ["READ_EXTERNAL_LOCATION_METADATA"]
-    }
-  }
-
-  providers = {
-    databricks = databricks.workspace
-  }
-}
-
 module "databricks_catalog_with_access" {
   source = "../../modules/databricks_catalog_with_access"
   for_each = local.enriched_catalog_definitions
