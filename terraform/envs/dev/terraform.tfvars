@@ -30,7 +30,6 @@ entitlements = {
   }
 }
 
-
 ##############################################
 # Define and Manage Catalogs, Schemas, and Permissions
 ##############################################
