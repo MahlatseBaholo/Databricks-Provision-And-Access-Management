@@ -90,7 +90,7 @@ stages:
               backendAzureRmStorageAccountName: '$(tfstate_storage)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/$(env)/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
           - script: |
               terraform import azurerm_resource_group.$(workspace_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
@@ -104,7 +104,7 @@ stages:
               terraform import azurerm_user_assigned_identity.sasolsan-simegas-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolsan-simegas-catalog-id
               terraform import azurerm_databricks_access_connector.sasolsan-simegas-catalog-connector /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Databricks/accessConnectors/sasolsan-simegas-catalog-connector
             displayName: 'Import Resources'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/env/$(env)/'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
               ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
