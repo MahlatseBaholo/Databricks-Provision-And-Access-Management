@@ -152,6 +152,11 @@ variable "sql_warehouse_tags" {
   default     = {}
 }
 
+variable "warehouse_type" {
+  type        = string
+  description = "SQL warehouse type"
+}
+
 variable "sql_warehouse_enable_permissions" {
   type        = bool
   default     = false
