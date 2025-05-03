@@ -1,6 +1,7 @@
 variable "env" {
   description = "Environment variable (e.g.dev, qa, prod)"
   type        = string 
+  default = "dev"
 }
 
 variable "location" {
