@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "sasolsan-simegas-dev-terraform-rg"
-    storage_account_name = "sasoldevsimegasterraform"
+    resource_group_name  = "sasolsan-simegas-qa-terraform-rg"
+    storage_account_name = "sasolqasimegasterraform"
     container_name       = "shared-components"
     key                  = "metastoreazuresan/terraform.tfstate"
   }
