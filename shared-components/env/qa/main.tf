@@ -1,29 +1,3 @@
-resource "azurerm_resource_group" "sasolsan-simegas-qa-rg" {
-  name     = "sasolsan-simegas-qa-rg"
-  location = "southafricanorth"
-}
-
-resource "azurerm_databricks_workspace" "sasol-qa-simegas-dbw" {
-  name                = "sasol-qa-simegas-dbw"
-  location            = "southafricanorth"
-  resource_group_name = "sasolsan-simegas-qa-rg"
-  sku                 = "premium"
-}
-
-resource "azurerm_resource_group" "sasolsan-simegas-qa-terraform-rg" {
-  name     = "sasolsan-simegas-qa-terraform-rg"
-  location = "southafricanorth"
-}
-
-resource "azurerm_storage_account" "sasolqasimegastf" {
-  name                      = "sasolqasimegastf"
-  resource_group_name       = "sasolsan-simegas-qa-terraform-rg"
-  location                  = azurerm_resource_group.sasolsan-simegas-qa-terraform-rg.location
-  account_tier              = "Standard"
-  account_replication_type  = "LRS"
-}
-
-##############3333
 resource "azurerm_resource_group" "sasolsan-simegas-unity-catalog-rg" {
   name     = "sasolsan-simegas-unity-catalog-rg"
   location = "southafricanorth"
@@ -54,6 +28,14 @@ resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
   provider      = databricks.account
   metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
   workspace_id  = "1803701311157133"
+}
+
+resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+  provider     = databricks.account
+  for_each     = toset(var.workspace_ids)
+
+  metastore_id = databricks_metastore.metastore_azure_southafricanorth.id
+  workspace_id = each.key
 }
 
 resource "azurerm_user_assigned_identity" "sasolsan-simegas-catalog-id" {
