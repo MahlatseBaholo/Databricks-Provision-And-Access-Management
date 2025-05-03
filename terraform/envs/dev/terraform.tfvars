@@ -30,54 +30,7 @@ entitlements = {
   }
 }
 
-##############################################
-# Cluster Configuration and Updates
-##############################################
-cluster_name              = "multi-node-simegas-small-general-purpose"  
-spark_version             = "15.4.x-scala2.12"       
-node_type_id              = "Standard_DS3_v2"         
-driver_node_type_id       = "Standard_DS3_v2"        
-autotermination_minutes   = 10                                                                         
-data_security_mode        = "USER_ISOLATION"
 
-azure_attributes = {
-  first_on_demand        = 1                             
-  availability           = "SPOT_WITH_FALLBACK_AZURE"  
-  spot_bid_max_price     = -1                           
-}
-
-autoscale = {
-  min_workers = 2   
-  max_workers = 10  
-}
-
-##############################################
-# Cluster Permissions for AD Groups
-##############################################
-cluster_permissions = {
-  "GenAI-Developers" = ["CAN_ATTACH_TO"],
-  "SIMEGAS-ADMIN" = ["CAN_ATTACH_TO"]       
-}
-
-##############################################
-# Serverless SQL Warehouse Configuration
-##############################################
-sql_warehouse_name                      = "serverless-sql-warehouse-simegas-small" 
-sql_warehouse_cluster_size              = "2X-Small"                                       
-sql_warehouse_max_num_clusters          = 2                                            
-sql_warehouse_min_num_clusters          = 1                                             
-sql_warehouse_auto_stop_mins            = 10                                             
-sql_warehouse_enable_serverless_compute = false                                         
-sql_warehouse_enable_permissions        = true
-warehouse_type                          = "PRO"                                          
-
-##############################################
-# Serverless SQL Warehouse Permissions
-##############################################
-sql_warehouse_permissions = {   
-  "GenAI-Developers" = ["CAN_USE"],
-  "SIMEGAS-ADMIN" = ["CAN_USE"]  
-}
 ##############################################
 # Define and Manage Catalogs, Schemas, and Permissions
 ##############################################
@@ -137,3 +90,52 @@ access_controls = [
     permission_level = "CAN_MANAGE"
   }
 ]
+
+##############################################
+# Cluster Configuration and Updates
+##############################################
+cluster_name              = "multi-node-simegas-small-general-purpose"  
+spark_version             = "15.4.x-scala2.12"       
+node_type_id              = "Standard_DS3_v2"         
+driver_node_type_id       = "Standard_DS3_v2"        
+autotermination_minutes   = 10                                                                         
+data_security_mode        = "USER_ISOLATION"
+
+azure_attributes = {
+  first_on_demand        = 1                             
+  availability           = "SPOT_WITH_FALLBACK_AZURE"  
+  spot_bid_max_price     = -1                           
+}
+
+autoscale = {
+  min_workers = 2   
+  max_workers = 10  
+}
+
+##############################################
+# Cluster Permissions for AD Groups
+##############################################
+cluster_permissions = {
+  "GenAI-Developers" = ["CAN_ATTACH_TO"],
+  "SIMEGAS-ADMIN" = ["CAN_ATTACH_TO"]       
+}
+
+##############################################
+# Serverless SQL Warehouse Configuration
+##############################################
+sql_warehouse_name                      = "serverless-sql-warehouse-simegas-small" 
+sql_warehouse_cluster_size              = "2X-Small"                                       
+sql_warehouse_max_num_clusters          = 2                                            
+sql_warehouse_min_num_clusters          = 1                                             
+sql_warehouse_auto_stop_mins            = 10                                             
+sql_warehouse_enable_serverless_compute = false                                         
+sql_warehouse_enable_permissions        = true
+warehouse_type                          = "PRO"                                          
+
+##############################################
+# Serverless SQL Warehouse Permissions
+##############################################
+sql_warehouse_permissions = {   
+  "GenAI-Developers" = ["CAN_USE"],
+  "SIMEGAS-ADMIN" = ["CAN_USE"]  
+}
