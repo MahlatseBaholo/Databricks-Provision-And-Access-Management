@@ -2,7 +2,7 @@ output "workspace_resource_group_name" {
   value = azurerm_resource_group.sasolsan-simegas-dev-rg.name
 }
 
-output "workspace_id" {
+output "workspace_id_dev" {
   value = azurerm_databricks_workspace.sasol-dev-simegas-dbw.id
 }
 
@@ -10,7 +10,7 @@ output "workspace_resource_group_name" {
   value = azurerm_resource_group.sasolsan-simegas-qa-rg.name
 }
 
-output "workspace_id" {
+output "workspace_id_qa" {
   value = azurerm_databricks_workspace.sasol-qa-simegas-dbw.id
 }
 
@@ -18,7 +18,7 @@ output "workspace_resource_group_name" {
   value = azurerm_resource_group.sasolsan-simegas-prod-rg.name
 }
 
-output "workspace_id" {
+output "workspace_id_prod" {
   value = azurerm_databricks_workspace.sasol-prod-simegas-dbw.id
 }
 
