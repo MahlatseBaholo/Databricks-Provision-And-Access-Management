@@ -118,7 +118,7 @@ stages:
   - stage: tfapply
     displayName: "Terraform Apply"
     dependsOn: tfimport
-    condition: succeeded('tfimport')
+    #condition: succeeded('tfimport')
     jobs:
         - job: tfapply
           displayName: "apply"
