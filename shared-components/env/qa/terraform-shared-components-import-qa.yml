@@ -98,6 +98,7 @@ stages:
               terraform import azurerm_storage_account.$(accountname) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(accountname)
               terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
               terraform import azurerm_storage_container.metastoreazuresan https://sasolsansimegascatalog.blob.core.windows.net/metastoreazuresan
+              terraform import azurerm_storage_container.shared-components https://sasolsansimegasterraform.blob.core.windows.net/shared-components
               terraform import databricks_metastore.$(METASTORE_NAME) $(METASTORE_ID)
               terraform import databricks_metastore_assignment.$(METASTORE_NAME) '$(DATABRICKS_WORKSPACE_ID)|$(METASTORE_ID)'
               terraform import azurerm_user_assigned_identity.sasolsan-simegas-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolsan-simegas-catalog-id
