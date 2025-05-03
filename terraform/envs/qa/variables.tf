@@ -1,4 +1,4 @@
-variable "location" {
+variable "location_abbr" {
   description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
   type        = string
   default     = "san" 
@@ -97,34 +97,9 @@ variable "autotermination_minutes" {
   type        = number
 }
 
-variable "enable_elastic_disk" {
-  description = "Whether to enable elastic disk"
-  type        = bool
-}
-
-variable "policy_id" {
-  description = "Cluster policy ID"
-  type        = string
-}
-
-variable "enable_local_disk_encryption" {
-  description = "Enable local disk encryption"
-  type        = bool
-}
-
 variable "data_security_mode" {
-  description = "Data security mode"
+  description = "Unity Catalog enablement"
   type        = string
-}
-
-variable "runtime_engine" {
-  description = "Runtime engine"
-  type        = string
-}
-
-variable "apply_policy_default_values" {
-  description = "Apply policy default values"
-  type        = bool
 }
 
 variable "azure_attributes" {
@@ -177,6 +152,11 @@ variable "sql_warehouse_tags" {
   default     = {}
 }
 
+variable "warehouse_type" {
+  type        = string
+  description = "SQL warehouse type"
+}
+
 variable "sql_warehouse_enable_permissions" {
   type        = bool
   default     = false
@@ -208,4 +188,3 @@ variable "access_controls" {
   }))
   description = "List of permissions to assign to the folder"
 }
-
