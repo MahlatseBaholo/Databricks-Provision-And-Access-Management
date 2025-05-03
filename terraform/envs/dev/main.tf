@@ -39,6 +39,7 @@ resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
   provider      = databricks.account
   metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
   workspace_id  = azurerm_databricks_workspace.sasol-dev-simegas-dbw.id
+}
 
 module "databricks_identity_access" {
   source = "../../modules/databricks_identity_access"
