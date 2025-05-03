@@ -9,6 +9,7 @@ parameters:
     default: dev
 
 variables:
+  env: '${{ parameters.env }}'
   terraform_rg: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
   tfstate_storage: 'sasol${{ parameters.env }}simegastf'
   containername: 'sasol-${{ parameters.env }}-simegas-dbw'
