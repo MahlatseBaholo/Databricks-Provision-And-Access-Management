@@ -1,6 +1,3 @@
-
-
-
 module "databricks_cluster" {
   source = "../../modules/databricks_cluster_with_permissions"
 
