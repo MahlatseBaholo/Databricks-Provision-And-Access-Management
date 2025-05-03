@@ -92,15 +92,11 @@ stages:
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
           - script: |
-              terraform import azurerm_resource_group.$(workspace_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
-              terraform import azurerm_databricks_workspace.$(DATABRICKS_WORKSPACE_NAME) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(workspace_rg)/providers/Microsoft.Databricks/workspaces/$(DATABRICKS_WORKSPACE_NAME)
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
               terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
               terraform import azurerm_storage_container.metastoreazuresan https://sasolsansimegascatalog.blob.core.windows.net/metastoreazuresan
               terraform import azurerm_storage_container.shared-components https://sasolsansimegasterraform.blob.core.windows.net/shared-components
-              terraform import databricks_metastore.$(METASTORE_NAME) $(METASTORE_ID)
-              terraform import databricks_metastore_assignment.$(METASTORE_NAME) '$(DATABRICKS_WORKSPACE_ID)|$(METASTORE_ID)'
               terraform import azurerm_user_assigned_identity.sasolsan-simegas-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolsan-simegas-catalog-id
               terraform import azurerm_databricks_access_connector.sasolsan-simegas-catalog-connector /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Databricks/accessConnectors/sasolsan-simegas-catalog-connector
             displayName: 'Import Resources'
