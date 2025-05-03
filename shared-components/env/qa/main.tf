@@ -1,10 +1,10 @@
-resource "azurerm_resource_group" "sasolsan-simegas-dev-rg" {
-  name     = "sasolsan-simegas-dev-rg"
+resource "azurerm_resource_group" "sasolsan-simegas-qa-rg" {
+  name     = "sasolsan-simegas-qa-rg"
   location = "southafricanorth"
 }
 
-resource "azurerm_resource_group" "sasolsan-simegas-dev-terraform-rg" {
-  name     = "sasolsan-simegas-dev-terraform-rg"
+resource "azurerm_resource_group" "sasolsan-simegas-qa-terraform-rg" {
+  name     = "sasolsan-simegas-qa-terraform-rg"
   location = "southafricanorth"
 }
 
@@ -22,10 +22,10 @@ resource "azurerm_storage_account" "sasolsansimegascatalog" {
   is_hns_enabled            = true
 }
 
-resource "azurerm_storage_account" "sasoldevsimegasterraform" {
-  name                      = "sasoldevsimegasterraform"
-  resource_group_name       = "sasolsan-simegas-dev-terraform-rg"
-  location                  = azurerm_resource_group.sasolsan-simegas-dev-terraform-rg.location
+resource "azurerm_storage_account" "sasolqasimegasterraform" {
+  name                      = "sasolqasimegasterraform"
+  resource_group_name       = "sasolsan-simegas-qa-terraform-rg"
+  location                  = azurerm_resource_group.sasolsan-simegas-qa-terraform-rg.location
   account_tier              = "Standard"
   account_replication_type  = "LRS"
 }
@@ -42,10 +42,10 @@ resource "databricks_metastore" "metastore_azure_southafricanorth" {
   region        = "southafricanorth"
 }
 
-resource "azurerm_databricks_workspace" "sasol-dev-simegas-dbw" {
-  name                = "sasol-dev-simegas-dbw"
+resource "azurerm_databricks_workspace" "sasol-qa-simegas-dbw" {
+  name                = "sasol-qa-simegas-dbw"
   location            = "southafricanorth"
-  resource_group_name = "sasolsan-simegas-dev-rg"
+  resource_group_name = "sasolsan-simegas-qa-rg"
   sku                 = "premium"
 }
 
