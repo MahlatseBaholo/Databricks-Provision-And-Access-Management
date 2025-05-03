@@ -9,7 +9,7 @@ parameters:
     default: dev
 
 variables:
-  resourcegroup: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
+  terraform_rg: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
   accountname: 'sasol${{ parameters.env }}simegastf'
   containername: 'sasol-${{ parameters.env }}-simegas-dbw'
   key: 'manage/terraform.tfstate'
@@ -34,7 +34,7 @@ stages:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: $(azureSubscription)
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmResourceGroupName: '$(terraform_rg)'
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
@@ -115,7 +115,7 @@ stages:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: $(azureSubscription)
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmResourceGroupName: '$(terraform_rg)'
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
@@ -228,7 +228,7 @@ stages:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: $(azureSubscription)
-              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmResourceGroupName: '$(terraform_rg)'
               backendAzureRmStorageAccountName: '$(accountname)'
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
