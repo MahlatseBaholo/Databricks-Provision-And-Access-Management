@@ -188,10 +188,3 @@ variable "access_controls" {
   }))
   description = "List of permissions to assign to the folder"
 }
-
-#variable "external_location_read_group" {
-#  description = "Group that will receive read access to all external locations"
- # type        = string
- # default     = "SIMEGAS-ADMIN" 
-#}
-
