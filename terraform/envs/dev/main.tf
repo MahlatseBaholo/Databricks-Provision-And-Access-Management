@@ -47,22 +47,26 @@ resource "null_resource" "metastore_assignment_dependency" {
 }
 
 module "external_location" {
-  source  = "../../modules/databricks_external_location"
+  source = "../../modules/databricks_external_location"
   for_each = local.storage_definitions
+
   name             = each.value.external_location_name
   url              = format("abfss://%s@%s.dfs.core.windows.net",
     module.storage_container[each.key].container_name,
     data.terraform_remote_state.metastoreazuresan.outputs.storage_account_name
   )
   credential_name = module.storage_credential[each.key].storage_credential_id
+  read_group      = var.external_location_read_group
+
+  providers = {
+    databricks = databricks.workspace
+  }
+
   depends_on = [
     null_resource.metastore_assignment_dependency,
     module.storage_container,
     module.storage_credential
   ]
-  providers = {
-    databricks = databricks.workspace
-  }
 }
 
 module "databricks_catalog_with_access" {
