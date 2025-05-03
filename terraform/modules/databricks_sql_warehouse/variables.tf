@@ -38,6 +38,11 @@ variable "tags" {
   default     = {}
 }
 
+variable "warehouse_type" {
+  type        = string
+  description = "SQL warehouse type"
+}
+
 variable "enable_permissions" {
   description = "Whether to assign permissions"
   type        = bool
