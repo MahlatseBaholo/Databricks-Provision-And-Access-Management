@@ -84,7 +84,15 @@ terraform/
 | `variables.tf`      | Declares variables expected from tfvars or pipeline                  |
 
 ---
+## 
+![Databricks](https://upload.wikimedia.org/wikipedia/commons/2/29/Databricks_Logo.png)
+ Managed Workspaces
 
+ sasol-dev-simegas-dbw 
+ sasol-qa-simegas-dbw
+ sasol-prod-simegas-dbw
+
+ 
 ## 🔁 CI/CD Pipeline
 
 One Azure DevOps YAML pipeline is used:
