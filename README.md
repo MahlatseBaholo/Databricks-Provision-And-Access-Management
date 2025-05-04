@@ -20,22 +20,22 @@ terraform/
 │   │   ├── simegas-tf-adb-deploy-dev.yml
 │   │   ├── terraform.tfvars
 │   │   └── variables.tf
-│   ├── preprod/
+│   ├── prod/
 │   │   ├── backend.tf
 │   │   ├── data.tf
 │   │   ├── locals.tf
 │   │   ├── main.tf
 │   │   ├── providers.tf
-│   │   ├── simegas-tf-adb-deploy-qa.yml
+│   │   ├── simegas-tf-adb-deploy-prod.yml
 │   │   ├── terraform.tfvars
 │   │   └── variables.tf
-│   └── prod/
+│   └── qa/
 │       ├── backend.tf
 │       ├── data.tf
 │       ├── locals.tf
 │       ├── main.tf
 │       ├── providers.tf
-│       ├── simegas-tf-adb-deploy-prod.yml
+│       ├── simegas-tf-adb-deploy-qa.yml
 │       ├── terraform.tfvars
 │       └── variables.tf
 │
@@ -84,15 +84,12 @@ terraform/
 | `variables.tf`      | Declares variables expected from tfvars or pipeline                  |
 
 ---
-## 
-![Databricks](https://upload.wikimedia.org/wikipedia/commons/2/29/Databricks_Logo.png)
- Managed Workspaces
+## 🔥 Databricks Managed Workspaces
 
- sasol-dev-simegas-dbw 
- sasol-qa-simegas-dbw
- sasol-prod-simegas-dbw
+- sasol-dev-simegas-dbw 
+- sasol-qa-simegas-dbw
+- sasol-prod-simegas-dbw
 
- 
 ## 🔁 CI/CD Pipeline
 
 One Azure DevOps YAML pipeline is used:
