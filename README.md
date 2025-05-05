@@ -9,7 +9,7 @@ This Terraform-based infrastructure-as-code project provisions and manages Azure
 | Acronym | Meaning                                |
 |--------|----------------------------------------|
 | ADB     | Azure Databricks                       |
-| DBW     | Databricks workspace                      |
+| DBW     | Databricks Workspace                      |
 | AKV     | Azure Key Vault                        |
 | ENVS     | Environments|
 | M2M     | Machine-to-Machine OAuth2 Flow         |
