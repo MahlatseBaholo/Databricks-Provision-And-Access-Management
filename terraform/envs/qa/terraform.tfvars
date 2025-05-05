@@ -1,4 +1,28 @@
 ##############################################
+# Workspace Budget
+##############################################
+budgets = {
+  dev_budget = {
+    alert_config = {
+      time_period        = "MONTH"
+      trigger_type       = "CUMULATIVE_SPENDING_EXCEEDED"
+      quantity_type      = "LIST_PRICE_DOLLARS_USD"
+      quantity_threshold = "100"
+
+      action_configurations = [
+        {
+          action_type = "EMAIL_NOTIFICATION"
+          target      = "mahlatse.baholo@sasol.com"
+        }
+      ]
+    }
+    filter = {
+      workspace_ids = ["1803701311157133"]
+    }
+  }
+}
+
+##############################################
 # Define AD Groups and Permissions
 ##############################################
 group_names = ["SIMEGAS-ADMIN", "GenAI-Developers"]
