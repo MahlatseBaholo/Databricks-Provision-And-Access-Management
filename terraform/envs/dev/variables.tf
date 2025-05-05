@@ -1,3 +1,27 @@
+variable "env" {
+  description = "Deployment environment, e.g. dev, qa, prod"
+  type        = string
+}
+
+variable "budgets" {
+  description = "Map of budget configurations to be passed to the module"
+  type = map(object({
+    alert_config = object({
+      time_period        = string
+      trigger_type       = string
+      quantity_type      = string
+      quantity_threshold = string
+      action_configurations = list(object({
+        action_type = string
+        target      = string
+      }))
+    })
+    filter = object({
+      workspace_ids = list(string)
+    })
+  }))
+}
+
 variable "location_abbr" {
   description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
   type        = string
@@ -174,11 +198,6 @@ variable "catalog_definitions" {
     catalog_access = map(list(string))
     schema_access  = map(map(list(string)))
   }))
-}
-
-variable "env" {
-  description = "Deployment environment, e.g. dev, qa, prod"
-  type        = string
 }
 
 variable "folder_path" {
