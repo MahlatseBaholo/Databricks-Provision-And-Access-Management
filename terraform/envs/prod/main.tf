@@ -38,7 +38,6 @@ resource "null_resource" "metastore_assignment_dependency" {
 module "external_location" {
   source = "../../modules/databricks_external_location"
   for_each = local.storage_definitions
-
   name             = each.value.external_location_name
   url              = format("abfss://%s@%s.dfs.core.windows.net",
     module.storage_container[each.key].container_name,
@@ -82,10 +81,8 @@ module "databricks_catalog_schema_grants" {
 
 module "folder_permissions" {
   source = "../../modules/databricks_folder_usage_permissions"
-
   directory_path  = var.folder_path
   access_controls = var.access_controls
-
   providers = {
     databricks = databricks.workspace
   }
@@ -118,7 +115,6 @@ module "sql_warehouse" {
   enable_serverless_compute  = var.sql_warehouse_enable_serverless_compute
   tags                       = var.sql_warehouse_tags
   warehouse_type             = var.warehouse_type
-
   enable_permissions         = var.sql_warehouse_enable_permissions
   permissions                = var.sql_warehouse_permissions
   depends_on = [module.databricks_cluster]
