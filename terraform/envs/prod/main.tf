@@ -90,3 +90,39 @@ module "folder_permissions" {
     databricks = databricks.workspace
   }
 }
+
+module "databricks_cluster" {
+  source = "../../modules/databricks_cluster_with_permissions"
+  cluster_name                 = var.cluster_name
+  spark_version                = var.spark_version
+  node_type_id                 = var.node_type_id
+  driver_node_type_id          = var.driver_node_type_id
+  autotermination_minutes      = var.autotermination_minutes
+  azure_attributes             = var.azure_attributes
+  autoscale                    = var.autoscale
+  data_security_mode           = var.data_security_mode
+  cluster_permissions          = var.cluster_permissions
+  depends_on = [module.databricks_catalog_schema_grants]
+  providers = {
+    databricks = databricks.workspace
+  }
+}
+
+module "sql_warehouse" {
+  source                     = "../../modules/databricks_sql_warehouse"
+  name                       = var.sql_warehouse_name
+  cluster_size               = var.sql_warehouse_cluster_size
+  max_num_clusters           = var.sql_warehouse_max_num_clusters
+  min_num_clusters           = var.sql_warehouse_min_num_clusters
+  auto_stop_mins             = var.sql_warehouse_auto_stop_mins
+  enable_serverless_compute  = var.sql_warehouse_enable_serverless_compute
+  tags                       = var.sql_warehouse_tags
+  warehouse_type             = var.warehouse_type
+
+  enable_permissions         = var.sql_warehouse_enable_permissions
+  permissions                = var.sql_warehouse_permissions
+  depends_on = [module.databricks_cluster]
+  providers = {
+    databricks = databricks.workspace
+  }
+}
