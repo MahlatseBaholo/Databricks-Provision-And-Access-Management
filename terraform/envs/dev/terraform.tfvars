@@ -1,23 +1,25 @@
 ##############################################
-# Workpspace Budget
+# Workspace Budget
 ##############################################
-variable "budgets" {
-  description = "Budget definitions keyed by budget name"
-  type = map(object({
-    alert_config = object({
-      time_period           = string
-      trigger_type          = string
-      quantity_type         = string
-      quantity_threshold    = string
-      action_configurations = list(object({
-        action_type = string
-        target      = string
-      }))
-    })
-    filter = object({
-      workspace_id = list(string)
-    })
-  }))
+budgets = {
+  dev_budget = {
+    alert_config = {
+      time_period        = "MONTH"
+      trigger_type       = "CUMULATIVE_SPENDING_EXCEEDED"
+      quantity_type      = "LIST_PRICE_DOLLARS_USD"
+      quantity_threshold = "100"
+
+      action_configurations = [
+        {
+          action_type = "EMAIL_NOTIFICATION"
+          target      = "mahlatse.baholo@sasol.com"
+        }
+      ]
+    }
+    filter = {
+      workspace_id = var.workspace_id
+    }
+  }
 }
 
 ##############################################
