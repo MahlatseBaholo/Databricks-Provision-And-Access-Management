@@ -16,8 +16,9 @@ budgets = {
         }
       ]
     }
+
     filter = {
-      workspace_id = var.workspace_id
+      workspace_ids = ["1584894596117397"]
     }
   }
 }
