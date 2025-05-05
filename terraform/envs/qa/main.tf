@@ -116,7 +116,6 @@ module "sql_warehouse" {
   enable_serverless_compute  = var.sql_warehouse_enable_serverless_compute
   tags                       = var.sql_warehouse_tags
   warehouse_type             = var.warehouse_type
-
   enable_permissions         = var.sql_warehouse_enable_permissions
   permissions                = var.sql_warehouse_permissions
   depends_on = [module.databricks_cluster]
