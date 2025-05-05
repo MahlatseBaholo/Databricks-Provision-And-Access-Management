@@ -97,11 +97,6 @@ terraform/
 | `variables.tf`      | Declares variables expected from tfvars or pipeline                  |
 
 ---
-## 🔥 Databricks Managed Workspaces
-
-- sasol-dev-simegas-dbw 
-- sasol-qa-simegas-dbw
-- sasol-prod-simegas-dbw
 
 ## 🔁 CI/CD Pipeline and Trigger
 
@@ -127,6 +122,13 @@ Pipelines are automatically triggered till the plan stage, apply stage will only
 
 ---
 
+## 🔥 Databricks Managed Workspaces
+
+- sasol-dev-simegas-dbw 
+- sasol-qa-simegas-dbw
+- sasol-prod-simegas-dbw
+
+---
 ## 🔐 Secrets & Auth
 
 Secrets are stored in **Azure Key Vault** and accessed via environment variables:
