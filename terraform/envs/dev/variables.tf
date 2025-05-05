@@ -17,7 +17,7 @@ variable "budgets" {
       }))
     })
     filter = object({
-      workspace_id = list(string)
+      workspace_ids = list(string)
     })
   }))
 }
