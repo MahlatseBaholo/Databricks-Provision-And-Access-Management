@@ -179,7 +179,6 @@ variable "catalog_definitions" {
 variable "env" {
   description = "Deployment environment, e.g. dev, qa, prod"
   type        = string
-  default     = "qa"
 }
 
 variable "folder_path" {
