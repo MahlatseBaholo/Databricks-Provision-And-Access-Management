@@ -144,19 +144,19 @@ cluster_permissions = {
 }
 
 ##############################################
-# Serverless SQL Warehouse Configuration
+# Pro SQL Warehouse Configuration
 ##############################################
-sql_warehouse_name                      = "serverless-sql-warehouse-simegas-small" 
+sql_warehouse_name                      = "pro-sql-warehouse-simegas-small" 
 sql_warehouse_cluster_size              = "2X-Small"                                       
 sql_warehouse_max_num_clusters          = 2                                            
 sql_warehouse_min_num_clusters          = 1                                             
 sql_warehouse_auto_stop_mins            = 10                                             
 sql_warehouse_enable_serverless_compute = false                                         
 sql_warehouse_enable_permissions        = true
-warehouse_type                          = "PRO"                                          
+warehouse_type                          = "PRO"                                           
 
 ##############################################
-# Serverless SQL Warehouse Permissions
+# Pro SQL Warehouse Permissions
 ##############################################
 sql_warehouse_permissions = {   
   "GenAI-Developers" = ["CAN_USE"],
