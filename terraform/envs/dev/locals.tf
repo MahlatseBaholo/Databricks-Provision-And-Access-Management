@@ -15,9 +15,4 @@ locals {
       storage_root   = module.external_location[catalog_name].external_location_url
     }
   }
-  
-  catalogs_with_suffix = {
-    for name, def in var.catalog_definitions :
-    "${name}-${var.env}" => def
-  }
 }
