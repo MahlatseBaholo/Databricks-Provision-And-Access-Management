@@ -4,6 +4,19 @@
 
 This Terraform-based infrastructure-as-code project provisions and manages Azure Databricks resources across different modules and environments (e.g., `dev`,`qa`, `prod`). It supports modular deployments, SCIM-based access control, secure credential handling, and automated Azure DevOps CI/CD pipelines.
 
+## 🧾 Abbreviations
+
+| Acronym | Meaning                                |
+|--------|----------------------------------------|
+| ADB     | Azure Databricks                       |
+| DBW     | Databricks workspace                      |
+| AKV     | Azure Key Vault                        |
+| ENVS     | Environments|
+| M2M     | Machine-to-Machine OAuth2 Flow         |
+| SCIM    | System for Cross-domain Identity Mgmt. |
+| SIMEGAS    |  |
+| TF      | Terraform                     |
+
 ---
 
 ## 📂 Project Structure
@@ -125,20 +138,6 @@ Secrets are stored in **Azure Key Vault** and accessed via environment variables
 - `AccessKey-sasol$(env)terraform` (Azure Storage backend access key)
 
 Firewall rules are dynamically updated for build agent IP access to Key Vault during runtime.
-
----
-
-## 🧾 Abbreviations
-
-| Acronym | Meaning                                |
-|--------|----------------------------------------|
-| ADB     | Azure Databricks                       |
-| AKV     | Azure Key Vault                        |
-| ENVS     | Environments|
-| M2M     | Machine-to-Machine OAuth2 Flow         |
-| SCIM    | System for Cross-domain Identity Mgmt. |
-| SIMEGAS    |  |
-| TF      | Terraform                     |
 
 ---
 ## 🛠️ Troubleshooting
