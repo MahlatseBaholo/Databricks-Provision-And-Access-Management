@@ -4,6 +4,13 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+resources:
+  pipelines:
+  - pipeline: simegas-tf-adb-deploy-prod
+    project: Simegas Databricks Management
+    source: simegas-tf-adb-deploy-qa 
+    trigger: true
+
 parameters:
   - name: env
     default: prod
