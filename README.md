@@ -90,9 +90,9 @@ terraform/
 - sasol-qa-simegas-dbw
 - sasol-prod-simegas-dbw
 
-## 🔁 CI/CD Pipeline
+## 🔁 CI/CD Pipeline and Trigger
 
-One Azure DevOps YAML pipeline is used:
+One Azure DevOps YAML pipeline is used per environment:
 
 ### 1. `simegas-tf-adb-deploy-env.yml`
 - Initializes Terraform
@@ -104,6 +104,14 @@ One Azure DevOps YAML pipeline is used:
 - Secured via service principal auth (OAuth M2M)
 - Supports environment-specific deploys
 
+Pipelines are automatically triggered till the plan stage, apply stage will only execute post plan review and approval.
+
+| Pipeline                   | Dependency                |
+|----------------------------|---------------------------|
+| simegas-tf-adb-deploy-dev  | Main branch               |
+| simegas-tf-adb-deploy-qa   | simegas-tf-adb-deploy-dev |
+| simegas-tf-adb-deploy-prod | simegas-tf-adb-deploy-qa  |
+
 ---
 
 ## 🔐 Secrets & Auth
@@ -114,7 +122,7 @@ Secrets are stored in **Azure Key Vault** and accessed via environment variables
 - `DATABRICKS_WORKSPACE_CLIENT_ID`, `DATABRICKS_WORKSPACE_CLIENT_SECRET`
 - `DATABRICKS_WORKSPACE_HOST`
 - `DATABRICKS_ACCOUNT_ID`
-- `AccessKey-sasoldevterraform` (Azure Storage backend access key)
+- `AccessKey-sasol$(env)terraform` (Azure Storage backend access key)
 
 Firewall rules are dynamically updated for build agent IP access to Key Vault during runtime.
 
