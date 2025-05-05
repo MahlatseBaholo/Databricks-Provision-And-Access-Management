@@ -1,3 +1,13 @@
+module "databricks_budgets" {
+  source = "../../modules/databricks_budget"
+  providers = {
+    databricks.account = databricks.account
+    databricks.workspace = databricks.workspace
+    databricks = databricks.account
+  }
+  budgets = var.budgets
+}
+
 module "databricks_identity_access" {
   source = "../../modules/databricks_identity_access"
   
