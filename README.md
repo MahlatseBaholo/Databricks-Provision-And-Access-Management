@@ -145,7 +145,7 @@ Firewall rules are dynamically updated for build agent IP access to Key Vault du
 ## 🛠️ Troubleshooting
  
 | Error | Source |Fix                                |
-|--------|----------------------------------------|
+|--------|-------|----------------------------------------|
 | "PERMINSSION DENIED: User name.surname@sasol.com does not have READ permission on scope KeyVault to perform this action |Databricks Notebook | Log a request on the service catalog here:https://myim.service-now.com/sp?id=sc_cat_item&sys_id=c0768b14c3d69a9039011ef0e00131f9                     |
 | Error: Error acquiring the state lock     | Pipeline Build Results  | Please contact Platform Engineer to break lease on blob                     |
 ## 📬 Contact & Contribution
