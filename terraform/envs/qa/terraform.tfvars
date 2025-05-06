@@ -7,7 +7,7 @@ budgets = {
       time_period        = "MONTH"
       trigger_type       = "CUMULATIVE_SPENDING_EXCEEDED"
       quantity_type      = "LIST_PRICE_DOLLARS_USD"
-      quantity_threshold = "100"
+      quantity_threshold = "1000"
 
       action_configurations = [
         {
