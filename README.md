@@ -124,9 +124,11 @@ Pipelines are automatically triggered till the plan stage, apply stage will only
 
 ## 🔥 Databricks Managed Workspaces
 
-- sasol-dev-simegas-dbw 
-- sasol-qa-simegas-dbw
-- sasol-prod-simegas-dbw
+| Workspace              | Link                                                                    |
+|------------------------|-------------------------------------------------------------------------|
+| sasol-dev-simegas-dbw  | https://adb-1584894596117397.17.azuredatabricks.net/?o=1584894596117397 |
+| sasol-qa-simegas-dbw   | https://adb-1803701311157133.13.azuredatabricks.net/?o=1803701311157133 |
+| sasol-prod-simegas-dbw | https://adb-1910321470216143.3.azuredatabricks.net/?o=1910321470216143  |
 
 ---
 ## 🔐 Secrets & Auth
