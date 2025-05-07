@@ -110,7 +110,8 @@ catalog_definitions = {
           "USE_SCHEMA", "SELECT", "READ_VOLUME"
         ]
       }
-    },
+    }
+  },
   demo = {
     project = "simegas"  
     schema_names = ["bronze", "silver", "gold"] 
