@@ -6,16 +6,16 @@ This Terraform-based infrastructure-as-code project provisions and manages Azure
 
 ## 🧾 Abbreviations
 
-| Acronym | Meaning                                |
-|--------|----------------------------------------|
-| ADB     | Azure Databricks                       |
-| DBW     | Databricks Workspace                      |
-| AKV     | Azure Key Vault                        |
-| ENVS     | Environments (dev,qa,prod)|
-| M2M     | Machine-to-Machine OAuth2 Flow         |
-| SCIM    | System for Cross-domain Identity Mgmt. |
-| SIMEGAS    |  |
-| TF      | Terraform                     |
+| Acronym | Meaning                                                                           |
+|---------|------------------------------------------------------------------------------------|
+| ADB     | Azure Databricks                                                                  |
+| DBW     | Databricks Workspace                                                              |
+| AKV     | Azure Key Vault                                                                   |
+| ENVS    | Environments (dev,qa,prod)                                                       |
+| M2M     | Machine-to-Machine OAuth2 Flow                                                    |
+| SCIM    | System for Cross-domain Identity Mgmt.                                            |
+| SIMEGAS | Sasol Information Management Enterprise Generative Artificial Intelligence System |
+| TF      | Terraform                                                                         |
 
 ---
 
