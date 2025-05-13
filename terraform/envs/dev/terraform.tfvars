@@ -64,31 +64,28 @@ catalog_definitions = {
       }
     }
   },
-  demo = {
+  system = {
     project = "simegas"  
-    schema_names = ["bronze", "silver", "gold"] 
+    schema_names = ["access", "ai", "serving"] 
     catalog_access = {
       "GenAI-Developers" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+        "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ]
     }
     schema_access = {
-      bronze = {
+      access = {
         "GenAI-Developers" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       },
-      silver = {
+      ai = {
         "GenAI-Developers" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       },
-      gold = {
+      serving = {
         "GenAI-Developers" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       }
     }
