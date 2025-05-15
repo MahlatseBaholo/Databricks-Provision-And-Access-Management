@@ -37,7 +37,7 @@ catalog_definitions = {
 
   ai = {
     project = "simegas"  
-    schema_names = ["bronze", "silver", "gold"] 
+    schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
       "GenAI-Developers" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
@@ -57,6 +57,12 @@ catalog_definitions = {
         ]
       },
       gold = {
+        "GenAI-Developers" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+       ai = {
         "GenAI-Developers" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
