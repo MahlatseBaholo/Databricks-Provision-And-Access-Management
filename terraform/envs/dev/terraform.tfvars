@@ -70,33 +70,7 @@ catalog_definitions = {
       }
     }
   },
-  system = {
-    project = "simegas"  
-    schema_names = ["access", "ai", "serving"] 
-    catalog_access = {
-      "GenAI-Developers" = [
-        "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ]
-    }
-    schema_access = {
-      access = {
-        "GenAI-Developers" = [
-          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
-        ]
-      },
-      ai = {
-        "GenAI-Developers" = [
-          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
-        ]
-      },
-      serving = {
-        "GenAI-Developers" = [
-          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
-        ]
-      }
-    }
-  }
-}
+  
 
 ##############################################
 # Define Folder Usage Permissions
