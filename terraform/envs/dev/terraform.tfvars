@@ -71,12 +71,12 @@ catalog_definitions = {
         "GenAI-Developers" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
+        ],
+        {
         "SIMEGAS-ADMIN" = [
           "ALL_PRIVILEGES"
         ]
+        }
       }
     }
   }
