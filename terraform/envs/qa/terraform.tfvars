@@ -120,37 +120,9 @@ catalog_definitions = {
       ai = {
         "GenAI-Developers" = [
           "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
-        ]
-      },
-      ai = {
+        ],
         "SIMEGAS-ADMIN" = [
           "ALL_PRIVILEGES"
-        ]
-      }
-    }
-  },
-  demo = {
-    project = "simegas"  
-    schema_names = ["bronze", "silver", "gold"] 
-    catalog_access = {
-      "GenAI-Developers" = [
-        "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "GenAI-Developers" = [
-          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
-        ]
-      },
-      silver = {
-        "GenAI-Developers" = [
-          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
-        ]
-      },
-      gold = {
-        "GenAI-Developers" = [
-          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       }
     }
