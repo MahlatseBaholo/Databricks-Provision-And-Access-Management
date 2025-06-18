@@ -95,6 +95,11 @@ catalog_definitions = {
       "GenAI-Developers" = [
         "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ]
+    },
+    catalog_access = {
+      "SIMEGAS-ADMIN" = [
+        "ALL_PRIVILEGES"
+      ]
     }
     schema_access = {
       bronze = {
@@ -115,6 +120,11 @@ catalog_definitions = {
       ai = {
         "GenAI-Developers" = [
           "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
+        ]
+      },
+      ai = {
+        "SIMEGAS-ADMIN" = [
+          "ALL_PRIVILEGES"
         ]
       }
     }

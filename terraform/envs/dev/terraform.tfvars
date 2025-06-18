@@ -42,6 +42,11 @@ catalog_definitions = {
       "GenAI-Developers" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ]
+    },
+    catalog_access = {
+      "SIMEGAS-ADMIN" = [
+        "ALL_PRIVILEGES"
+      ]
     }
     schema_access = {
       bronze = {
@@ -66,6 +71,11 @@ catalog_definitions = {
         "GenAI-Developers" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      ai = {
+        "SIMEGAS-ADMIN" = [
+          "ALL_PRIVILEGES"
         ]
       }
     }
@@ -139,7 +149,7 @@ autoscale = {
 # Cluster Permissions for AD Groups
 ##############################################
 cluster_permissions = {
-  "GenAI-Developers" = ["CAN_ATTACH_TO"],
+  "GenAI-Developers" = ["CAN_ATTACH_TO","CAN_RESTART"],
   "SIMEGAS-ADMIN" = ["CAN_ATTACH_TO"]       
 }
 
