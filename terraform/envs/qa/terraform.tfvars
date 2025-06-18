@@ -116,6 +116,11 @@ catalog_definitions = {
         "GenAI-Developers" = [
           "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
+      },
+      ai = {
+        "SIMEGAS-ADMIN" = [
+          "ALL_PRIVILEGES"
+        ]
       }
     }
   },
