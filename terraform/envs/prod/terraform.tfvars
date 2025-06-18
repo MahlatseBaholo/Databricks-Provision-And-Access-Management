@@ -154,5 +154,21 @@ access_controls = [
   {
     group_name       = "users"
     permission_level = "CAN_READ"
+  },
+  {
+    group_name       = "admins"
+    permission_level = "CAN_READ"
+  },
+  {
+    group_name       = "admins"
+    permission_level = "CAN_RUN"
+  },
+  {
+    group_name       = "admins"
+    permission_level = "CAN_EDIT"
+  },
+  {
+    group_name       = "admins"
+    permission_level = "CAN_MANAGE"
   }
 ]
