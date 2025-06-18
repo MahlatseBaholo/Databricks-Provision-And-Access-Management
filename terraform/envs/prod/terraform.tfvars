@@ -92,10 +92,8 @@ catalog_definitions = {
     catalog_access = {
       "GenAI-Developers" = [
         "BROWSE", "USE_CATALOG", "READ_VOLUME", "SELECT", "USE_SCHEMA"
-      ]
-    },
-    catalog_access = {
-      "SIMEGAS-ADMIN" = [
+      ],
+       "SIMEGAS-ADMIN" = [
         "ALL_PRIVILEGES"
       ]
     }
