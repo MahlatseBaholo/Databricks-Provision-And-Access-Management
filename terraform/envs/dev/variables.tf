@@ -6,7 +6,7 @@ variable "env" {
 variable "location_abbr" {
   description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
   type        = string
-  default     = "san" 
+  default     = "euw" 
 }
 
 variable "subscription_id" {
