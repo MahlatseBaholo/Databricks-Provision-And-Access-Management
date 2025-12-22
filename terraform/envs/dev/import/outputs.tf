@@ -1,7 +1,7 @@
 output "metastore_id" {
-  value = databricks_metastore.metastore_azure_southafricanorth.id
+  value = databricks_metastore.metastore.id
 }
 
 output "metastore_assignment" {
-  value = databricks_metastore_assignment.metastore_azure_southafricanorth
+  value = databricks_metastore_assignment.metastore
 }
