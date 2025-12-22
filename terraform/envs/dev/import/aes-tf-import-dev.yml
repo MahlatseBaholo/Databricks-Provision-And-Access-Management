@@ -10,13 +10,13 @@ parameters:
 
 variables:
   env: '${{ parameters.env }}'
-  terraform_rg: 'sasolsan-simegas-${{ parameters.env }}-terraform-rg'
-  workspace_rg : 'sasolsan-simegas-${{ parameters.env }}-rg'
-  tfstate_storage: 'sasol${{ parameters.env }}simegastf'
-  containername: 'sasol-${{ parameters.env }}-simegas-dbw'
+  terraform_rg: 'sasoleuw-big-data-${{ parameters.env }}-aes-terraform-rg'
+  workspace_rg : 'sasoleuw-big-data-${{ parameters.env }}-aes-rg'
+  tfstate_storage: 'sasol${{ parameters.env }}terraform'
+  containername: 'sasol-${{ parameters.env }}-aes2-dbw'
   key: 'databricks-metastore-assignment/terraform.tfstate'
-  azureSubscription: 'SIMEGAS ${{ parameters.env }} - SP'
-  keyVaultName: 'sasol-${{ parameters.env }}-simegas-key'
+  azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
+  keyVaultName: 'sasol-${{ parameters.env }}-aes-key'
   
 stages:
   - stage: tfimport
