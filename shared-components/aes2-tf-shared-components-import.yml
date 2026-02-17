@@ -21,22 +21,26 @@ stages:
     jobs:
       - job: tfimport
         steps:
-          - bash: |
-              echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
-            displayName: 'set variable currentip'
+          - powershell: |
+              $ip = (Invoke-RestMethod -Uri "http://ifconfig.me/ip").Trim()
+              Write-Host "##vso[task.setvariable variable=currentip]$ip"
+            displayName: 'Set variable currentip'
 
-          - bash: echo "Current Build Agent IP is $(currentip)"
-            displayName: 'display variable currentip'
+          - powershell: |
+              Write-Host "Current Build Agent IP is $(currentip)"
+            displayName: 'Display variable currentip'
 
           - task: AzureCLI@2
-            displayName: 'add IP to Key Vault firewall'
+            displayName: 'Add IP to Key Vault firewall'
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: bash
+              scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
-                echo "Adding IP $(currentip) to Key Vault"
-                az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
+                Write-Host "Adding IP $(currentip) to Key Vault"
+                az keyvault network-rule add `
+                  --name $(keyVaultName) `
+                  --ip-address $(currentip)
 
           - task: AzureKeyVault@2
             displayName: 'get secrets from Azure Key Vault'
@@ -66,14 +70,15 @@ stages:
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
-            displayName: 'remove IP from Key Vault firewall'
+            displayName: 'Remove IP from Key Vault firewall'
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: bash
+              scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
-                echo "Removing IP $(currentip) from Key Vault"
-                az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
+                Write-Host "Removing IP $(currentip) from Key Vault"
+                az keyvault network-rule remove --name $(keyVaultName) --ip-address $(currentip)
+
           - task: TerraformInstaller@0
             inputs:
               terraformVersion: 'latest'
