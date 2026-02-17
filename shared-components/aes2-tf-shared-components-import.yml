@@ -43,7 +43,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasoleuwaescatalog,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,METASTORE-NAME,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ID,Databricks-Workspace-Name,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasoleuwaescatalog,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ID,Databricks-Workspace-Name,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -55,7 +55,7 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
               echo "##vso[task.setvariable variable=METASTORE_ID;issecret=true]$(Metastore-ID)"
-              echo "##vso[task.setvariable variable=METASTORE_NAME;issecret=true]$(METASTORE-NAME)"
+              echo "##vso[task.setvariable variable=METASTORE_NAME;issecret=true]$(Metastore-Name)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace-ID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_NAME;issecret=true]$(Databricks-Workspace-Name)"
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
