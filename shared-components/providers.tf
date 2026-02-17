@@ -20,10 +20,8 @@ provider "azurerm" {
 provider "databricks" {
   alias         = "account"
   host          = "https://accounts.azuredatabricks.net"
-  auth_type     = "oauth-m2m"
 }
 
 provider "databricks" {
   alias         = "workspace"
-  auth_type     = "oauth-m2m"
 }
