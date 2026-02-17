@@ -14,8 +14,8 @@ variables:
   tfstate_storage: 'sasolsansimegasterraform'
   containername: 'shared-components'
   key: 'metastoreazuresan/terraform.tfstate'
-  azureSubscription: 'SIMEGAS ${{ parameters.env }} - SP'
-  keyVaultName: 'sasol-${{ parameters.env }}-simegas-key'
+  azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
+  keyVaultName: 'sasol-${{ parameters.env }}-aes-key'
   
 stages:
   - stage: tfimport
