@@ -1,15 +1,15 @@
 ##############################################
 # Define AD Groups and Permissions
 ##############################################
-group_names = ["SIMEGAS-ADMIN", "GenAI-Developers"]
+group_names = ["AES-ADMIN", "AES-EBU_MOBI-DATAENGINEERING"]
 
 permission_assignments = {
-  "GenAI-Developers" = {
-    principal_id = "GenAI-Developers"  
+  "AES-EBU_MOBI-DATAENGINEERING" = {
+    principal_id = "AES-EBU_MOBI-DATAENGINEERING"  
     permissions  = ["USER"]             
   },
-    "SIMEGAS-ADMIN" = {
-    principal_id = "SIMEGAS-ADMIN"  
+    "AES-ADMIN" = {
+    principal_id = "AES-ADMIN"  
     permissions  = ["ADMIN"]             
   }
 }
@@ -18,13 +18,13 @@ permission_assignments = {
 # Define Entitlements for AD Groups
 ##############################################
 entitlements = {
-  "GenAI-Developers" = {
-    group_id              = "GenAI-Developers"  
+  "AES-EBU_MOBI-DATAENGINEERING" = {
+    group_id              = "AES-EBU_MOBI-DATAENGINEERING"  
     workspace_access      = true                  
     databricks_sql_access = true                 
   },
-  "SIMEGAS-ADMIN" = {
-    group_id              = "SIMEGAS-ADMIN"  
+  "AES-ADMIN" = {
+    group_id              = "AES-ADMIN"  
     workspace_access      = true                  
     databricks_sql_access = true                 
   }
@@ -36,41 +36,41 @@ entitlements = {
 catalog_definitions = {
 
   ai = {
-    project = "simegas"  
+    project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
-      "GenAI-Developers" = [
+      "AES-EBU_MOBI-DATAENGINEERING" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
-      "SIMEGAS-ADMIN" = [
+      "AES-ADMIN" = [
         "ALL_PRIVILEGES"
       ]
     }
     schema_access = {
       bronze = {
-        "GenAI-Developers" = [
+        "AES-EBU_MOBI-DATAENGINEERING" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "GenAI-Developers" = [
+        "AES-EBU_MOBI-DATAENGINEERING" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "GenAI-Developers" = [
+        "AES-EBU_MOBI-DATAENGINEERING" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       ai = {
-        "GenAI-Developers" = [
+        "AES-EBU_MOBI-DATAENGINEERING" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ],
-        "SIMEGAS-ADMIN" = [
+        "AES-ADMIN" = [
           "ALL_PRIVILEGES"
         ]
       }
@@ -107,7 +107,7 @@ access_controls = [
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
-cluster_name              = "multi-node-simegas-small-general-purpose"  
+cluster_name              = "multi-node-aes2-small-general-purpose"  
 spark_version             = "15.4.x-scala2.12"       
 node_type_id              = "Standard_DS3_v2"         
 driver_node_type_id       = "Standard_DS3_v2"        
@@ -129,14 +129,14 @@ autoscale = {
 # Cluster Permissions for AD Groups
 ##############################################
 cluster_permissions = {
-  "GenAI-Developers" = ["CAN_ATTACH_TO","CAN_RESTART"],
-  "SIMEGAS-ADMIN" = ["CAN_ATTACH_TO"]       
+  "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_ATTACH_TO","CAN_RESTART"],
+  "AES-ADMIN" = ["CAN_ATTACH_TO"]       
 }
 
 ##############################################
 # Pro SQL Warehouse Configuration
 ##############################################
-sql_warehouse_name                      = "pro-sql-warehouse-simegas-small" 
+sql_warehouse_name                      = "pro-sql-warehouse-aes2-small" 
 sql_warehouse_cluster_size              = "2X-Small"                                       
 sql_warehouse_max_num_clusters          = 2                                            
 sql_warehouse_min_num_clusters          = 1                                             
@@ -149,6 +149,6 @@ warehouse_type                          = "PRO"
 # Pro SQL Warehouse Permissions
 ##############################################
 sql_warehouse_permissions = {   
-  "GenAI-Developers" = ["CAN_USE"],
-  "SIMEGAS-ADMIN" = ["CAN_USE"]  
+  "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_USE"],
+  "AES-ADMIN" = ["CAN_USE"]  
 }
