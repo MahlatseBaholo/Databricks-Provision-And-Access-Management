@@ -4,7 +4,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-
 parameters:
   - name: env
     default: dev
@@ -44,12 +43,12 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasolsansimegascatalog,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,MetastoreID,METASTORE-NAME,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ID,Databricks-Workspace-Name,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasoleuwaescatalog,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,MetastoreID,METASTORE-NAME,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ID,Databricks-Workspace-Name,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
               echo "Setting environment variables for Terraform..."
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasolsansimegascatalog)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoleuwaescatalog)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
@@ -92,11 +91,11 @@ stages:
           - script: |
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
-              terraform import azurerm_storage_account.sasolsansimegascatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasolsansimegascatalog
-              terraform import azurerm_storage_container.metastoreazuresan https://sasolsansimegascatalog.blob.core.windows.net/metastoreazuresan
-              terraform import azurerm_storage_container.shared-components https://sasolsansimegasterraform.blob.core.windows.net/shared-components
-              terraform import azurerm_user_assigned_identity.sasolsan-simegas-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasolsan-simegas-catalog-id
-              terraform import azurerm_databricks_access_connector.sasolsan-simegas-catalog-connector /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Databricks/accessConnectors/sasolsan-simegas-catalog-connector
+              terraform import azurerm_storage_account.sasoleuwaescatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasoleuwaescatalog
+              terraform import azurerm_storage_container.metastoreazuresan https://sasoleuwaescatalog.blob.core.windows.net/metastoreazuresan
+              terraform import azurerm_storage_container.shared-components https://sasoleuaes2terraform.blob.core.windows.net/shared-components
+              terraform import azurerm_user_assigned_identity.sasoleuw-aes-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasoleuw-aes-catalog-id
+              terraform import azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Databricks/accessConnectors/sasoleuw-aes-catalog-conncetor
             displayName: 'Import Resources'
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
