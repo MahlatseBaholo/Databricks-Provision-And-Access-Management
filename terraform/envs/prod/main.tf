@@ -14,16 +14,16 @@ module "storage_container" {
   source = "../../modules/storage_container"
   for_each = local.storage_definitions
   name                 = each.value.container_name
-  storage_account_name = data.terraform_remote_state.metastoreazuresan.outputs.storage_account_name
-  resource_group_name  = data.terraform_remote_state.metastoreazuresan.outputs.unity_catalog_resource_group_name
+  storage_account_name = data.terraform_remote_state.metastore.outputs.storage_account_name
+  resource_group_name  = data.terraform_remote_state.metastore.outputs.unity_catalog_resource_group_name
 }
 
 module "storage_credential" {
   source = "../../modules/databricks_storage_credential"
   for_each = local.storage_definitions
   name                = each.value.storage_credential_name
-  access_connector_id = data.terraform_remote_state.metastoreazuresan.outputs.access_connector_id
-  managed_identity_id = data.terraform_remote_state.metastoreazuresan.outputs.user_assigned_identity_id
+  access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
+  managed_identity_id = data.terraform_remote_state.metastore.outputs.user_assigned_identity_id
   providers = {
     databricks = databricks.workspace
   }
@@ -41,7 +41,7 @@ module "external_location" {
   name             = each.value.external_location_name
   url              = format("abfss://%s@%s.dfs.core.windows.net",
     module.storage_container[each.key].container_name,
-    data.terraform_remote_state.metastoreazuresan.outputs.storage_account_name
+    data.terraform_remote_state.metastore.outputs.storage_account_name
   )
   credential_name = module.storage_credential[each.key].storage_credential_id
   providers = {
