@@ -10,10 +10,10 @@ parameters:
     default: dev
 
 variables:
-  metastore_rg: 'sasolsan-simegas-unity-catalog-rg'
-  tfstate_storage: 'sasolsansimegasterraform'
+  metastore_rg: 'sasoleuw-big-data-aes-unity-catalog-rg'
+  tfstate_storage: 'sasoleuaes2terraform'
   containername: 'shared-components'
-  key: 'metastoreazuresan/terraform.tfstate'
+  key: 'metastore/terraform.tfstate'
   azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
   keyVaultName: 'sasol-${{ parameters.env }}-aes-key'
   
