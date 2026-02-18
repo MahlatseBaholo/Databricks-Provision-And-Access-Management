@@ -2,7 +2,7 @@ trigger:
 - none
 
 pool:
-  name: SonarQube
+  name: Default
 
 parameters:
   - name: env
