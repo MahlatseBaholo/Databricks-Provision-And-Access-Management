@@ -111,6 +111,10 @@ stages:
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
               commandOptions: '-upgrade'
+          - powershell: |
+              $path = "$(System.DefaultWorkingDirectory)\shared-components\.terraform\providers\registry.terraform.io\databricks\databricks\1.107.0\windows_amd64\terraform-provider-databricks_v1.107.0.exe"
+              Get-Acl $path | Format-List
+            displayName: "Check Provider Permissions"
           - script: |
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
@@ -132,8 +136,5 @@ stages:
               DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
               DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
               DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
-          - powershell: |
-              $path = "$(System.DefaultWorkingDirectory)\shared-components\.terraform\providers\registry.terraform.io\databricks\databricks\1.107.0\windows_amd64\terraform-provider-databricks_v1.107.0.exe"
-              Get-Acl $path | Format-List
-            displayName: "Check Provider Permissions"
+
 
