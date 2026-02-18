@@ -79,15 +79,25 @@ stages:
               terraformVersion: 'latest'
 
           - powershell: |
-              Write-Host "Cleaning Terraform plugin cache..."
-              $terraformDir = "$(System.DefaultWorkingDirectory)/shared-components/.terraform"
-              if (Test-Path $terraformDir) {
-                  Remove-Item -Recurse -Force $terraformDir
-                  Write-Host "Removed existing .terraform directory"
-              } else {
-                  Write-Host ".terraform directory not found"
+              Write-Host "Stopping any running terraform processes..."
+              Get-Process terraform -ErrorAction SilentlyContinue | Stop-Process -Force
+
+              $workDir = "$(System.DefaultWorkingDirectory)/shared-components"
+              $tfDir = Join-Path $workDir ".terraform"
+
+              if (Test-Path $tfDir) {
+                  Write-Host "Removing .terraform directory..."
+                  Remove-Item -Recurse -Force $tfDir
               }
-            displayName: "Clean Terraform Cache"
+
+              $globalPluginCache = Join-Path $env:APPDATA "terraform.d\plugin-cache"
+              if (Test-Path $globalPluginCache) {
+                  Write-Host "Removing global plugin cache..."
+                  Remove-Item -Recurse -Force $globalPluginCache
+              }
+
+              Write-Host "Cleanup complete."
+            displayName: "Force Clean Terraform Caches"
 
           - task: TerraformTaskV4@4
             displayName: init
