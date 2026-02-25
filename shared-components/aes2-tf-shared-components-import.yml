@@ -102,6 +102,18 @@ stages:
               scriptLocation: inlineScript
               inlineScript: |
                 az account show
+          - task: TerraformTaskV4@4
+            displayName: import
+            inputs:
+              provider: 'azurerm'
+              command: 'custom'
+              customCommand: 'import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
+            env:
+              ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+              ARM_TENANT_ID: $(ARM_TENANT_ID)
+              ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
           - script: |
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
