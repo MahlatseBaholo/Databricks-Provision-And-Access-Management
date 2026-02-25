@@ -94,21 +94,11 @@ stages:
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
-          - task: AzureCLI@2
-            displayName: Azure Login
-            inputs:
-              azureSubscription: $(azureSubscription)
-              scriptType: ps
-              scriptLocation: inlineScript
-              inlineScript: |
-                az account show
-          - task: TerraformTaskV4@4
-            displayName: import
-            inputs:
-              provider: 'azurerm'
-              command: 'custom'
-              customCommand: 'import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
+          - script: |
+              echo Using Service Principal authentication
+
+              terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)
+            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
               ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
               ARM_TENANT_ID: $(ARM_TENANT_ID)
