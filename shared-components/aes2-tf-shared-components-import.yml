@@ -77,28 +77,7 @@ stages:
           - task: TerraformInstaller@0
             inputs:
               terraformVersion: 'latest'
-
-          - powershell: |
-              Write-Host "Stopping any running terraform processes..."
-              Get-Process terraform -ErrorAction SilentlyContinue | Stop-Process -Force
-
-              $workDir = "$(System.DefaultWorkingDirectory)/shared-components"
-              $tfDir = Join-Path $workDir ".terraform"
-
-              if (Test-Path $tfDir) {
-                  Write-Host "Removing .terraform directory..."
-                  Remove-Item -Recurse -Force $tfDir
-              }
-
-              $globalPluginCache = Join-Path $env:APPDATA "terraform.d\plugin-cache"
-              if (Test-Path $globalPluginCache) {
-                  Write-Host "Removing global plugin cache..."
-                  Remove-Item -Recurse -Force $globalPluginCache
-              }
-
-              Write-Host "Cleanup complete."
-            displayName: "Force Clean Terraform Caches"
-
+              
           - task: TerraformTaskV4@4
             displayName: init
             inputs:
