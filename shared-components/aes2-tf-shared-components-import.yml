@@ -95,8 +95,9 @@ stages:
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
           - script: |
-              echo ARM_CLIENT_ID=$ARM_CLIENT_ID
-              echo ARM_TENANT_ID=$ARM_TENANT_ID
+              echo ARM_CLIENT_ID=%ARM_CLIENT_ID%
+              echo ARM_TENANT_ID=%ARM_TENANT_ID%
+            displayName: 'Debug ARM variables (Windows)'
           - script: |
               echo Using Service Principal authentication
 
