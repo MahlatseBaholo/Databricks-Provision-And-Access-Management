@@ -51,10 +51,6 @@ stages:
               RunAsPreJob: false
 
           - script: |
-              echo Tenant length:
-              echo $(TenantID) 
-
-          - script: |
               echo "Setting environment variables for Terraform..."
               echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoleuwaescatalog)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
@@ -83,6 +79,12 @@ stages:
                 Write-Host "Removing IP $(currentip) from Key Vault"
                 az keyvault network-rule remove --name $(keyVaultName) --ip-address $(currentip)
 
+          - powershell: |
+              $tenant = "$(TenantID)"
+              Write-Host "Length: $($tenant.Length)"
+              Write-Host "Starts with: $($tenant.Substring(0,5))"
+              Write-Host "Ends with: $($tenant.Substring($tenant.Length-5))"
+              
           - task: TerraformInstaller@0
             inputs:
               terraformVersion: 'latest'
@@ -103,7 +105,7 @@ stages:
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
-              TF_VAR_tenant_id: $(TenantID)
+              TF_VAR_tenant_id: $(ARM_TENANT_ID)
               TF_VAR_client_id: $(ARM_CLIENT_ID)
               TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
               TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
@@ -115,7 +117,7 @@ stages:
               DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
               DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
               DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
-              DATABRICKS_TENANT_ID: $(TenantID)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
           - script: |
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
@@ -128,7 +130,7 @@ stages:
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
-              TF_VAR_tenant_id: $(TenantID)
+              TF_VAR_tenant_id: $(ARM_TENANT_ID)
               TF_VAR_client_id: $(ARM_CLIENT_ID)
               TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
               TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
@@ -140,6 +142,6 @@ stages:
               DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
               DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
               DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
-              DATABRICKS_TENANT_ID: $(TenantID)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
 
 
