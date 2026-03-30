@@ -100,20 +100,15 @@ stages:
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'  
-          - task: TerraformTaskV4@4
-            displayName: Terraform Import
-            inputs:
-              provider: azurerm
-              command: custom
-              customCommand: >
-                import azurerm_resource_group.$(metastore_rg)
-                /subscriptions/$(SubscriptionID)/resourceGroups/$(metastore_rg)
-              workingDirectory: $(System.DefaultWorkingDirectory)/shared-components/
+          - script: |
+              terraform init
+              terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/%ARM_SUBSCRIPTION_ID%/resourceGroups/$(metastore_rg)
+            workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
               ARM_CLIENT_ID: $(ServicePrincipal-DevOps-ClientID)
               ARM_CLIENT_SECRET: $(ServicePrincipal-DevOps-ClientSecret)
               ARM_TENANT_ID: $(TenantID)
-              ARM_SUBSCRIPTION_ID: $(SubscriptionID)    
+              ARM_SUBSCRIPTION_ID: $(SubscriptionID)   
           - script: |
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
