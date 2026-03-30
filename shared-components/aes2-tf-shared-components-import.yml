@@ -49,6 +49,10 @@ stages:
               KeyVaultName: $(keyVaultName)
               SecretsFilter: 'AccessKey-sasoleuwaescatalog,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace-ID,Databricks-Workspace-Name,Databricks-Workspace-ServicePrincipal-ClientID,Databricks-Workspace-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
+              
+          - script: |
+              echo Tenant length:
+              echo $(TenantID) | wc -c
 
           - script: |
               echo "Setting environment variables for Terraform..."
