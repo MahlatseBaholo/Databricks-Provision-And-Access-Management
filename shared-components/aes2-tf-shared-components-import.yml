@@ -48,7 +48,6 @@ stages:
 
           - script: |
               echo "Setting environment variables for Terraform..."
-              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoleuwaescatalog)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
               echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
@@ -62,7 +61,8 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)" 
+                #echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasoleuwaescatalog)" 
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
@@ -78,7 +78,7 @@ stages:
           - task: TerraformInstaller@0
             inputs:
               terraformVersion: 'latest'
-              
+
           - task: TerraformTaskV4@4
             displayName: init
             inputs:
@@ -102,7 +102,7 @@ stages:
             displayName: 'Import Resources'
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
-              ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+              #ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
               TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
               TF_VAR_tenant_id: $(ARM_TENANT_ID)
               TF_VAR_client_id: $(ARM_CLIENT_ID)
