@@ -91,12 +91,12 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
           - script: |
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
-              terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
-              terraform import azurerm_storage_account.sasoleuwaescatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasoleuwaescatalog
-              terraform import azurerm_storage_container.metastore https://sasoleuwaescatalog.blob.core.windows.net/metastore
-              terraform import azurerm_storage_container.shared-components https://sasoleuaes2terraform.blob.core.windows.net/shared-components
-              terraform import azurerm_user_assigned_identity.sasoleuw-aes-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasoleuw-aes-catalog-id
-              terraform import azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Databricks/accessConnectors/sasoleuw-aes-catalog-conncetor
+                #terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
+              #terraform import azurerm_storage_account.sasoleuwaescatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasoleuwaescatalog
+              #terraform import azurerm_storage_container.metastore https://sasoleuwaescatalog.blob.core.windows.net/metastore
+              #terraform import azurerm_storage_container.shared-components https://sasoleuaes2terraform.blob.core.windows.net/shared-components
+              #terraform import azurerm_user_assigned_identity.sasoleuw-aes-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasoleuw-aes-catalog-id
+              #terraform import azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Databricks/accessConnectors/sasoleuw-aes-catalog-conncetor
             displayName: 'Import Resources'
             workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
             env:
