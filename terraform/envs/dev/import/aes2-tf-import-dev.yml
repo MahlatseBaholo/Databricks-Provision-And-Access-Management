@@ -45,7 +45,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ID,Databricks-Workspace-Name,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ID,Databricks-Workspace-Name,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace2-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -63,7 +63,7 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientSecret)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace2-Host)"
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
             displayName: 'set Env Vars from Secrets'
 
