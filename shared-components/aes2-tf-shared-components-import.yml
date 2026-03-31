@@ -4,7 +4,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-
 parameters:
   - name: env
     default: dev
@@ -75,9 +74,11 @@ stages:
               inlineScript: |
                 echo "Removing IP $(currentip) from Key Vault"
                 az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
+
           - task: TerraformInstaller@0
             inputs:
               terraformVersion: 'latest'
+              
           - task: TerraformTaskV4@4
             displayName: init
             inputs:
@@ -89,6 +90,7 @@ stages:
               backendAzureRmContainerName: '$(containername)'
               backendAzureRmKey: '$(key)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/shared-components/'
+
           - script: |
               terraform import azurerm_resource_group.$(metastore_rg) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)            
                 #terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
