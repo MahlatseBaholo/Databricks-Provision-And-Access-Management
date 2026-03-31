@@ -4,6 +4,7 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+
 parameters:
   - name: env
     default: dev
@@ -14,7 +15,7 @@ variables:
   containername: 'shared-components'
   key: 'metastore/terraform.tfstate'
   azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
-  keyVaultName: 'sasol-${{ parameters.env }}-aes-key
+  keyVaultName: 'sasol-${{ parameters.env }}-aes-key'
   
 stages:
   - stage: tfimport
