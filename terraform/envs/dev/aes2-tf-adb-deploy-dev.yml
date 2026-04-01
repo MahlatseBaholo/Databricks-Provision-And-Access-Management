@@ -67,7 +67,7 @@ stages:
           - task: AzureCLI@2
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: pscore
+              scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
                 Write-Host "Adding IP $(currentip) to Key Vault"
@@ -101,7 +101,7 @@ stages:
           - task: AzureCLI@2
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: pscore
+              scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
                 Write-Host "Adding IP $(currentip) to Key Vault"
@@ -182,7 +182,7 @@ stages:
           - task: AzureCLI@2
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: pscore
+              scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
                 Write-Host "Adding IP $(currentip) to Key Vault"
@@ -216,7 +216,7 @@ stages:
           - task: AzureCLI@2
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: pscore
+              scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
                 Write-Host "Adding IP $(currentip) to Key Vault"
