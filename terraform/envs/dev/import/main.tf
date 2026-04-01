@@ -38,5 +38,5 @@ resource "databricks_metastore" "metastore" {
 resource "databricks_metastore_assignment" "metastore" {
   provider      = databricks.account
   metastore_id  = databricks_metastore.metastore.id
-  workspace_id  = azurerm_databricks_workspace.sasol-dev-aes2-dbw.id
+  workspace_id  = azurerm_databricks_workspace.sasol-dev-aes2-dbw.workspace_id
 }
