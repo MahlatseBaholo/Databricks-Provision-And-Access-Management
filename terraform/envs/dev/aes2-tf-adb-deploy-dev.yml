@@ -57,12 +57,12 @@ stages:
       - job: tfplan
         displayName: "plan"
         steps:
-          - bash: |
-              echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
-            displayName: 'set variable currentip'
+          - powershell: |
+              $ip = (Invoke-RestMethod -Uri "http://ifconfig.me/ip")
+              Write-Host "##vso[task.setvariable variable=currentip]$ip"
 
-          - bash: echo "Current Build Agent IP is $(currentip)"
-            displayName: 'display variable currentip'
+          - powershell: |
+              Write-Host "Current Build Agent IP is $(currentip)"
 
           - task: AzureCLI@2
             displayName: 'add IP to Key Vault firewall'
