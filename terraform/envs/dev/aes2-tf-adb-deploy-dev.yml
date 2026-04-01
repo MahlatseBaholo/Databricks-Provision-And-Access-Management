@@ -78,7 +78,7 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-Workspace2-ID,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ID,Databricks-Workspace-Name,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace2-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
