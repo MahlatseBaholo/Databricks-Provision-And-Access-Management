@@ -65,13 +65,12 @@ stages:
               Write-Host "Current Build Agent IP is $(currentip)"
 
           - task: AzureCLI@2
-            displayName: 'add IP to Key Vault firewall'
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: bash
+              scriptType: pscore
               scriptLocation: inlineScript
               inlineScript: |
-                echo "Adding IP $(currentip) to Key Vault"
+                Write-Host "Adding IP $(currentip) to Key Vault"
                 az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
 
           - task: AzureKeyVault@2
@@ -100,13 +99,12 @@ stages:
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
-            displayName: 'remove IP from Key Vault firewall'
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: bash
+              scriptType: pscore
               scriptLocation: inlineScript
               inlineScript: |
-                echo "Removing IP $(currentip) from Key Vault"
+                Write-Host "Adding IP $(currentip) to Key Vault"
                 az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
 
           - task: TerraformInstaller@1
@@ -174,21 +172,20 @@ stages:
       - job: tfapply
         displayName: "apply"
         steps:
-          - bash: |
-              echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
-            displayName: 'set variable currentip'
+          - powershell: |
+              $ip = (Invoke-RestMethod -Uri "http://ifconfig.me/ip")
+              Write-Host "##vso[task.setvariable variable=currentip]$ip"
 
-          - bash: echo "Current Build Agent IP is $(currentip)"
-            displayName: 'display variable currentip'
+          - powershell: |
+              Write-Host "Current Build Agent IP is $(currentip)"
 
           - task: AzureCLI@2
-            displayName: 'add IP to Key Vault firewall'
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: bash
+              scriptType: pscore
               scriptLocation: inlineScript
               inlineScript: |
-                echo "Adding IP $(currentip) to Key Vault"
+                Write-Host "Adding IP $(currentip) to Key Vault"
                 az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
 
           - task: AzureKeyVault@2
@@ -217,13 +214,12 @@ stages:
             displayName: 'set Env Vars from Secrets'
 
           - task: AzureCLI@2
-            displayName: 'remove IP from Key Vault firewall'
             inputs:
               azureSubscription: $(azureSubscription)
-              scriptType: bash
+              scriptType: pscore
               scriptLocation: inlineScript
               inlineScript: |
-                echo "Removing IP $(currentip) from Key Vault"
+                Write-Host "Adding IP $(currentip) to Key Vault"
                 az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
 
           - task: TerraformInstaller@1
