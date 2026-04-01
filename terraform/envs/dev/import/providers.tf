@@ -27,7 +27,7 @@ provider "databricks" {
   account_id    = var.account_id
   client_id     = var.account_client_id
   client_secret = var.account_client_secret
-  tenant_id       = var.tenant_id
+  tenant_id     = var.tenant_id
   auth_type     = "oauth-m2m"
 }
 
