@@ -26,6 +26,10 @@ stages:
       - job: tfvalidate
         displayName: "Validate"
         steps:
+          - powershell: |
+              Start-Process "$(Agent.ToolsDirectory)\terraform\1.14.8\x64\terraform.exe"
+            displayName: "Test Terraform Execution"
+            
           - task: TerraformInstaller@1
             displayName: install Terraform
             inputs:
