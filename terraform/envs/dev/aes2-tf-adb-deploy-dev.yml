@@ -27,9 +27,26 @@ stages:
         displayName: "Validate"
         steps:
           - task: TerraformInstaller@1
-            displayName: install
+            displayName: install Terraform
             inputs:
               terraformVersion: '1.5.7'
+
+          - powershell: |
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.5.7\x64"
+              Write-Host "Terraform installed at: $tfPath"
+
+              if (!(Test-Path "$tfPath\terraform.exe")) {
+                  Write-Error "Terraform not found in expected path!"
+                  exit 1
+              }
+
+              # Prepend to PATH for current and next tasks
+              $env:PATH = "$tfPath;$env:PATH"
+              Write-Host "##vso[task.setvariable variable=PATH]$env:PATH"
+
+              terraform -version
+              where.exe terraform
+            displayName: "Ensure Terraform in PATH"
 
           - task: TerraformTaskV4@4
             displayName: init
@@ -99,9 +116,26 @@ stages:
             displayName: 'set Env Vars from Secrets'
 
           - task: TerraformInstaller@1
-            displayName: install
+            displayName: install Terraform
             inputs:
               terraformVersion: '1.5.7'
+
+          - powershell: |
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.5.7\x64"
+              Write-Host "Terraform installed at: $tfPath"
+
+              if (!(Test-Path "$tfPath\terraform.exe")) {
+                  Write-Error "Terraform not found in expected path!"
+                  exit 1
+              }
+
+              # Prepend to PATH for current and next tasks
+              $env:PATH = "$tfPath;$env:PATH"
+              Write-Host "##vso[task.setvariable variable=PATH]$env:PATH"
+
+              terraform -version
+              where.exe terraform
+            displayName: "Ensure Terraform in PATH"
 
           - powershell: |
               Write-Host "Checking Terraform..."
@@ -232,6 +266,23 @@ stages:
             displayName: install Terraform
             inputs:
               terraformVersion: '1.5.7'
+
+          - powershell: |
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.5.7\x64"
+              Write-Host "Terraform installed at: $tfPath"
+
+              if (!(Test-Path "$tfPath\terraform.exe")) {
+                  Write-Error "Terraform not found in expected path!"
+                  exit 1
+              }
+
+              # Prepend to PATH for current and next tasks
+              $env:PATH = "$tfPath;$env:PATH"
+              Write-Host "##vso[task.setvariable variable=PATH]$env:PATH"
+
+              terraform -version
+              where.exe terraform
+            displayName: "Ensure Terraform in PATH"
 
           - task: TerraformTaskV4@4
             displayName: init
