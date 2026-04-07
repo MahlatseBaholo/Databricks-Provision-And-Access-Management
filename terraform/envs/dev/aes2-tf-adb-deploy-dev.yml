@@ -107,24 +107,24 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal_DevOps_ClientID,ServicePrincipal_DevOps_ClientSecret,Databricks_Account_ServicePrincipal_ClientID,Databricks_Account_ServicePrincipal_ClientSecret,Databricks_Workspace2_ServicePrincipal_ClientID,Databricks_Workspace2_ServicePrincipal_ClientSecret,Databricks_Workspace2_Host,Databricks_Workspace2_ID,Databricks_AccountID'
+              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
               RunAsPreJob: false
 
-          # Set environment variables from secrets
           - script: |
+              echo "Setting environment variables for Terraform..."
               echo "##vso[task.setvariable variable=ENV]$(env)"
               echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)terraform)"
               echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
               echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
-              echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal_DevOps_ClientID)"
-              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal_DevOps_ClientSecret)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks_Account_ServicePrincipal_ClientID)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks_Account_ServicePrincipal_ClientSecret)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks_Workspace2_ServicePrincipal_ClientID)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks_Workspace2_ServicePrincipal_ClientSecret)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks_Workspace2_Host)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks_Workspace2_ID)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks_AccountID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace2-ID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)" 
             displayName: "Set Env Vars from Secrets"
 
           # Remove IP from Key Vault after fetching secrets
