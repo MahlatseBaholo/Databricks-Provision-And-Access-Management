@@ -139,6 +139,7 @@ stages:
 
           # Terraform init & plan using CLI (PowerShell)
           - powershell: |
+              $script = @'
               $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64\terraform.exe"
               $workingDir = "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/"
 
@@ -167,6 +168,9 @@ stages:
                   -var "workspace_host=$(DATABRICKS_WORKSPACE_HOST)" `
                   -var "workspace_id=$(DATABRICKS_WORKSPACE_ID)" `
                   -var "account_id=$(DATABRICKS_ACCOUNT_ID)"
+          '@
+
+              Invoke-Expression $script
             displayName: "Terraform Init & Plan (CLI)"
 
   - stage: Approval
