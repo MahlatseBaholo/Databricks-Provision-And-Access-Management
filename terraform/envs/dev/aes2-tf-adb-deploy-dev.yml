@@ -103,6 +103,12 @@ stages:
             inputs:
               terraformVersion: '1.5.7'
 
+          - powershell: |
+              Write-Host "Checking Terraform..."
+              terraform -version
+              where.exe terraform
+            displayName: "Debug Terraform"
+
           - task: TerraformTaskV4@4
             displayName: init 
             inputs:
@@ -149,7 +155,7 @@ stages:
               inlineScript: |
                 Write-Host "Adding IP $(currentip) to Key Vault"
                 az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
-                
+
   - stage: Approval
     displayName: "Approval"
     dependsOn: tfplan
