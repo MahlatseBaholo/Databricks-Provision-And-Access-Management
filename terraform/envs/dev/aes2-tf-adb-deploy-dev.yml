@@ -164,6 +164,11 @@ stages:
               }
             displayName: "Check Terraform Execution Permissions"
 
+          - powershell: |
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64"
+              Write-Host "##vso[task.prependpath]$tfPath"
+            displayName: "Force Terraform Path"
+
           - task: TerraformTaskV4@4
             displayName: init 
             inputs:
