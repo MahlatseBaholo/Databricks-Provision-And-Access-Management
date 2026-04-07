@@ -206,9 +206,8 @@ stages:
         terraformVersion: '1.5.7'
         
     - script: |
-      dir C:\agent\_work\_tool\terraform\1.5.7\x64\
-    displayName: 'Check Terraform binary exists'
-    condition: always()
+        dir C:\agent\_work\_tool\terraform\1.5.7\x64\
+      displayName: Check Terraform binary exists
 
     - task: TerraformTaskV4@4
       displayName: init
