@@ -98,15 +98,6 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
             displayName: 'set Env Vars from Secrets'
 
-          - task: AzureCLI@2
-            inputs:
-              azureSubscription: $(azureSubscription)
-              scriptType: ps
-              scriptLocation: inlineScript
-              inlineScript: |
-                Write-Host "Adding IP $(currentip) to Key Vault"
-                az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
-
           - task: TerraformInstaller@1
             displayName: install
             inputs:
@@ -150,6 +141,15 @@ stages:
               DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
               DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
 
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: ps
+              scriptLocation: inlineScript
+              inlineScript: |
+                Write-Host "Adding IP $(currentip) to Key Vault"
+                az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
+                
   - stage: Approval
     displayName: "Approval"
     dependsOn: tfplan
