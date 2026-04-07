@@ -29,10 +29,9 @@ stages:
   - job: tfvalidate
     displayName: "Validate"
     steps:
-    - task: TerraformInstaller@1
-      displayName: install
+    - task: TerraformInstaller@0
       inputs:
-        terraformVersion: '1.5.7'
+        terraformVersion: 'latest'
     - task: TerraformTaskV4@4
       displayName: init
       inputs:
@@ -88,10 +87,9 @@ stages:
       displayName: 'set Env Vars from Secrets'
       inputs:
         script: "echo \"Setting environment variables for Terraform...\"\necho \"##vso[task.setvariable variable=ENV]$(env)\"\necho \"##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)terraform)\"\necho \"##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)\"\necho \"##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace2-Host)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace2-ID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)\"  \n"
-    - task: TerraformInstaller@1
-      displayName: install
+    - task: TerraformInstaller@0
       inputs:
-        terraformVersion: '1.5.7'
+        terraformVersion: 'latest'
     - task: TerraformTaskV4@4
       displayName: init
       inputs:
@@ -200,14 +198,9 @@ stages:
         inlineScript: |
           Write-Host "Adding IP $(currentip) to Key Vault"
           az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
-    - task: TerraformInstaller@1
-      displayName: install Terraform
+    - task: TerraformInstaller@0
       inputs:
-        terraformVersion: '1.5.7'
-        
-    - script: |
-        dir C:\agent\_work\_tool\terraform\1.5.7\x64\
-      displayName: Check Terraform binary exists
+        terraformVersion: 'latest'
 
     - task: TerraformTaskV4@4
       displayName: init
