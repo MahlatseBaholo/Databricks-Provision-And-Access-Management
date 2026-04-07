@@ -29,9 +29,6 @@ stages:
   - job: tfvalidate
     displayName: "Validate"
     steps:
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: 'latest'
     - task: TerraformTaskV4@4
       displayName: init
       inputs:
@@ -120,9 +117,6 @@ stages:
         Write-Host "=== END DEBUG ==="
       displayName: "Deep Debug Terraform"
 
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: 'latest'
     - task: TerraformTaskV4@4
       displayName: init
       inputs:
@@ -231,9 +225,6 @@ stages:
         inlineScript: |
           Write-Host "Adding IP $(currentip) to Key Vault"
           az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: 'latest'
 
     - task: TerraformTaskV4@4
       displayName: init
