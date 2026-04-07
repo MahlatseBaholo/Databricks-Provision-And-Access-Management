@@ -13,12 +13,12 @@ parameters:
 
 variables:
   env: '${{ parameters.env }}'
-  terraform_rg: 'sasoleuw-big-data-${{ parameters.env }}-aes-terraform-rg'
+  terraform_rg: 'sasoleuw-big-data-${{ parameters.env }}-xxxxx-terraform-rg'
   tfstate_storage: 'sasol${{ parameters.env }}terraform'
-  containername: 'sasol-${{ parameters.env }}-aes2-dbw'
+  containername: 'sasol-${{ parameters.env }}-xxxxx2-dbw'
   key: 'manage/terraform.tfstate'
-  azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
-  keyVaultName: 'sasol-${{ parameters.env }}-aes-key'
+  azureSubscription: 'XXXXX 2.0 ${{ parameters.env }} - SP'
+  keyVaultName: 'sasol-${{ parameters.env }}-xxxxx-key'
 stages:
   - stage: tfvalidate
     displayName: "Terraform Validate"
@@ -26,33 +26,10 @@ stages:
       - job: tfvalidate
         displayName: "Validate"
         steps:
-          - powershell: |
-              Start-Process "$(Agent.ToolsDirectory)\terraform\1.14.8\x64\terraform.exe"
-            displayName: "Test Terraform Execution"
-
           - task: TerraformInstaller@1
-            displayName: install Terraform
+            displayName: install
             inputs:
-              terraformVersion: '1.14.8'
-
-          - powershell: |
-              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64"
-              Write-Host "Terraform path: $tfPath"
-
-              if (!(Test-Path "$tfPath\terraform.exe")) {
-                  Write-Error "Terraform not found!"
-                  exit 1
-              }
-
-              # THIS is the critical fix
-              Write-Host "##vso[task.prependpath]$tfPath"
-
-              # Extra safety: expose explicit variable
-              Write-Host "##vso[task.setvariable variable=TF_EXE_PATH]$tfPath\terraform.exe"
-
-              terraform -version
-              where.exe terraform
-            displayName: "Force Terraform Path"
+              terraformVersion: '1.5.7'
 
           - task: TerraformTaskV4@4
             displayName: init
@@ -80,18 +57,13 @@ stages:
       - job: tfplan
         displayName: "plan"
         steps:
-
-          # Get current agent IP
           - powershell: |
               $ip = (Invoke-RestMethod -Uri "http://ifconfig.me/ip")
               Write-Host "##vso[task.setvariable variable=currentip]$ip"
-            displayName: "Get Build Agent Public IP"
 
           - powershell: |
               Write-Host "Current Build Agent IP is $(currentip)"
-            displayName: "Show Agent IP"
 
-          # Allow agent IP in Key Vault
           - task: AzureCLI@2
             inputs:
               azureSubscription: $(azureSubscription)
@@ -101,13 +73,12 @@ stages:
                 Write-Host "Adding IP $(currentip) to Key Vault"
                 az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
 
-          # Fetch secrets from Key Vault
           - task: AzureKeyVault@2
-            displayName: 'Get secrets from Azure Key Vault'
+            displayName: 'get secrets from Azure Key Vault'
             inputs:
               azureSubscription: $(azureSubscription)
               KeyVaultName: $(keyVaultName)
-              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
+              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ID,Databricks-Workspace-Name,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace2-Host,Databricks-AccountID'
               RunAsPreJob: false
 
           - script: |
@@ -122,52 +93,62 @@ stages:
               echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientID)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientSecret)"
-              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace2-Host)"
               echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace2-ID)"
-              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)" 
-            displayName: "Set Env Vars from Secrets"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
+            displayName: 'set Env Vars from Secrets'
 
-          # Remove IP from Key Vault after fetching secrets
           - task: AzureCLI@2
             inputs:
               azureSubscription: $(azureSubscription)
               scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
-                Write-Host "Removing IP $(currentip) from Key Vault"
+                Write-Host "Adding IP $(currentip) to Key Vault"
                 az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
 
-          # Terraform init & plan using CLI (PowerShell)
-          - powershell: |
-              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64\terraform.exe"
-              $workingDir = "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/"
+          - task: TerraformInstaller@1
+            displayName: install
+            inputs:
+              terraformVersion: '1.5.7'
 
-              Write-Host "Initializing Terraform..."
-              & "$tfPath" -chdir="$workingDir" init `
-                  -backend-config="storage_account_name=$(tfstate_storage)" `
-                  -backend-config="container_name=$(containername)" `
-                  -backend-config="key=$(key)" `
-                  -backend-config="resource_group_name=$(terraform_rg)" `
-                  -backend-config="subscription_id=$(ARM_SUBSCRIPTION_ID)" `
-                  -backend-config="tenant_id=$(ARM_TENANT_ID)" `
-                  -backend-config="client_id=$(ARM_CLIENT_ID)" `
-                  -backend-config="client_secret=$(ARM_CLIENT_SECRET)"
+          - task: TerraformTaskV4@4
+            displayName: init 
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: $(azureSubscription)
+              backendAzureRmResourceGroupName: '$(terraform_rg)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
 
-              Write-Host "Running Terraform Plan..."
-              & "$tfPath" -chdir="$workingDir" plan `
-                  -var "env=$(ENV)" `
-                  -var "subscription_id=$(ARM_SUBSCRIPTION_ID)" `
-                  -var "tenant_id=$(ARM_TENANT_ID)" `
-                  -var "client_id=$(ARM_CLIENT_ID)" `
-                  -var "client_secret=$(ARM_CLIENT_SECRET)" `
-                  -var "account_client_id=$(DATABRICKS_ACCOUNT_CLIENT_ID)" `
-                  -var "account_client_secret=$(DATABRICKS_ACCOUNT_CLIENT_SECRET)" `
-                  -var "workspace_client_id=$(DATABRICKS_WORKSPACE_CLIENT_ID)" `
-                  -var "workspace_client_secret=$(DATABRICKS_WORKSPACE_CLIENT_SECRET)" `
-                  -var "workspace_host=$(DATABRICKS_WORKSPACE_HOST)" `
-                  -var "workspace_id=$(DATABRICKS_WORKSPACE_ID)" `
-                  -var "account_id=$(DATABRICKS_ACCOUNT_ID)"
-            displayName: "Terraform Init & Plan (CLI)"
+          - task: TerraformTaskV4@4
+            displayName: plan
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: $(azureSubscription)
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+            env:
+              ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+              TF_VAR_env: $(ENV)
+              TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
+              TF_VAR_tenant_id: $(ARM_TENANT_ID)
+              TF_VAR_client_id: $(ARM_CLIENT_ID)
+              TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
+              TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              TF_VAR_account_client_secret: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              TF_VAR_workspace_client_id: $(DATABRICKS_WORKSPACE_CLIENT_ID)
+              TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
+              TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
+              TF_VAR_workspace_id: $(DATABRICKS_WORKSPACE_ID)
+              TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
 
   - stage: Approval
     displayName: "Approval"
@@ -244,26 +225,7 @@ stages:
           - task: TerraformInstaller@1
             displayName: install Terraform
             inputs:
-              terraformVersion: '1.14.8'
-
-          - powershell: |
-              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64"
-              Write-Host "Terraform path: $tfPath"
-
-              if (!(Test-Path "$tfPath\terraform.exe")) {
-                  Write-Error "Terraform not found!"
-                  exit 1
-              }
-
-              # THIS is the critical fix
-              Write-Host "##vso[task.prependpath]$tfPath"
-
-              # Extra safety: expose explicit variable
-              Write-Host "##vso[task.setvariable variable=TF_EXE_PATH]$tfPath\terraform.exe"
-
-              terraform -version
-              where.exe terraform
-            displayName: "Force Terraform Path"
+              terraformVersion: '1.5.7'
 
           - task: TerraformTaskV4@4
             displayName: init
