@@ -29,10 +29,10 @@ stages:
           - task: TerraformInstaller@1
             displayName: install Terraform
             inputs:
-              terraformVersion: '1.5.7'
+              terraformVersion: '1.14.8'
 
           - powershell: |
-              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.5.7\x64"
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64"
               Write-Host "Terraform installed at: $tfPath"
 
               if (!(Test-Path "$tfPath\terraform.exe")) {
@@ -118,10 +118,10 @@ stages:
           - task: TerraformInstaller@1
             displayName: install Terraform
             inputs:
-              terraformVersion: '1.5.7'
+              terraformVersion: '1.14.8'
 
           - powershell: |
-              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.5.7\x64"
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64"
               Write-Host "Terraform installed at: $tfPath"
 
               if (!(Test-Path "$tfPath\terraform.exe")) {
@@ -265,10 +265,10 @@ stages:
           - task: TerraformInstaller@1
             displayName: install Terraform
             inputs:
-              terraformVersion: '1.5.7'
+              terraformVersion: '1.14.8'
 
           - powershell: |
-              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.5.7\x64"
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64"
               Write-Host "Terraform installed at: $tfPath"
 
               if (!(Test-Path "$tfPath\terraform.exe")) {
