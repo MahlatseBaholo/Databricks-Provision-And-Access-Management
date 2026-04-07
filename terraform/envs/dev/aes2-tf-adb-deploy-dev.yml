@@ -124,30 +124,45 @@ stages:
           - powershell: |
               Start-Process "$(Agent.ToolsDirectory)\terraform\1.14.8\x64\terraform.exe"
             displayName: "Test Terraform Execution"
-            
+
           - task: TerraformInstaller@1
             displayName: install Terraform
             inputs:
               terraformVersion: '1.14.8'
 
           - powershell: |
-              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64"
-              Write-Host "Terraform path: $tfPath"
+              $tfPath = "$(Agent.ToolsDirectory)\terraform\1.14.8\x64\terraform.exe"
+              
+              Write-Host "Checking Terraform executable: $tfPath"
 
-              if (!(Test-Path "$tfPath\terraform.exe")) {
-                  Write-Error "Terraform not found!"
+              if (!(Test-Path $tfPath)) {
+                  Write-Error "Terraform executable not found!"
                   exit 1
               }
 
-              # THIS is the critical fix
-              Write-Host "##vso[task.prependpath]$tfPath"
+              # Check if file is blocked
+              $zone = (Get-Item $tfPath).Zone.Identifier
+              if ($zone -ne $null) {
+                  Write-Warning "Terraform.exe is blocked by Windows: Zone.Identifier exists"
+              } else {
+                  Write-Host "Terraform.exe is not blocked by Windows"
+              }
 
-              # Extra safety: expose explicit variable
-              Write-Host "##vso[task.setvariable variable=TF_EXE_PATH]$tfPath\terraform.exe"
+              # Check file permissions for the agent
+              $acl = Get-Acl $tfPath
+              Write-Host "Permissions on Terraform.exe:"
+              $acl.Access | ForEach-Object { Write-Host "  $($_.IdentityReference) : $($_.FileSystemRights)" }
 
-              terraform -version
-              where.exe terraform
-            displayName: "Force Terraform Path"
+              # Try running it directly to see if the agent can execute
+              try {
+                  & $tfPath version
+                  Write-Host "Terraform executed successfully!"
+              }
+              catch {
+                  Write-Error "Terraform failed to execute! Likely a permission or blocked file issue."
+                  exit 1
+              }
+            displayName: "Check Terraform Execution Permissions"
 
           - task: TerraformTaskV4@4
             displayName: init 
