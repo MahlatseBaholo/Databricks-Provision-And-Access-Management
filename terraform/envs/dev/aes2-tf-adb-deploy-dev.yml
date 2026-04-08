@@ -35,7 +35,7 @@ stages:
       displayName: install
       inputs:
         terraformVersion: '1.5.7'
-    - task: TerraformTaskV5@5
+    - task: TerraformTaskV4@4
       displayName: init
       inputs:
         provider: 'azurerm'
@@ -46,7 +46,7 @@ stages:
         backendAzureRmContainerName: '$(containername)'
         backendAzureRmKey: '$(key)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
-    - task: TerraformTaskV5@5
+    - task: TerraformTaskV4@4
       displayName: validate
       inputs:
         provider: 'azurerm'
@@ -130,7 +130,7 @@ stages:
       inputs:
         terraformVersion: '1.5.7'
 
-    - task: TerraformTaskV5@5
+    - task: TerraformTaskV4@4
       displayName: init
       inputs:
         provider: 'azurerm'
@@ -142,7 +142,7 @@ stages:
         backendAzureRmKey: '$(key)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
       
-    - task: TerraformTaskV5@5
+    - task: TerraformTaskV4@4
       displayName: plan
       inputs:
         provider: 'azurerm'
@@ -241,7 +241,7 @@ stages:
           Write-Host "Adding IP $(currentip) to Key Vault"
           az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
 
-    - task: TerraformTaskV5@5
+    - task: TerraformTaskV4@4
       displayName: init
       inputs:
         provider: 'azurerm'
@@ -252,7 +252,7 @@ stages:
         backendAzureRmContainerName: '$(containername)'
         backendAzureRmKey: '$(key)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
-    - task: TerraformTaskV5@5
+    - task: TerraformTaskV4@4
       displayName: apply
       inputs:
         provider: 'azurerm'
