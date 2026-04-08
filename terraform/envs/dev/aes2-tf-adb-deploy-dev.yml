@@ -35,7 +35,7 @@ stages:
     - task: TerraformInstaller@1
       displayName: 'install terraform'
       inputs:
-        terraformVersion: 'latest
+        terraformVersion: 'latest'
         
     - task: TerraformTaskV4@4
       displayName: init
@@ -130,7 +130,7 @@ stages:
     - task: TerraformInstaller@1
       displayName: 'install terraform'
       inputs:
-        terraformVersion: 'latest
+        terraformVersion: 'latest'
 
     - task: TerraformTaskV4@4
       displayName: init
@@ -246,7 +246,7 @@ stages:
     - task: TerraformInstaller@1
       displayName: 'install terraform'
       inputs:
-        terraformVersion: 'latest
+        terraformVersion: 'latest'
 
     - task: TerraformTaskV4@4
       displayName: init
