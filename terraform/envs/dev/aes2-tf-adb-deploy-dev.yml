@@ -131,10 +131,10 @@ stages:
         $env:TF_LOG_PATH="$(System.DefaultWorkingDirectory)\terraform-debug.log"
 
         & "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe" init `
-          -backend-config="storage_account_name=$(tfstate_storage)" `
-          -backend-config="container_name=$(containername)" `
-          -backend-config="key=$(key)" `
-          -backend-config="resource_group_name=$(terraform_rg)" `
+          -backend-config="storage_account_name=sasoldevterraform" `
+          -backend-config="container_name=sasol-dev-aes2-dbw" `
+          -backend-config="key=manage/terraform.tfstate" `
+          -backend-config="resource_group_name=sasoleuw-big-data-dev-aes-terraform-rg" `
           -backend-config="subscription_id=$(ARM_SUBSCRIPTION_ID)" `
           -backend-config="tenant_id=$(ARM_TENANT_ID)" `
           -backend-config="client_id=$(ARM_CLIENT_ID)" `
