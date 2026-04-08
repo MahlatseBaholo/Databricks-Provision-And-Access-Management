@@ -140,19 +140,28 @@ stages:
           exit 1
         }
 
-        Write-Host "Using Terraform: $($tf.FullName)"
+        # Assign variables safely
+        $tfstate = "$(tfstate_storage)"
+        $container = "$(containername)"
+        $key = "$(key)"
+        $rg = "$(terraform_rg)"
+        $sub = "$(ARM_SUBSCRIPTION_ID)"
+        $tenant = "$(ARM_TENANT_ID)"
+        $client = "$(ARM_CLIENT_ID)"
+        $secret = "$(ARM_CLIENT_SECRET)"
+
+        Write-Host "Terraform path loaded"
 
         & $tf.FullName init `
-          -backend-config=storage_account_name=$(tfstate_storage) `
-          -backend-config=container_name=$(containername) `
-          -backend-config=key=$(key) `
-          -backend-config=resource_group_name=$(terraform_rg)
+          -backend-config=storage_account_name=$tfstate `
+          -backend-config=container_name=$container `
+          -backend-config=key=$key `
+          -backend-config=resource_group_name=$rg `
+          -backend-config=subscription_id=$sub `
+          -backend-config=tenant_id=$tenant `
+          -backend-config=client_id=$client `
+          -backend-config=client_secret=$secret
       displayName: "Terraform Init"
-      env:
-        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
-        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-        ARM_TENANT_ID: $(ARM_TENANT_ID)
   
     - task: TerraformTaskV4@4
       displayName: plan
