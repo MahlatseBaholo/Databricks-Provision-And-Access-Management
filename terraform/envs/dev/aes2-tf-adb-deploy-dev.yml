@@ -131,17 +131,13 @@ stages:
         terraformVersion: '1.5.7'
 
     - powershell: |
+        $tf = Get-ChildItem "C:\agent\_work\_tool\terraform\*\x64\terraform.exe" | Select-Object -First 1
+
+        Write-Host "Using Terraform: $($tf.FullName)"
+
         cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
 
-        $tf = Get-ChildItem "C:\agent\_work\_tool\terraform" -Recurse -Filter terraform.exe | Select-Object -First 1
-
-        if (-not $tf) {
-          Write-Error "Terraform not found"
-          exit 1
-        }
-
-        # Assign variables safely
-        $tfstate = "$(tfstate_storage)"
+        $storage = "$(tfstate_storage)"
         $container = "$(containername)"
         $key = "$(key)"
         $rg = "$(terraform_rg)"
@@ -150,18 +146,16 @@ stages:
         $client = "$(ARM_CLIENT_ID)"
         $secret = "$(ARM_CLIENT_SECRET)"
 
-        Write-Host "Terraform path loaded"
-
         & $tf.FullName init `
-          -backend-config=storage_account_name=$tfstate `
-          -backend-config=container_name=$container `
-          -backend-config=key=$key `
-          -backend-config=resource_group_name=$rg `
-          -backend-config=subscription_id=$sub `
-          -backend-config=tenant_id=$tenant `
-          -backend-config=client_id=$client `
-          -backend-config=client_secret=$secret
-      displayName: "Terraform Init"
+          -backend-config="storage_account_name=$storage" `
+          -backend-config="container_name=$container" `
+          -backend-config="key=$key" `
+          -backend-config="resource_group_name=$rg" `
+          -backend-config="subscription_id=$sub" `
+          -backend-config="tenant_id=$tenant" `
+          -backend-config="client_id=$client" `
+          -backend-config="client_secret=$secret"
+      displayName: "Terraform Init (Manual - Fixed)"
   
     - task: TerraformTaskV4@4
       displayName: plan
