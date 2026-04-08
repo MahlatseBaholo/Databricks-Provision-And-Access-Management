@@ -31,10 +31,6 @@ stages:
     steps:
     - checkout: self
       clean: true
-    - task: TerraformInstaller@1
-      displayName: install
-      inputs:
-        terraformVersion: '1.5.7'
     - task: TerraformTaskV4@4
       displayName: init
       inputs:
@@ -124,11 +120,6 @@ stages:
 
         Write-Host "=== END DEBUG ==="
       displayName: "Deep Debug Terraform"
-
-    - task: TerraformInstaller@1
-      displayName: install
-      inputs:
-        terraformVersion: '1.5.7'
 
     - task: TerraformTaskV4@4
       displayName: init
