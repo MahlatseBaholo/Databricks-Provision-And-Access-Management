@@ -142,7 +142,7 @@ stages:
         backendAzureRmStorageAccountName: '$(tfstate_storage)'
         backendAzureRmContainerName: '$(containername)'
         backendAzureRmKey: '$(key)'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+        workingDirectory: '$(Build.SourcesDirectory)'
       
     - task: TerraformTaskV4@4
       displayName: plan
@@ -150,7 +150,7 @@ stages:
         provider: 'azurerm'
         command: 'plan'
         environmentServiceNameAzureRM: $(azureSubscription)
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+        workingDirectory: '$(Build.SourcesDirectory)'
       env:
         ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
         TF_VAR_env: $(ENV)
