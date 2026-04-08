@@ -130,17 +130,28 @@ stages:
       inputs:
         terraformVersion: '1.5.7'
 
-    - task: TerraformTaskV4@4
-      displayName: init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: $(azureSubscription)
-        backendAzureRmResourceGroupName: '$(terraform_rg)'
-        backendAzureRmStorageAccountName: '$(tfstate_storage)'
-        backendAzureRmContainerName: '$(containername)'
-        backendAzureRmKey: '$(key)'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+    - powershell: |
+        cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
+
+        $tf = Get-ChildItem "C:\agent\_work\_tool\terraform" -Recurse -Filter terraform.exe | Select-Object -First 1
+
+        if (-not $tf) {
+          Write-Error "Terraform not found"
+          exit 1
+        }
+
+        Write-Host "Using Terraform: $($tf.FullName)"
+
+        & $tf.FullName init `
+          -backend-config="storage_account_name=$(tfstate_storage)" `
+          -backend-config="container_name=$(containername)" `
+          -backend-config="key=$(key)" `
+          -backend-config="resource_group_name=$(terraform_rg)" `
+          -backend-config="subscription_id=$(ARM_SUBSCRIPTION_ID)" `
+          -backend-config="tenant_id=$(ARM_TENANT_ID)" `
+          -backend-config="client_id=$(ARM_CLIENT_ID)" `
+          -backend-config="client_secret=$(ARM_CLIENT_SECRET)"
+      displayName: "Terraform Init (Manual)"
   
     - task: TerraformTaskV4@4
       displayName: plan
