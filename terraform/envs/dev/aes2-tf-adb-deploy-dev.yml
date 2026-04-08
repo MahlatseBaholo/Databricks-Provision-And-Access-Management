@@ -30,6 +30,7 @@ stages:
     displayName: "Validate"
     steps:
     - checkout: self
+      clean: true
     - task: TerraformInstaller@1
       displayName: install
       inputs:
@@ -60,6 +61,7 @@ stages:
     displayName: "plan"
     steps:
     - checkout: self
+      clean: true
     - task: PowerShell@2
       inputs:
         targetType: inline
