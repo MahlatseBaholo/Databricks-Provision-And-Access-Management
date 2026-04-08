@@ -132,19 +132,19 @@ stages:
 
     - powershell: |
         $tf = Get-ChildItem "C:\agent\_work\_tool\terraform\*\x64\terraform.exe" | Select-Object -First 1
-
         Write-Host "Using Terraform: $($tf.FullName)"
 
         cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
 
-        $storage = "$(tfstate_storage)"
-        $container = "$(containername)"
-        $key = "$(key)"
-        $rg = "$(terraform_rg)"
-        $sub = "$(ARM_SUBSCRIPTION_ID)"
-        $tenant = "$(ARM_TENANT_ID)"
-        $client = "$(ARM_CLIENT_ID)"
-        $secret = "$(ARM_CLIENT_SECRET)"
+        # Read from ENV (SAFE - no parsing issues)
+        $storage  = $env:TFSTATE_STORAGE
+        $container= $env:CONTAINER_NAME
+        $key      = $env:TF_KEY
+        $rg       = $env:TF_RG
+        $sub      = $env:ARM_SUBSCRIPTION_ID
+        $tenant   = $env:ARM_TENANT_ID
+        $client   = $env:ARM_CLIENT_ID
+        $secret   = $env:ARM_CLIENT_SECRET
 
         & $tf.FullName init `
           -backend-config="storage_account_name=$storage" `
@@ -155,8 +155,17 @@ stages:
           -backend-config="tenant_id=$tenant" `
           -backend-config="client_id=$client" `
           -backend-config="client_secret=$secret"
-      displayName: "Terraform Init (Manual - Fixed)"
-  
+      displayName: "Terraform Init (Manual - SAFE)"
+      env:
+        TFSTATE_STORAGE: $(tfstate_storage)
+        CONTAINER_NAME: $(containername)
+        TF_KEY: $(key)
+        TF_RG: $(terraform_rg)
+        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+        ARM_TENANT_ID: $(ARM_TENANT_ID)
+        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+      
     - task: TerraformTaskV4@4
       displayName: plan
       inputs:
