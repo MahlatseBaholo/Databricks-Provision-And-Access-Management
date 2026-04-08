@@ -126,21 +126,17 @@ stages:
       inputs:
         terraformVersion: '1.5.7'
 
-    - powershell: |
-        $env:TF_LOG="TRACE"
-        $env:TF_LOG_PATH="$(System.DefaultWorkingDirectory)\terraform-debug.log"
-
-        & "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe" init `
-          -backend-config="storage_account_name=sasoldevterraform" `
-          -backend-config="container_name=sasol-dev-aes2-dbw" `
-          -backend-config="key=manage/terraform.tfstate" `
-          -backend-config="resource_group_name=sasoleuw-big-data-dev-aes-terraform-rg" `
-          -backend-config="subscription_id=$(ARM_SUBSCRIPTION_ID)" `
-          -backend-config="tenant_id=$(ARM_TENANT_ID)" `
-          -backend-config="client_id=$(ARM_CLIENT_ID)" `
-          -backend-config="client_secret=$(ARM_CLIENT_SECRET)"
-      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
-      displayName: "Terraform Init (Manual)"
+    - task: TerraformTaskV4@4
+      displayName: init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: $(azureSubscription)
+        backendAzureRmResourceGroupName: '$(terraform_rg)'
+        backendAzureRmStorageAccountName: '$(tfstate_storage)'
+        backendAzureRmContainerName: '$(containername)'
+        backendAzureRmKey: '$(key)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
   
     - task: TerraformTaskV4@4
       displayName: plan
