@@ -142,7 +142,7 @@ stages:
         backendAzureRmStorageAccountName: '$(tfstate_storage)'
         backendAzureRmContainerName: '$(containername)'
         backendAzureRmKey: '$(key)'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/''
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
       
     - task: TerraformTaskV4@4
       displayName: plan
