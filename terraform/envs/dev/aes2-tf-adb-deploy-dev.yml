@@ -29,6 +29,7 @@ stages:
   - job: tfvalidate
     displayName: "Validate"
     steps:
+    - checkout: self
     - task: TerraformInstaller@1
       displayName: install
       inputs:
@@ -58,6 +59,7 @@ stages:
   - job: tfplan
     displayName: "plan"
     steps:
+    - checkout: self
     - task: PowerShell@2
       inputs:
         targetType: inline
@@ -197,6 +199,7 @@ stages:
   - job: tfapply
     displayName: "apply"
     steps:
+    - checkout: self
     - task: PowerShell@2
       inputs:
         targetType: inline
