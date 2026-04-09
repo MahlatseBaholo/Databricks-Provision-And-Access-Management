@@ -102,10 +102,10 @@ stages:
         terraformVersion: 'latest'
 
     - task: PowerShell@2
-      displayName: "Terraform Init (SAFE)"
+      displayName: "Terraform Init (FIXED)"
       inputs:
         targetType: 'filePath'
-        filePath: $(System.DefaultWorkingDirectory)/terraform/envs/$(env)/scripts/terraform-init.ps1
+        filePath: '$(Build.SourcesDirectory)/scripts/terraform-init.ps1'
       env:
         ENV: $(env)
         TFSTATE_STORAGE: $(tfstate_storage)
