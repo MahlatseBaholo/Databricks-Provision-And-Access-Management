@@ -94,22 +94,7 @@ stages:
       displayName: 'set Env Vars from Secrets'
       inputs:
         script: "echo \"Setting environment variables for Terraform...\"\necho \"##vso[task.setvariable variable=ENV]$(env)\"\necho \"##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)terraform)\"\necho \"##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)\"\necho \"##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace2-Host)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace2-ID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)\"  \n"
-  
-    - powershell: |
-        Write-Host "=== DEBUG TERRAFORM EXECUTION ==="
 
-        $tf = "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe"
-
-        Write-Host "1. Check file exists:"
-        Test-Path $tf
-
-        Write-Host "2. Running terraform version:"
-        & $tf version
-
-        Write-Host "3. Running terraform init (dry run):"
-        cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
-        & $tf init -backend=false
-      displayName: "Deep Debug Terraform Execution"
 
     - task: TerraformInstaller@1
       displayName: 'install terraform'
