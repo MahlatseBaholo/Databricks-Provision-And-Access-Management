@@ -105,7 +105,7 @@ stages:
       displayName: "Terraform Init (SAFE)"
       inputs:
         targetType: 'filePath'
-        filePath: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/scripts/terraform-init.ps1'
+        filePath: $(System.DefaultWorkingDirectory)/terraform/envs/$(env)/scripts/terraform-init.ps1
       env:
         ENV: $(env)
         TFSTATE_STORAGE: $(tfstate_storage)
