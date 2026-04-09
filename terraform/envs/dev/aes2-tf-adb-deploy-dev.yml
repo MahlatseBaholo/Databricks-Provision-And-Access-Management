@@ -54,6 +54,11 @@ stages:
         provider: 'azurerm'
         command: 'validate'
 
+    - script: |
+        echo "Access key length:"
+        echo "$(AccessKey-xxxxxdevterraform)" | wc -c
+      displayName: "DEBUG ACCESS KEY"
+  
     - task: TerraformTaskV4@4
       displayName: plan
       inputs:
