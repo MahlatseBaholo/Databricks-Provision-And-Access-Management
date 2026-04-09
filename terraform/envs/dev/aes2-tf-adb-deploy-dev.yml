@@ -98,34 +98,18 @@ stages:
     - powershell: |
         Write-Host "=== DEBUG TERRAFORM EXECUTION ==="
 
-        $tfExe = "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe"
+        $tf = "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe"
 
         Write-Host "1. Check file exists:"
-        Test-Path $tfExe
+        Test-Path $tf
 
-        Write-Host "2. Get file details:"
-        Get-Item $tfExe | Format-List *
+        Write-Host "2. Running terraform version:"
+        & $tf version
 
-        Write-Host "3. List directory:"
-        Get-ChildItem "C:\agent\_work\_tool\terraform\1.14.8\x64"
-
-        Write-Host "4. Check execution via call operator:"
-        try {
-            & $tfExe version
-            Write-Host "Execution SUCCESS"
-        } catch {
-            Write-Host "Execution FAILED"
-            Write-Host $_
-        }
-
-        Write-Host "5. Check PATH:"
-        $env:PATH
-
-        Write-Host "6. Where terraform:"
-        where.exe terraform
-
-        Write-Host "=== END DEBUG ==="
-      displayName: "Deep Debug Terraform"
+        Write-Host "3. Running terraform init (dry run):"
+        cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
+        & $tf init -backend=false
+      displayName: "Deep Debug Terraform Execution"
 
     - task: TerraformInstaller@1
       displayName: 'install terraform'
