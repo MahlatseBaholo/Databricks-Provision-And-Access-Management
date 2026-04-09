@@ -101,6 +101,22 @@ stages:
       inputs:
         terraformVersion: 'latest'
 
+    - powershell: |
+        Write-Host "=== DEBUG TERRAFORM EXECUTION ==="
+
+        $tf = "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe"
+
+        Write-Host "1. Check file exists:"
+        Test-Path $tf
+
+        Write-Host "2. Running terraform version:"
+        & $tf version
+
+        Write-Host "3. Running terraform init (dry run):"
+        cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
+        & $tf init -backend=false
+  displayName: "Deep Debug Terraform Execution"
+
     - task: TerraformTaskV4@4
       displayName: init
       inputs:
