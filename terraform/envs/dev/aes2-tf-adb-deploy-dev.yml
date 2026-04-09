@@ -53,7 +53,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'validate'
-           
+
     - task: TerraformTaskV4@4
       displayName: plan
       inputs:
@@ -90,7 +90,7 @@ stages:
 - stage: Approval
   displayName: "Approval"
   dependsOn:
-  - tfplan
+  - tfvalidate
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   jobs:
   - deployment: ManualApproval
