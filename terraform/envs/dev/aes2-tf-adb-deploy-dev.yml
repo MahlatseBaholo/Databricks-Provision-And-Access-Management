@@ -115,7 +115,7 @@ stages:
         Write-Host "3. Running terraform init (dry run):"
         cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
         & $tf init -backend=false
-  displayName: "Deep Debug Terraform Execution"
+      displayName: "Deep Debug Terraform Execution"
 
     - task: TerraformTaskV4@4
       displayName: init
