@@ -102,50 +102,20 @@ stages:
         terraformVersion: 'latest'
 
     - task: PowerShell@2
-      displayName: "Deep Debug Terraform Execution (WORKING)"
+      displayName: "Terraform Init (SAFE)"
       inputs:
-        targetType: 'inline'
-        script: |
-          Write-Host "=== DEBUG TERRAFORM EXECUTION ==="
-
-          # Set Terraform path (installed by TerraformInstaller)
-          $tfPath = "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe"
-
-          Write-Host "Terraform Path: $tfPath"
-
-          # Validate Terraform exists
-          if (!(Test-Path $tfPath)) {
-              Write-Error "Terraform NOT found!"
-              exit 1
-          }
-
-          Write-Host "Terraform found ✔"
-
-          # Move to correct working directory
-          $workDir = "$(Build.SourcesDirectory)\terraform\envs\$(env)"
-          Write-Host "Working Directory: $workDir"
-
-          Set-Location -Path $workDir
-
-          # Run terraform version
-          & $tfPath version
-
-          # Enable verbose logging
-          $env:TF_LOG = "DEBUG"
-
-          Write-Host "Running terraform init..."
-
-          & $tfPath init `
-            -backend-config="storage_account_name=$(tfstate_storage)" `
-            -backend-config="container_name=$(containername)" `
-            -backend-config="key=$(key)" `
-            -backend-config="resource_group_name=$(terraform_rg)" `
-            -backend-config="subscription_id=$(ARM_SUBSCRIPTION_ID)" `
-            -backend-config="tenant_id=$(ARM_TENANT_ID)" `
-            -backend-config="client_id=$(ARM_CLIENT_ID)" `
-            -backend-config="client_secret=$(ARM_CLIENT_SECRET)"
-
-          Write-Host "Terraform init completed"
+        targetType: 'filePath'
+        filePath: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/scripts/terraform-init.ps1'
+      env:
+        ENV: $(env)
+        TFSTATE_STORAGE: $(tfstate_storage)
+        CONTAINERNAME: $(containername)
+        KEY: $(key)
+        TERRAFORM_RG: $(terraform_rg)
+        ARM_SUBSCRIPTION_ID: $(SubscriptionID)
+        ARM_TENANT_ID: $(TenantID)
+        ARM_CLIENT_ID: $(ServicePrincipal-DevOps-ClientID)
+        ARM_CLIENT_SECRET: $(ServicePrincipal-DevOps-ClientSecret)
 
     - task: TerraformTaskV4@4
       displayName: init
