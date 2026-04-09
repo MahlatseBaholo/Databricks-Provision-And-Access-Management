@@ -101,22 +101,6 @@ stages:
       inputs:
         terraformVersion: 'latest'
 
-    - task: PowerShell@2
-      displayName: "Terraform Init (FIXED)"
-      inputs:
-        targetType: 'filePath'
-        filePath: '$(Build.SourcesDirectory)/scripts/terraform-init.ps1'
-      env:
-        ENV: $(env)
-        TFSTATE_STORAGE: $(tfstate_storage)
-        CONTAINERNAME: $(containername)
-        KEY: $(key)
-        TERRAFORM_RG: $(terraform_rg)
-        ARM_SUBSCRIPTION_ID: $(SubscriptionID)
-        ARM_TENANT_ID: $(TenantID)
-        ARM_CLIENT_ID: $(ServicePrincipal-DevOps-ClientID)
-        ARM_CLIENT_SECRET: $(ServicePrincipal-DevOps-ClientSecret)
-
     - task: TerraformTaskV4@4
       displayName: init
       inputs:
