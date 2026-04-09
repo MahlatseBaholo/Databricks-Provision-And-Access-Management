@@ -109,13 +109,18 @@ stages:
         Write-Host "1. Check file exists:"
         Test-Path $tf
 
-        Write-Host "2. Running terraform version:"
+        Write-Host "2. Terraform version:"
         & $tf version
 
-        Write-Host "3. Running terraform init (dry run):"
-        cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
+        Write-Host "3. Changing directory..."
+        Set-Location -Path "$(System.DefaultWorkingDirectory)\terraform\envs\$(env)"
+
+        Write-Host "Current directory:"
+        Get-Location
+
+        Write-Host "4. Terraform init (no backend):"
         & $tf init -backend=false
-      displayName: "Deep Debug Terraform Execution"
+      displayName: "Deep Debug Terraform Execution (Fixed)"
 
     - task: TerraformTaskV4@4
       displayName: init
