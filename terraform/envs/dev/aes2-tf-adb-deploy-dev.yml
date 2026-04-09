@@ -133,9 +133,10 @@ stages:
         terraformVersion: 'latest'
 
     - powershell: |
+        $tf = "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe"
         cd "$(System.DefaultWorkingDirectory)/terraform/envs/$(env)"
 
-        & "C:\agent\_work\_tool\terraform\1.14.8\x64\terraform.exe" init
+        & $tf init
 
     - task: TerraformTaskV4@4
       displayName: init
