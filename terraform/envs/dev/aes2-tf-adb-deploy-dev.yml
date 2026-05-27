@@ -4,233 +4,266 @@ trigger:
     - main
 pool:
   name: DeploymentAgents(Linux)
+
 parameters:
 - name: env
   default: dev
+
 variables:
-- name: env
-  value: dev
-- name: terraform_rg
-  value: sasoleuw-big-data-dev-aes-terraform-rg
-- name: tfstate_storage
-  value: sasoldevterraform
-- name: containername
-  value: sasol-dev-aes2-dbw
-- name: key
-  value: 'manage/terraform.tfstate'
-- name: azureSubscription
-  value: AES 2.0 dev - SP
-- name: keyVaultName
-  value: sasol-dev-aes-key
+  env: '${{ parameters.env }}'
+  terraform_rg: 'sasoleuw-big-data-${{ parameters.env }}-terraform-rg'
+  tfstate_storage: 'sasol${{ parameters.env }}terraform'
+  containername: 'sasol-${{ parameters.env }}-aes2-dbw'
+  key: 'manage/terraform.tfstate'
+  azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
+  keyVaultName: 'sasol-${{ parameters.env }}-aes-key'
+
 stages:
-- stage: tfvalidate
-  displayName: "Terraform Validate"
-  jobs:
-  - job: tfvalidate
-    displayName: "Validate"
-    steps:
-    - checkout: self
-      clean: true
-
-    - task: TerraformInstaller@1
-      displayName: 'install terraform'
-      inputs:
-        terraformVersion: 'latest'
-        
-    - task: TerraformTaskV4@4
-      displayName: init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: $(azureSubscription)
-        backendAzureRmResourceGroupName: '$(terraform_rg)'
-        backendAzureRmStorageAccountName: '$(tfstate_storage)'
-        backendAzureRmContainerName: '$(containername)'
-        backendAzureRmKey: '$(key)'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
-    - task: TerraformTaskV4@4
-      displayName: validate
-      inputs:
-        provider: 'azurerm'
-        command: 'validate'
-
-    - task: PowerShell@2
-      inputs:
-        targetType: inline
-        script: |
-          $ip = (Invoke-RestMethod -Uri "http://ifconfig.me/ip")
-          Write-Host "##vso[task.setvariable variable=currentip]$ip"
-    - task: PowerShell@2
-      inputs:
-        targetType: inline
-        script: |
-          Write-Host "Current Build Agent IP is $(currentip)"
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: ps
-        scriptLocation: inlineScript
-        inlineScript: |
-          Write-Host "Adding IP $(currentip) to Key Vault"
-          az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
-    - task: AzureKeyVault@2
-      displayName: 'get secrets from Azure Key Vault'
-      inputs:
-        azureSubscription: $(azureSubscription)
-        KeyVaultName: $(keyVaultName)
-        SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ID,Databricks-Workspace-Name,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace2-Host,Databricks-AccountID'
-        RunAsPreJob: false
-    - task: CmdLine@2
-      displayName: 'set Env Vars from Secrets'
-      inputs:
-        script: "echo \"Setting environment variables for Terraform...\"\necho \"##vso[task.setvariable variable=ENV]$(env)\"\necho \"##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)terraform)\"\necho \"##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)\"\necho \"##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace2-Host)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace2-ID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)\"  \n"
-    - task: PowerShell@2
-      displayName: DEBUG ACCESS KEY
-      inputs:
-        targetType: inline
-        script: |
-          Write-Host "Access key length:"
-          ($env:ACCESS_KEY).Length
-
-  
-    - task: TerraformTaskV4@4
-      displayName: plan
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        commandOptions: -detailed-exitcode
-        environmentServiceNameAzureRM: $(azureSubscription)
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
-      env:
-        ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
-        TF_VAR_env: $(ENV)
-        TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
-        TF_VAR_tenant_id: $(ARM_TENANT_ID)
-        TF_VAR_client_id: $(ARM_CLIENT_ID)
-        TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
-        TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
-        TF_VAR_account_client_secret: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
-        TF_VAR_workspace_client_id: $(DATABRICKS_WORKSPACE_CLIENT_ID)
-        TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
-        TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
-        TF_VAR_workspace_id: $(DATABRICKS_WORKSPACE_ID)
-        TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
-        DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
-        DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
-        DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
-        DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: ps
-        scriptLocation: inlineScript
-        inlineScript: |
-          Write-Host "Adding IP $(currentip) to Key Vault"
-          az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
-- stage: Approval
-  displayName: "Approval"
-  dependsOn:
-  - tfvalidate
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-  jobs:
-  - deployment: ManualApproval
-    displayName: "manual approval"
-    environment:
-      name: 'manual-approval-env'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: CmdLine@2
+  - stage: tfvalidate
+    displayName: "Terraform Validate"
+    jobs:
+      - job: tfvalidate
+        displayName: "Validate"
+        steps:
+          - task: TerraformInstaller@1
+            displayName: install
             inputs:
-              script: echo "Waiting for manual approval"
-- stage: tfapply
-  displayName: "Terraform Apply"
-  dependsOn:
-  - Approval
-  condition: succeeded('approval')
-  jobs:
-  - job: tfapply
-    displayName: "apply"
-    steps:
-    - checkout: self
-    - task: PowerShell@2
-      inputs:
-        targetType: inline
-        script: |
-          $ip = (Invoke-RestMethod -Uri "http://ifconfig.me/ip")
-          Write-Host "##vso[task.setvariable variable=currentip]$ip"
-    - task: PowerShell@2
-      inputs:
-        targetType: inline
-        script: |
-          Write-Host "Current Build Agent IP is $(currentip)"
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: ps
-        scriptLocation: inlineScript
-        inlineScript: |
-          Write-Host "Adding IP $(currentip) to Key Vault"
-          az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
-    - task: AzureKeyVault@2
-      displayName: 'get secrets from Azure Key Vault'
-      inputs:
-        azureSubscription: $(azureSubscription)
-        KeyVaultName: $(keyVaultName)
-        SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Databricks-Account-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace-Host,Databricks-AccountID'
-        RunAsPreJob: false
-    - task: CmdLine@2
-      displayName: 'set Env Vars from Secrets'
-      inputs:
-        script: "echo \"Setting environment variables for Terraform...\"\necho \"##vso[task.setvariable variable=ENV]$(env)\"\necho \"##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)terraform)\"\necho \"##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)\"\necho \"##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)\"\necho \"##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace2-ServicePrincipal-ClientSecret)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)\"\necho \"##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace2-ID)\"\necho \"##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)\"  \n"
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: ps
-        scriptLocation: inlineScript
-        inlineScript: |
-          Write-Host "Adding IP $(currentip) to Key Vault"
-          az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
+              terraformVersion: 'latest'
 
-    - task: TerraformInstaller@1
-      displayName: 'install terraform'
-      inputs:
-        terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: $(azureSubscription)
+              backendAzureRmResourceGroupName: '$(terraform_rg)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
 
-    - task: TerraformTaskV4@4
-      displayName: init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: $(azureSubscription)
-        backendAzureRmResourceGroupName: '$(terraform_rg)'
-        backendAzureRmStorageAccountName: '$(tfstate_storage)'
-        backendAzureRmContainerName: '$(containername)'
-        backendAzureRmKey: '$(key)'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
-    - task: TerraformTaskV4@4
-      displayName: apply
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        environmentServiceNameAzureRM: $(azureSubscription)
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
-      env:
-        ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
-        TF_VAR_env: $(ENV)
-        TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
-        TF_VAR_tenant_id: $(ARM_TENANT_ID)
-        TF_VAR_client_id: $(ARM_CLIENT_ID)
-        TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
-        TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
-        TF_VAR_account_client_secret: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
-        TF_VAR_workspace_client_id: $(DATABRICKS_WORKSPACE_CLIENT_ID)
-        TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
-        TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
-        TF_VAR_workspace_id: $(DATABRICKS_WORKSPACE_ID)
-        TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
-        DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
-        DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
-        DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
-        DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
+          - task: TerraformTaskV4@4
+            displayName: validate
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+
+  - stage: tfplan
+    displayName: "Terraform Plan"
+    dependsOn: tfvalidate
+    condition: succeeded('tfvalidate')
+    jobs:
+      - job: tfplan
+        displayName: "plan"
+        steps:
+          - bash: |
+              echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
+            displayName: 'set variable currentip'
+
+          - bash: echo "Current Build Agent IP is $(currentip)"
+            displayName: 'display variable currentip'
+
+          - task: AzureCLI@2
+            displayName: 'add IP to Key Vault firewall'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo "Adding IP $(currentip) to Key Vault"
+                az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
+
+          - task: AzureKeyVault@2
+            displayName: 'get secrets from Azure Key Vault'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              KeyVaultName: $(keyVaultName)
+              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ID,Databricks-Workspace-Name,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace2-Host,Databricks-AccountID'
+              RunAsPreJob: false
+
+          - script: |
+              echo "Setting environment variables for Terraform..."
+              echo "##vso[task.setvariable variable=ENV]$(env)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)simegastf)"
+              echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
+              echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace-ID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
+            displayName: 'set Env Vars from Secrets'
+
+          - task: AzureCLI@2
+            displayName: 'remove IP from Key Vault firewall'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo "Removing IP $(currentip) from Key Vault"
+                az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
+
+          - task: TerraformInstaller@1
+            displayName: install
+            inputs:
+              terraformVersion: 'latest'
+
+          - task: TerraformTaskV4@4
+            displayName: init 
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: $(azureSubscription)
+              backendAzureRmResourceGroupName: '$(terraform_rg)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+
+          - task: TerraformTaskV4@4
+            displayName: plan
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: $(azureSubscription)
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+            env:
+              ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+              TF_VAR_env: $(ENV)
+              TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
+              TF_VAR_tenant_id: $(ARM_TENANT_ID)
+              TF_VAR_client_id: $(ARM_CLIENT_ID)
+              TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
+              TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              TF_VAR_account_client_secret: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              TF_VAR_workspace_client_id: $(DATABRICKS_WORKSPACE_CLIENT_ID)
+              TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
+              TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
+              TF_VAR_workspace_id: $(DATABRICKS_WORKSPACE_ID)
+              TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
+
+  - stage: Approval
+    displayName: "Approval"
+    dependsOn: tfplan
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: ManualApproval
+        displayName: "manual approval"
+        environment: 'manual-approval-env'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "Waiting for manual approval"
+
+  - stage: tfapply
+    displayName: "Terraform Apply"
+    dependsOn: Approval
+    condition: succeeded('approval')
+    jobs:
+      - job: tfapply
+        displayName: "apply"
+        steps:
+          - bash: |
+              echo "##vso[task.setvariable variable=currentip]$(curl -s http://ifconfig.me/ip)"
+            displayName: 'set variable currentip'
+
+          - bash: echo "Current Build Agent IP is $(currentip)"
+            displayName: 'display variable currentip'
+
+          - task: AzureCLI@2
+            displayName: 'add IP to Key Vault firewall'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo "Adding IP $(currentip) to Key Vault"
+                az keyvault network-rule add -n $(keyVaultName) --ip-address $(currentip)
+
+          - task: AzureKeyVault@2
+            displayName: 'get secrets from Azure Key Vault'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              KeyVaultName: $(keyVaultName)
+              SecretsFilter: 'AccessKey-sasol$(env)terraform,SubscriptionID,TenantID,ServicePrincipal-DevOps-ClientID,ServicePrincipal-DevOps-ClientSecret,Metastore-ID,Metastore-Name,Databricks-Account-ServicePrincipal-ClientID,Databricks-Account-ServicePrincipal-ClientSecret,Databricks-Workspace2-ID,Databricks-Workspace-Name,Databricks-Workspace2-ServicePrincipal-ClientID,Databricks-Workspace2-ServicePrincipal-ClientSecret,Databricks-Workspace2-Host,Databricks-AccountID'
+              RunAsPreJob: false
+
+          - script: |
+              echo "Setting environment variables for Terraform..."
+              echo "##vso[task.setvariable variable=ENV]$(env)"
+              echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$(AccessKey-sasol$(env)simegastf)"
+              echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID;issecret=true]$(SubscriptionID)"
+              echo "##vso[task.setvariable variable=ARM_TENANT_ID;issecret=true]$(TenantID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_ID;issecret=true]$(ServicePrincipal-DevOps-ClientID)"
+              echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$(ServicePrincipal-DevOps-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_ID;issecret=true]$(Databricks-Account-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_CLIENT_SECRET;issecret=true]$(Databricks-Account-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_ID;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_CLIENT_SECRET;issecret=true]$(Databricks-Workspace-ServicePrincipal-ClientSecret)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_HOST;issecret=true]$(Databricks-Workspace-Host)"
+              echo "##vso[task.setvariable variable=DATABRICKS_WORKSPACE_ID;issecret=true]$(Databricks-Workspace-ID)"
+              echo "##vso[task.setvariable variable=DATABRICKS_ACCOUNT_ID;issecret=true]$(Databricks-AccountID)"  
+            displayName: 'set Env Vars from Secrets'
+
+          - task: AzureCLI@2
+            displayName: 'remove IP from Key Vault firewall'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo "Removing IP $(currentip) from Key Vault"
+                az keyvault network-rule remove -n $(keyVaultName) --ip-address $(currentip)
+
+          - task: TerraformInstaller@1
+            displayName: install Terraform
+            inputs:
+              terraformVersion: 'latest'
+
+          - task: TerraformTaskV4@4
+            displayName: init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: $(azureSubscription)
+              backendAzureRmResourceGroupName: '$(terraform_rg)'
+              backendAzureRmStorageAccountName: '$(tfstate_storage)'
+              backendAzureRmContainerName: '$(containername)'
+              backendAzureRmKey: '$(key)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+
+          - task: TerraformTaskV4@4
+            displayName: apply
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: $(azureSubscription)
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/'
+            env:
+              ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+              TF_VAR_env: $(ENV)
+              TF_VAR_subscription_id: $(ARM_SUBSCRIPTION_ID)
+              TF_VAR_tenant_id: $(ARM_TENANT_ID)
+              TF_VAR_client_id: $(ARM_CLIENT_ID)
+              TF_VAR_client_secret: $(ARM_CLIENT_SECRET)
+              TF_VAR_account_client_id: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              TF_VAR_account_client_secret: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              TF_VAR_workspace_client_id: $(DATABRICKS_WORKSPACE_CLIENT_ID)
+              TF_VAR_workspace_client_secret: $(DATABRICKS_WORKSPACE_CLIENT_SECRET)
+              TF_VAR_workspace_host: $(DATABRICKS_WORKSPACE_HOST)
+              TF_VAR_workspace_id: $(DATABRICKS_WORKSPACE_ID)
+              TF_VAR_account_id: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_ACCOUNT_ID: $(DATABRICKS_ACCOUNT_ID)
+              DATABRICKS_CLIENT_ID: $(DATABRICKS_ACCOUNT_CLIENT_ID)
+              DATABRICKS_CLIENT_SECRET: $(DATABRICKS_ACCOUNT_CLIENT_SECRET)
+              DATABRICKS_TENANT_ID: $(ARM_TENANT_ID)
