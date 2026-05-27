@@ -11,7 +11,7 @@ parameters:
 
 variables:
   env: '${{ parameters.env }}'
-  terraform_rg: 'sasoleuw-big-data-${{ parameters.env }}-terraform-rg'
+  terraform_rg: 'sasoleuw-big-data-${{ parameters.env }}-aes-terraform-rg'
   tfstate_storage: 'sasol${{ parameters.env }}terraform'
   containername: 'sasol-${{ parameters.env }}-aes2-dbw'
   key: 'manage/terraform.tfstate'
