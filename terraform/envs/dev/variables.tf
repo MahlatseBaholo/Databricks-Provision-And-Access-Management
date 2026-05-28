@@ -4,11 +4,14 @@ variable "env" {
 }
 
 variable "location_abbr" {
-  description = "The Azure region short name (e.g.,san, euw, eus, usw2)"
+  description = "The Azure region short name (e.g., san, euw, eus, usw2)"
   type        = string
-  default     = "euw" 
+  default     = "euw"
 }
 
+# -----------------------------
+# Azure / Auth (required if you use TF vars for auth)
+# -----------------------------
 variable "subscription_id" {
   type = string
 }
@@ -22,10 +25,13 @@ variable "client_id" {
 }
 
 variable "client_secret" {
-  type = string
+  type      = string
   sensitive = true
 }
 
+# -----------------------------
+# Databricks account/workspace auth (required if you use TF vars for auth)
+# -----------------------------
 variable "account_id" {
   type      = string
   sensitive = true
@@ -55,9 +61,14 @@ variable "workspace_client_secret" {
   sensitive = true
 }
 
+# -----------------------------
+# Identity / Groups / Entitlements
+# (defaults added to avoid prompting when not used in a run)
+# -----------------------------
 variable "group_names" {
   description = "List of Databricks group names"
   type        = list(string)
+  default     = []
 }
 
 variable "permission_assignments" {
@@ -66,6 +77,7 @@ variable "permission_assignments" {
     principal_id = string
     permissions  = list(string)
   }))
+  default = {}
 }
 
 variable "entitlements" {
@@ -75,46 +87,57 @@ variable "entitlements" {
     workspace_access      = bool
     databricks_sql_access = bool
   }))
+  default = {}
 }
 
+# -----------------------------
+# LEGACY: Single cluster inputs (make optional to avoid CI prompting)
+# Prefer: unit_definitions.cluster.*
+# -----------------------------
 variable "cluster_name" {
-  description = "Name of the Databricks cluster"
+  description = "Name of the Databricks cluster (legacy). Prefer unit_definitions."
   type        = string
+  default     = null
 }
 
 variable "spark_version" {
-  description = "Spark version to use"
+  description = "Spark version to use (legacy). Prefer unit_definitions."
   type        = string
+  default     = null
 }
 
 variable "node_type_id" {
-  description = "Node type for worker nodes"
+  description = "Node type for worker nodes (legacy). Prefer unit_definitions."
   type        = string
+  default     = null
 }
 
 variable "driver_node_type_id" {
-  description = "Node type for the driver node"
+  description = "Node type for the driver node (legacy). Prefer unit_definitions."
   type        = string
+  default     = null
 }
 
 variable "autotermination_minutes" {
-  description = "Minutes until auto-termination (global default)"
+  description = "Minutes until auto-termination (global default / legacy)"
   type        = number
   default     = 10
 }
 
 variable "data_security_mode" {
-  description = "Unity Catalog enablement"
+  description = "Unity Catalog enablement (legacy). Prefer unit_definitions."
   type        = string
+  default     = null
 }
 
 variable "azure_attributes" {
-  description = "Azure attributes block"
+  description = "Azure attributes block (legacy). Prefer unit_definitions."
   type        = map(any)
+  default     = {}
 }
 
 variable "autoscale" {
-  description = "Autoscale settings (optional global default)"
+  description = "Autoscale settings (optional global default / legacy)"
   type = object({
     min_workers = number
     max_workers = number
@@ -123,60 +146,71 @@ variable "autoscale" {
 }
 
 variable "cluster_permissions" {
-  description = "Permissions for the cluster"
+  description = "Permissions for the cluster (legacy). Prefer unit_definitions."
   type        = map(list(string))
+  default     = {}
 }
 
+# -----------------------------
+# LEGACY: Single SQL warehouse inputs (make optional to avoid CI prompting)
+# Prefer: unit_definitions.sql_warehouse.*
+# -----------------------------
 variable "sql_warehouse_name" {
+  description = "Name of the SQL Warehouse (legacy). Prefer unit_definitions."
   type        = string
-  description = "Name of the SQL Warehouse"
+  default     = null
 }
 
 variable "sql_warehouse_cluster_size" {
+  description = "Cluster size (e.g. Small, Medium) (legacy). Prefer unit_definitions."
   type        = string
-  description = "Cluster size (e.g. Small, Medium)"
+  default     = null
 }
 
 variable "sql_warehouse_max_num_clusters" {
-  type        = number
-  default     = 1
+  type    = number
+  default = 1
 }
 
 variable "sql_warehouse_min_num_clusters" {
-  type        = number
-  default     = 1
+  type    = number
+  default = 1
 }
 
 variable "sql_warehouse_auto_stop_mins" {
-  type        = number
-  default     = 10
+  type    = number
+  default = 10
 }
 
 variable "sql_warehouse_enable_serverless_compute" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
 
 variable "sql_warehouse_tags" {
-  type        = map(string)
-  default     = {}
+  type    = map(string)
+  default = {}
 }
 
 variable "warehouse_type" {
+  description = "SQL warehouse type (legacy). Prefer unit_definitions."
   type        = string
-  description = "SQL warehouse type"
+  default     = null
 }
 
 variable "sql_warehouse_enable_permissions" {
-  type        = bool
-  default     = false
+  type    = bool
+  default = false
 }
 
 variable "sql_warehouse_permissions" {
-  type        = map(list(string))
-  default     = {}
+  type    = map(list(string))
+  default = {}
 }
 
+# -----------------------------
+# Catalog definitions (required)
+# -----------------------------
 variable "catalog_definitions" {
   type = map(object({
     project        = string
@@ -186,9 +220,14 @@ variable "catalog_definitions" {
   }))
 }
 
+# -----------------------------
+# Folder permissions
+# (defaults added to avoid prompting when folder module not used)
+# -----------------------------
 variable "folder_path" {
   type        = string
   description = "Path of the folder"
+  default     = null
 }
 
 variable "access_controls" {
@@ -197,8 +236,12 @@ variable "access_controls" {
     permission_level = string
   }))
   description = "List of permissions to assign to the folder"
+  default     = []
 }
 
+# -----------------------------
+# Units / per-unit definitions
+# -----------------------------
 variable "allowed_units" {
   description = "Authoritative list of allowed units"
   type        = set(string)
@@ -222,7 +265,7 @@ variable "unit_definitions" {
       data_security_mode      = optional(string)
 
       size    = optional(string, "small")
-      purpose = optional(string, "general-purpose")  
+      purpose = optional(string, "general-purpose")
 
       azure_attributes = optional(object({
         first_on_demand    = optional(number)
@@ -252,4 +295,9 @@ variable "unit_definitions" {
       permissions               = optional(map(list(string)), {})
     }))
   }))
+
+  validation {
+    condition     = length(setsubtract(toset(keys(var.unit_definitions)), var.allowed_units)) == 0
+    error_message = "One or more unit_definitions keys are not allowed. Check allowed_units."
+  }
 }
