@@ -1,20 +1,48 @@
 locals {
+
+  catalog_slug = {
+    for catalog_name, def in var.catalog_definitions :
+    catalog_name => regexreplace(
+      lower(replace(catalog_name, "-", "_")),
+      "[^a-z0-9_]", ""
+    )
+  }
+
+  container_slug = {
+    for catalog_name, def in var.catalog_definitions :
+    catalog_name => trim(
+      regexreplace(
+        regexreplace(
+          regexreplace(
+            lower(replace(local.catalog_slug[catalog_name], "_", "-")),
+            "[^a-z0-9-]", ""
+          ),
+          "-{2,}", "-"
+        ),
+        "^-|-$", ""
+      )
+    )
+  }
+
   storage_definitions = {
-    for catalog_name, catalog_def in var.catalog_definitions : "${var.env}-${catalog_name}" => {
-      container_name          = "${var.env}-${catalog_name}"
-      storage_credential_name = "${var.env}-${catalog_name}-dbsc"
-      external_location_name  = "${var.env}-${catalog_name}-catalog-external-location"
+    for catalog_name, catalog_def in var.catalog_definitions :
+    "${var.env}_${local.catalog_slug[catalog_name]}" => {
+      container_name          = "${var.env}-${local.container_slug[catalog_name]}"
+      storage_credential_name = "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
+      external_location_name  = "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
     }
   }
 
   enriched_catalog_definitions = {
-    for catalog_name, def in var.catalog_definitions : "${var.env}_${catalog_name}" => {
+    for catalog_name, def in var.catalog_definitions :
+    "${var.env}_${local.catalog_slug[catalog_name]}" => {
       schema_names   = def.schema_names
       catalog_access = def.catalog_access
       schema_access  = lookup(def, "schema_access", {})
-      storage_root   = module.external_location["${var.env}_${catalog_name}"].external_location_url
+      storage_root   = module.external_location["${var.env}_${local.catalog_slug[catalog_name]}"].external_location_url
     }
   }
+
 
   cluster_definitions = {
     for unit_name, unit_def in var.unit_definitions : "${var.env}-${unit_name}" => {
