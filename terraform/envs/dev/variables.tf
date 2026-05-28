@@ -228,3 +228,20 @@ variable "unit_definitions" {
     }))
   }))
 }
+
+variable "allowed_units" {
+  description = "Authoritative list of allowed units"
+  type        = set(string)
+  default     = ["ms", "finance"]
+}
+
+locals {
+  _validate_units = toset(keys(var.unit_definitions))
+}
+
+variable "unit_definitions" {
+  validation {
+    condition     = length(setsubtract(toset(keys(var.unit_definitions)), var.allowed_units)) == 0
+    error_message = "One or more unit_definitions keys are not allowed. Check allowed_units."
+  }
+}
