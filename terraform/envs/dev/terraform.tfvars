@@ -76,7 +76,7 @@ catalog_definitions = {
       }
     }
   }
- dev_ms_customer_b2b = {
+  ms-customer-b2b = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
