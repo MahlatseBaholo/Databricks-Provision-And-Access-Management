@@ -113,8 +113,12 @@ variable "azure_attributes" {
 }
 
 variable "autoscale" {
-  description = "Autoscale settings"
-  type        = map(any)
+  description = "Autoscale settings (optional global default)"
+  type = object({
+    min_workers = number
+    max_workers = number
+  })
+  default = null
 }
 
 variable "cluster_permissions" {
