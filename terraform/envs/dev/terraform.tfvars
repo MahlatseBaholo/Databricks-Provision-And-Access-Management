@@ -119,7 +119,7 @@ catalog_definitions = {
     }
   }
 
-  assets = {
+  ms-assets = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -161,7 +161,7 @@ catalog_definitions = {
     }
   }
 
-  products = {
+  ms-products = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -203,7 +203,7 @@ catalog_definitions = {
     }
   }
 
-  employee = {
+  ms-employee = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -245,7 +245,7 @@ catalog_definitions = {
     }
   }
 
-  suppliers-vendors = {
+  ms-suppliers = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
