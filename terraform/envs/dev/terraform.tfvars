@@ -106,27 +106,52 @@ access_controls = [
     permission_level = "CAN_MANAGE"
   }
 ]
- 
+
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
-cluster_name              = "ms-multi-node-aes2-small-general-purpose"  
-spark_version             = "15.4.x-scala2.12"       
-node_type_id              = "Standard_DS3_v2"         
-driver_node_type_id       = "Standard_DS3_v2"        
-autotermination_minutes   = 10                                                                         
-data_security_mode        = "USER_ISOLATION"
+env = "dev"
 
-azure_attributes = {
-  first_on_demand        = 1                             
-  availability           = "SPOT_WITH_FALLBACK_AZURE"  
-  spot_bid_max_price     = -1                           
+unit_definitions = {
+  ms = {
+    clusters = {
+      small = {
+        autoscale = { min_workers = 2, max_workers = 10 }
+      }
+      medium = {
+        node_type_id        = "Standard_D8ds_v5"
+        driver_node_type_id = "Standard_D8ds_v5"
+        autoscale           = { min_workers = 4, max_workers = 20 }
+        autotermination_minutes = 20
+      }
+    }
+
+    sql_warehouse = {
+      name_suffix      = "serverless-sql-warehouse-aes2-small"
+      cluster_size     = "2X-Small"
+      max_num_clusters = 2
+      min_num_clusters = 1
+      auto_stop_mins   = 10
+      warehouse_type   = "Serverless"
+    }
+  }
+
+  finance = {
+    clusters = {
+      small = {
+        spark_version = "15.4.x-scala2.12"
+        autoscale     = { min_workers = 1, max_workers = 6 }
+      }
+      large = {
+        node_type_id        = "Standard_E8ds_v5"
+        driver_node_type_id = "Standard_E8ds_v5"
+        autoscale           = { min_workers = 8, max_workers = 40 }
+      }
+    }
+  }
 }
 
-autoscale = {
-  min_workers = 2   
-  max_workers = 10  
-}
+
 
 ##############################################
 # Cluster Permissions for AD Groups
@@ -135,19 +160,7 @@ cluster_permissions = {
   "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_ATTACH_TO","CAN_RESTART"],
   "AES-ADMIN" = ["CAN_ATTACH_TO"]       
 }
-
-##############################################
-# Pro SQL Warehouse Configuration
-##############################################
-sql_warehouse_name                      = "ms-serverless-sql-warehouse-aes2-small" 
-sql_warehouse_cluster_size              = "2X-Small"                                       
-sql_warehouse_max_num_clusters          = 2                                            
-sql_warehouse_min_num_clusters          = 1                                             
-sql_warehouse_auto_stop_mins            = 10                                             
-sql_warehouse_enable_serverless_compute = false                                         
-sql_warehouse_enable_permissions        = true
-warehouse_type                          = "Serverless"                                           
-
+                                          
 ##############################################
 # Serverless SQL Warehouse Permissions
 ##############################################
