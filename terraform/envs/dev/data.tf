@@ -12,6 +12,7 @@ data "terraform_remote_state" "metastore" {
     storage_account_name = "sasoleuaes2terraform"
     container_name       = "shared-components"
     key                  = "metastore/terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
 
@@ -22,5 +23,6 @@ data "terraform_remote_state" "databricks-metastore-assignment" {
     storage_account_name = "sasoldevterraform"
     container_name       = "sasol-dev-aes2-dbw"
     key                  = "databricks-metastore-assignment/terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
