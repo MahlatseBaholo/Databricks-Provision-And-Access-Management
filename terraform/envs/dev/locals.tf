@@ -1,5 +1,4 @@
 locals {
-
   catalog_slug = {
     for catalog_name, def in var.catalog_definitions :
     catalog_name => replace(
@@ -9,8 +8,6 @@ locals {
     )
   }
 
-  # Container slug: take catalog slug, '_' -> '-', keep only [a-z0-9-]
-  # Also collapse multiple '-' into a single '-'
   container_slug_raw = {
     for catalog_name, def in var.catalog_definitions :
     catalog_name => replace(
@@ -24,10 +21,6 @@ locals {
     )
   }
 
-  # Remove leading/trailing '-' WITHOUT trim():
-  # - First remove leading hyphens
-  # - Then remove trailing hyphens
-  # (using replace() with regex patterns)
   container_slug = {
     for catalog_name, def in var.catalog_definitions :
     catalog_name => replace(
@@ -37,11 +30,6 @@ locals {
     )
   }
 
-  # -----------------------------
-  # Storage definitions:
-  # - keys follow catalog style (underscore)
-  # - container_name follows container style (hyphen)
-  # -----------------------------
   storage_definitions = {
     for catalog_name, catalog_def in var.catalog_definitions :
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
@@ -51,11 +39,6 @@ locals {
     }
   }
 
-  # -----------------------------
-  # Catalog enrichment:
-  # keys follow catalog style (underscore)
-  # module indexing uses the same underscore key
-  # -----------------------------
   enriched_catalog_definitions = {
     for catalog_name, def in var.catalog_definitions :
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
@@ -65,9 +48,6 @@ locals {
       storage_root   = module.external_location["${var.env}_${local.catalog_slug[catalog_name]}"].external_location_url
     }
   }
-
-
-
 
   cluster_definitions = {
     for unit_name, unit_def in var.unit_definitions : "${var.env}-${unit_name}" => {
