@@ -98,8 +98,9 @@ variable "driver_node_type_id" {
 }
 
 variable "autotermination_minutes" {
-  description = "Minutes until auto-termination"
+  description = "Minutes until auto-termination (global default)"
   type        = number
+  default     = 10
 }
 
 variable "data_security_mode" {
