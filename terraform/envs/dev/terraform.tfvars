@@ -35,7 +35,7 @@ entitlements = {
 ##############################################
 catalog_definitions = {
 
-  ms-customer-b2b = {
+  ms_customer_b2b = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -77,7 +77,7 @@ catalog_definitions = {
     }
   }
 
-  ms-customer-b2c = {
+  ms_customer_b2c = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -119,7 +119,7 @@ catalog_definitions = {
     }
   }
 
-  ms-assets = {
+  ms_assets = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -161,7 +161,7 @@ catalog_definitions = {
     }
   }
 
-  ms-products = {
+  ms_products = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -203,7 +203,7 @@ catalog_definitions = {
     }
   }
 
-  ms-employee = {
+  ms_employee = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
@@ -245,7 +245,7 @@ catalog_definitions = {
     }
   }
 
-  ms-suppliers = {
+  ms_suppliers = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
