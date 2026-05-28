@@ -1,9 +1,4 @@
 ##############################################
-# Unit name
-##############################################
-units = ["ms", "finance"]
-
-##############################################
 # Define AD Groups and Permissions
 ##############################################
 group_names = ["AES-ADMIN", "AES-EBU_MOBI-DATAENGINEERING"]
@@ -110,8 +105,6 @@ access_controls = [
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
-env = "dev"
-
 unit_definitions = {
   ms = {
     cluster = {
