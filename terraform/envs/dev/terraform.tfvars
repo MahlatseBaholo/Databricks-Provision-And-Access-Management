@@ -35,47 +35,6 @@ entitlements = {
 ##############################################
 catalog_definitions = {
 
-  ai = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
-    catalog_access = {
-      "AES-EBU_MOBI-DATAENGINEERING" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
-      }
-    }
-  }
   ms-customer-b2b = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
