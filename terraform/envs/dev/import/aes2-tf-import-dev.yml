@@ -70,7 +70,6 @@ stages:
               terraform import databricks_metastore.$(METASTORE_NAME) $(METASTORE_ID)
               terraform import databricks_metastore_assignment.$(METASTORE_NAME) '$(DATABRICKS_WORKSPACE_ID)|$(METASTORE_ID)'
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(terraform_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
-              terraform import module.folder_permissions.databricks_directory.this "/Workspace/Shared"
             displayName: 'Import Resources'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/envs/$(env)/import/'
             env:
