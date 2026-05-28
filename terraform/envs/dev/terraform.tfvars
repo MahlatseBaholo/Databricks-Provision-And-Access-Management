@@ -119,7 +119,6 @@ catalog_definitions = {
   }
 }
 
-
 ##############################################
 # Define Folder Usage Permissions
 ##############################################
@@ -143,7 +142,6 @@ access_controls = [
     permission_level = "CAN_MANAGE"
   }
 ]
-
  
 ##############################################
 # Cluster Configuration and Updates
