@@ -18,7 +18,7 @@ resource "databricks_permissions" "folder_usage" {
   dynamic "access_control" {
     for_each = var.access_controls
     content {
-      group_name       = access_control.key
+      group_name       = access_control.value.group_name
       permission_level = access_control.value.permission_level
     }
   }
