@@ -291,11 +291,14 @@ catalog_definitions = {
 ##############################################
 # Define Folder Usage Permissions
 ##############################################
-folder_path = "/Workspace/Shared/"
+folder_path = "/Workspace/Shared"
 
-access_controls = {
-  users = "CAN_READ"
-}
+access_controls = [
+  {
+    group_name       = "users"
+    permission_level = "CAN_MANAGE"
+  }
+]
 
 ##############################################
 # Cluster Configuration and Updates
