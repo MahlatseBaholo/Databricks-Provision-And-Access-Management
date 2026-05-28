@@ -200,15 +200,24 @@ variable "allowed_units" {
   default     = ["ms", "finance"]
 }
 
+variable "units" {
+  description = "Units to provision resources for (legacy). Prefer unit_definitions."
+  type        = set(string)
+  default     = []
+}
+
 variable "unit_definitions" {
-  description = "Unit definitions (same pattern as catalog_definitions). Each unit can define 1..N clusters and an optional SQL warehouse."
+  description = "Per-unit cluster and optional SQL warehouse config"
   type = map(object({
-    clusters = map(object({
-      spark_version           = optional(string)
-      node_type_id            = optional(string)
+    cluster = object({
+      spark_version           = string
+      node_type_id            = string
       driver_node_type_id     = optional(string)
       autotermination_minutes = optional(number)
       data_security_mode      = optional(string)
+
+      size    = optional(string, "small")            # for naming only
+      purpose = optional(string, "general-purpose")  # for naming only
 
       azure_attributes = optional(object({
         first_on_demand    = optional(number)
@@ -217,25 +226,25 @@ variable "unit_definitions" {
       }))
 
       autoscale = optional(object({
-        min_workers = optional(number)
-        max_workers = optional(number)
+        min_workers = number
+        max_workers = number
       }))
-    }))
+
+      cluster_permissions = optional(map(list(string)), {})
+    })
 
     sql_warehouse = optional(object({
+      enabled                   = optional(bool, false)
       name_suffix               = optional(string, "serverless-sql-warehouse-aes2-small")
-      cluster_size              = optional(string, "2X-Small")
+      cluster_size              = optional(string, "Small")
       max_num_clusters          = optional(number, 2)
       min_num_clusters          = optional(number, 1)
       auto_stop_mins            = optional(number, 10)
-      enable_serverless_compute = optional(bool, false)
-      enable_permissions        = optional(bool, true)
-      warehouse_type            = optional(string, "Serverless")
+      enable_serverless_compute = optional(bool, true)
+      tags                      = optional(map(string), {})
+      warehouse_type            = optional(string, "PRO")
+      enable_permissions        = optional(bool, false)
+      permissions               = optional(map(list(string)), {})
     }))
   }))
-
-  validation {
-    condition     = length(setsubtract(toset(keys(var.unit_definitions)), var.allowed_units)) == 0
-    error_message = "One or more unit_definitions keys are not allowed. Check allowed_units."
-  }
 }
