@@ -85,7 +85,6 @@ module "folder_permissions" {
 
   directory_path  = var.folder_path
   access_controls = var.access_controls
-
   providers = {
     databricks = databricks.workspace
   }
