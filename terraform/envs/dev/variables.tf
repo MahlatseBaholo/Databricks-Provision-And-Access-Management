@@ -220,7 +220,7 @@ variable "unit_definitions" {
       autotermination_minutes = optional(number)
       data_security_mode      = optional(string)
 
-      size    = optional(string, "small")            # for naming only
+      size    = optional(string, "small")
       purpose = optional(string, "general-purpose")  
 
       azure_attributes = optional(object({
