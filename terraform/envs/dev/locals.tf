@@ -1,7 +1,7 @@
 locals {
   storage_definitions = {
     for catalog_name, catalog_def in var.catalog_definitions : "${var.env}-${catalog_name}" => {
-      container_name          = "${catalog_name}-${var.env}"
+      container_name          = "${var.env}-${catalog_name}"
       storage_credential_name = "sasol${var.location_abbr}-${var.env}-${catalog_def.project}-dbsc-${catalog_name}"
       external_location_name  = "${var.env}-${catalog_name}-catalog-external-location"
     }
