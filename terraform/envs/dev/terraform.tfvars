@@ -134,15 +134,19 @@ unit_definitions = {
 
     sql_warehouse = {
       enabled                   = true
-      cluster_size               = "Small"
-      max_num_clusters           = 2
-      min_num_clusters           = 1
-      auto_stop_mins             = 10
-      enable_serverless_compute  = true
-      tags                       = { Unit = "ms" }
-      warehouse_type             = "PRO"
-      enable_permissions         = true
-      permissions                = [] # <-- your structure here
+      cluster_size              = "Small"
+      max_num_clusters          = 2
+      min_num_clusters          = 1
+      auto_stop_mins            = 10
+      enable_serverless_compute = true
+      tags                      = { Unit = "ms" }
+      warehouse_type            = "PRO"
+      enable_permissions        = true
+
+      permissions = {
+        "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_USE"]
+        "AES-ADMIN"                   = ["CAN_USE"]
+      }
     }
   }
 
