@@ -105,7 +105,7 @@ access_controls = [
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
-cluster_name              = "multi-node-aes2-small-general-purpose"  
+cluster_name              = "ms-multi-node-aes2-small-general-purpose"  
 spark_version             = "15.4.x-scala2.12"       
 node_type_id              = "Standard_DS3_v2"         
 driver_node_type_id       = "Standard_DS3_v2"        
@@ -134,14 +134,14 @@ cluster_permissions = {
 ##############################################
 # Pro SQL Warehouse Configuration
 ##############################################
-sql_warehouse_name                      = "pro-sql-warehouse-aes2-small" 
+sql_warehouse_name                      = "ms-serverless-sql-warehouse-aes2-small" 
 sql_warehouse_cluster_size              = "2X-Small"                                       
 sql_warehouse_max_num_clusters          = 2                                            
 sql_warehouse_min_num_clusters          = 1                                             
 sql_warehouse_auto_stop_mins            = 10                                             
 sql_warehouse_enable_serverless_compute = false                                         
 sql_warehouse_enable_permissions        = true
-warehouse_type                          = "PRO"                                           
+warehouse_type                          = "Serverless"                                           
 
 ##############################################
 # Pro SQL Warehouse Permissions
