@@ -2,24 +2,28 @@ locals {
 
   catalog_slug = {
     for catalog_name, def in var.catalog_definitions :
-    catalog_name => regexreplace(
+    catalog_name => replace(
       lower(replace(catalog_name, "-", "_")),
-      "[^a-z0-9_]", ""
+      "/[^a-z0-9_]/",
+      ""
     )
   }
 
   container_slug = {
     for catalog_name, def in var.catalog_definitions :
     catalog_name => trim(
-      regexreplace(
-        regexreplace(
-          regexreplace(
+      replace(
+        replace(
+          replace(
             lower(replace(local.catalog_slug[catalog_name], "_", "-")),
-            "[^a-z0-9-]", ""
+            "/[^a-z0-9-]/",
+            ""
           ),
-          "-{2,}", "-"
+          "/-{2,}/",
+          "-"
         ),
-        "^-|-$", ""
+        "/^-|-$/" ,
+        ""
       )
     )
   }
@@ -27,7 +31,9 @@ locals {
   storage_definitions = {
     for catalog_name, catalog_def in var.catalog_definitions :
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
-      container_name          = "${var.env}-${local.container_slug[catalog_name]}"
+
+      container_name = "${var.env}-${local.container_slug[catalog_name]}"
+
       storage_credential_name = "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
       external_location_name  = "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
     }
@@ -42,6 +48,7 @@ locals {
       storage_root   = module.external_location["${var.env}_${local.catalog_slug[catalog_name]}"].external_location_url
     }
   }
+
 
 
   cluster_definitions = {
