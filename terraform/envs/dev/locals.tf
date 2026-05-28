@@ -9,36 +9,53 @@ locals {
     )
   }
 
-  container_slug = {
+  # Container slug: take catalog slug, '_' -> '-', keep only [a-z0-9-]
+  # Also collapse multiple '-' into a single '-'
+  container_slug_raw = {
     for catalog_name, def in var.catalog_definitions :
-    catalog_name => trim(
+    catalog_name => replace(
       replace(
-        replace(
-          replace(
-            lower(replace(local.catalog_slug[catalog_name], "_", "-")),
-            "/[^a-z0-9-]/",
-            ""
-          ),
-          "/-{2,}/",
-          "-"
-        ),
-        "/^-|-$/" ,
+        lower(replace(local.catalog_slug[catalog_name], "_", "-")),
+        "/[^a-z0-9-]/",
         ""
-      )
+      ),
+      "/-{2,}/",
+      "-"
     )
   }
 
+  # Remove leading/trailing '-' WITHOUT trim():
+  # - First remove leading hyphens
+  # - Then remove trailing hyphens
+  # (using replace() with regex patterns)
+  container_slug = {
+    for catalog_name, def in var.catalog_definitions :
+    catalog_name => replace(
+      replace(local.container_slug_raw[catalog_name], "/^-+/", ""),
+      "/-+$/",
+      ""
+    )
+  }
+
+  # -----------------------------
+  # Storage definitions:
+  # - keys follow catalog style (underscore)
+  # - container_name follows container style (hyphen)
+  # -----------------------------
   storage_definitions = {
     for catalog_name, catalog_def in var.catalog_definitions :
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
-
-      container_name = "${var.env}-${local.container_slug[catalog_name]}"
-
+      container_name          = "${var.env}-${local.container_slug[catalog_name]}"
       storage_credential_name = "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
       external_location_name  = "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
     }
   }
 
+  # -----------------------------
+  # Catalog enrichment:
+  # keys follow catalog style (underscore)
+  # module indexing uses the same underscore key
+  # -----------------------------
   enriched_catalog_definitions = {
     for catalog_name, def in var.catalog_definitions :
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
@@ -48,6 +65,7 @@ locals {
       storage_root   = module.external_location["${var.env}_${local.catalog_slug[catalog_name]}"].external_location_url
     }
   }
+
 
 
 
