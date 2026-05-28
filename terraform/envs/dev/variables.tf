@@ -193,3 +193,19 @@ variable "access_controls" {
   }))
   description = "List of permissions to assign to the folder"
 }
+
+variable "units" {
+  description = "Units to provision resources for"
+  type        = set(string)
+
+  validation {
+    condition = alltrue([
+      for u in var.units :
+      contains([
+        "ms",
+        "finance"
+      ], u)
+    ])
+    error_message = "Invalid unit provided. Allowed units: ms, finance."
+  }
+}
