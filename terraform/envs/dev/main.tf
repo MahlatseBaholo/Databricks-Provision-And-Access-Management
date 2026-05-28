@@ -108,23 +108,21 @@ module "databricks_cluster" {
 }
 
 module "sql_warehouse" {
-  source = "../../modules/databricks_sql_warehouse"
-  for_each = {
-    for unit, def in local.sql_warehouse_definitions : unit => def
-    if def.enabled
-  }
+  source   = "../../modules/databricks_sql_warehouse"
+  for_each = local.sql_warehouse_definitions
 
-  name                      = each.value.sql_warehouse_name
-  cluster_size              = each.value.sql_warehouse_cluster_size
-  max_num_clusters          = each.value.sql_warehouse_max_num_clusters
-  min_num_clusters          = each.value.sql_warehouse_min_num_clusters
-  auto_stop_mins            = each.value.sql_warehouse_auto_stop_mins
-  enable_serverless_compute = each.value.sql_warehouse_enable_serverless_compute
-  tags                      = each.value.sql_warehouse_tags
+  name                      = each.value.name
+  cluster_size              = each.value.cluster_size
+  max_num_clusters          = each.value.max_num_clusters
+  min_num_clusters          = each.value.min_num_clusters
+  auto_stop_mins            = each.value.auto_stop_mins
+  enable_serverless_compute = each.value.enable_serverless_compute
+  tags                      = each.value.tags
   warehouse_type            = each.value.warehouse_type
 
-  enable_permissions         = each.value.sql_warehouse_enable_permissions
-  permissions                = each.value.sql_warehouse_permissions
+  enable_permissions         = each.value.enable_permissions
+  permissions                = each.value.permissions
+
   depends_on = [module.databricks_cluster]
   providers  = { databricks = databricks.workspace }
 }
