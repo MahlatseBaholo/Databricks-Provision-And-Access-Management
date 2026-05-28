@@ -149,21 +149,4 @@ unit_definitions = {
       }
     }
   }
-
-  ai = {
-    cluster = {
-      spark_version           = "15.4.x-scala2.12"
-      node_type_id            = "Standard_D8ds_v5"
-      autotermination_minutes = 30
-      autoscale               = { min_workers = 2, max_workers = 20 }
-      sql_warehouse_permissions = {   
-        "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_USE"],
-        "AES-ADMIN" = ["CAN_USE"]  
-      }
-    }
-
-    sql_warehouse = {
-      enabled = false
-    }
-  }
 }
