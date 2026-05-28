@@ -331,7 +331,7 @@ unit_definitions = {
       autoscale = { min_workers = 2, max_workers = 10 }
       cluster_permissions = {
         "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_ATTACH_TO","CAN_RESTART"],
-        "AES-ADMIN" = ["CAN_ATTACH_TO"]       
+        "AES-ADMIN" = ["CAN_MANAGE"]       
       }
     }
 
@@ -348,7 +348,7 @@ unit_definitions = {
 
       permissions = {
         "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_USE"]
-        "AES-ADMIN"                   = ["CAN_USE"]
+        "AES-ADMIN"                   = ["CAN_MANAGE"]
       }
     }
   }
