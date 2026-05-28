@@ -291,7 +291,7 @@ catalog_definitions = {
 ##############################################
 # Define Folder Usage Permissions
 ##############################################
-folder_path = "/Workspace/Shared"
+folder_path = "/MarketingAndSales"
 
 access_controls = [
   {
