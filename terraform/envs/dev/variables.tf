@@ -194,18 +194,37 @@ variable "access_controls" {
   description = "List of permissions to assign to the folder"
 }
 
-variable "units" {
-  description = "Units to provision resources for"
-  type        = set(string)
+variable "unit_definitions" {
+  description = "Unit definitions (same pattern as catalog_definitions). Each unit can define 1..N clusters and an optional SQL warehouse."
+  type = map(object({
+    clusters = map(object({
+      spark_version           = optional(string)
+      node_type_id            = optional(string)
+      driver_node_type_id     = optional(string)
+      autotermination_minutes = optional(number)
+      data_security_mode      = optional(string)
 
-  validation {
-    condition = alltrue([
-      for u in var.units :
-      contains([
-        "ms",
-        "finance"
-      ], u)
-    ])
-    error_message = "Invalid unit provided. Allowed units: ms, finance."
-  }
+      azure_attributes = optional(object({
+        first_on_demand    = optional(number)
+        availability       = optional(string)
+        spot_bid_max_price = optional(number)
+      }))
+
+      autoscale = optional(object({
+        min_workers = optional(number)
+        max_workers = optional(number)
+      }))
+    }))
+
+    sql_warehouse = optional(object({
+      name_suffix                      = optional(string, "serverless-sql-warehouse-aes2-small")
+      cluster_size                     = optional(string, "2X-Small")
+      max_num_clusters                 = optional(number, 2)
+      min_num_clusters                 = optional(number, 1)
+      auto_stop_mins                   = optional(number, 10)
+      enable_serverless_compute        = optional(bool, false)
+      enable_permissions               = optional(bool, true)
+      warehouse_type                   = optional(string, "Serverless")
+    }))
+  }))
 }
