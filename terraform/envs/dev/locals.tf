@@ -17,8 +17,6 @@ locals {
   }
 
   cluster_name = "${var.env}-${unit_name}-multi-node-aes2-small-general-purpose"
-    }
-  }
 
   sql_warehouse_definitions = {
     for unit_name, unit_def in var.unit_definitions : "${var.env}-${unit_name}" => {
