@@ -293,9 +293,12 @@ catalog_definitions = {
 ##############################################
 folder_path = "/Workspace/Shared/dev/marketing-sales"
 
-access_controls = {
-  "AES-EBU_MOBI-DATAENGINEERING" = "CAN_MANAGE"
-}
+access_controls = [
+  {
+    group_name       = "AES-EBU_MOBI-DATAENGINEERING"
+    permission_level = "CAN_MANAGE"
+  }
+]
 
 ##############################################
 # Cluster Configuration and Updates
