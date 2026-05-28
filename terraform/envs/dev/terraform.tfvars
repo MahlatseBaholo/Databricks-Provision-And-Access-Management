@@ -144,7 +144,7 @@ sql_warehouse_enable_permissions        = true
 warehouse_type                          = "Serverless"                                           
 
 ##############################################
-# Pro SQL Warehouse Permissions
+# Serverless SQL Warehouse Permissions
 ##############################################
 sql_warehouse_permissions = {   
   "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_USE"],
