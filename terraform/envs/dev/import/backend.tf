@@ -4,5 +4,6 @@ terraform {
     storage_account_name = "sasoldevterraform"
     container_name       = "sasol-dev-aes2-dbw"
     key                  = "databricks-metastore-assignment/terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
