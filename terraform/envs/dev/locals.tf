@@ -15,4 +15,16 @@ locals {
       storage_root   = module.external_location["${var.env}-${catalog_name}"].external_location_url
     }
   }
+
+  cluster_definitions = {
+    for unit_name, unit_def in var.unit_definitions : "${var.env}-${unit_name}" => {
+      cluster_name = "${var.env}-${unit_name}-multi-node-aes2-small-general-purpose"
+    }
+  }
+
+  sql_warehouse_definitions = {
+    for unit_name, unit_def in var.unit_definitions : "${var.env}-${unit_name}" => {
+      warehouse_name = "${var.env}-${unit_name}-serverless-sql-warehouse-aes2-small"
+    }
+  }
 }
