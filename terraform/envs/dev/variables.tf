@@ -194,6 +194,12 @@ variable "access_controls" {
   description = "List of permissions to assign to the folder"
 }
 
+variable "allowed_units" {
+  description = "Authoritative list of allowed units"
+  type        = set(string)
+  default     = ["ms", "finance"]
+}
+
 variable "unit_definitions" {
   description = "Unit definitions (same pattern as catalog_definitions). Each unit can define 1..N clusters and an optional SQL warehouse."
   type = map(object({
@@ -217,29 +223,17 @@ variable "unit_definitions" {
     }))
 
     sql_warehouse = optional(object({
-      name_suffix                      = optional(string, "serverless-sql-warehouse-aes2-small")
-      cluster_size                     = optional(string, "2X-Small")
-      max_num_clusters                 = optional(number, 2)
-      min_num_clusters                 = optional(number, 1)
-      auto_stop_mins                   = optional(number, 10)
-      enable_serverless_compute        = optional(bool, false)
-      enable_permissions               = optional(bool, true)
-      warehouse_type                   = optional(string, "Serverless")
+      name_suffix               = optional(string, "serverless-sql-warehouse-aes2-small")
+      cluster_size              = optional(string, "2X-Small")
+      max_num_clusters          = optional(number, 2)
+      min_num_clusters          = optional(number, 1)
+      auto_stop_mins            = optional(number, 10)
+      enable_serverless_compute = optional(bool, false)
+      enable_permissions        = optional(bool, true)
+      warehouse_type            = optional(string, "Serverless")
     }))
   }))
-}
 
-variable "allowed_units" {
-  description = "Authoritative list of allowed units"
-  type        = set(string)
-  default     = ["ms", "finance"]
-}
-
-locals {
-  _validate_units = toset(keys(var.unit_definitions))
-}
-
-variable "unit_definitions" {
   validation {
     condition     = length(setsubtract(toset(keys(var.unit_definitions)), var.allowed_units)) == 0
     error_message = "One or more unit_definitions keys are not allowed. Check allowed_units."
