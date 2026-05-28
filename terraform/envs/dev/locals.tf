@@ -1,18 +1,18 @@
 locals {
   storage_definitions = {
-    for catalog_name, catalog_def in var.catalog_definitions : "${var.env}-${catalog_name}" => {
-      container_name          = "${var.env}-${catalog_name}"
+    for catalog_name, catalog_def in var.catalog_definitions : "${var.env}_${catalog_name}" => {
+      container_name          = "${var.env}_${catalog_name}"
       storage_credential_name = "${var.env}-${catalog_name}-dbsc"
       external_location_name  = "${var.env}-${catalog_name}-catalog-external-location"
     }
   }
 
   enriched_catalog_definitions = {
-    for catalog_name, def in var.catalog_definitions : "${var.env}-${catalog_name}" => {
+    for catalog_name, def in var.catalog_definitions : "${var.env}_${catalog_name}" => {
       schema_names   = def.schema_names
       catalog_access = def.catalog_access
       schema_access  = lookup(def, "schema_access", {})
-      storage_root   = module.external_location["${var.env}-${catalog_name}"].external_location_url
+      storage_root   = module.external_location["${var.env}_${catalog_name}"].external_location_url
     }
   }
 
