@@ -76,6 +76,216 @@ catalog_definitions = {
       }
     }
   }
+
+  ms-customer-b2c = {
+    project = "aes2"  
+    schema_names = ["bronze", "silver", "gold","ai"] 
+    catalog_access = {
+      "AES-EBU_MOBI-DATAENGINEERING" = [
+        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+      ],
+      "AES-ADMIN" = [
+        "ALL_PRIVILEGES"
+      ]
+    }
+    schema_access = {
+      bronze = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      silver = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      gold = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      ai = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ],
+        "AES-ADMIN" = [
+          "ALL_PRIVILEGES"
+        ]
+      }
+    }
+  }
+
+  assets = {
+    project = "aes2"  
+    schema_names = ["bronze", "silver", "gold","ai"] 
+    catalog_access = {
+      "AES-EBU_MOBI-DATAENGINEERING" = [
+        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+      ],
+      "AES-ADMIN" = [
+        "ALL_PRIVILEGES"
+      ]
+    }
+    schema_access = {
+      bronze = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      silver = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      gold = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      ai = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ],
+        "AES-ADMIN" = [
+          "ALL_PRIVILEGES"
+        ]
+      }
+    }
+  }
+
+  products = {
+    project = "aes2"  
+    schema_names = ["bronze", "silver", "gold","ai"] 
+    catalog_access = {
+      "AES-EBU_MOBI-DATAENGINEERING" = [
+        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+      ],
+      "AES-ADMIN" = [
+        "ALL_PRIVILEGES"
+      ]
+    }
+    schema_access = {
+      bronze = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      silver = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      gold = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      ai = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ],
+        "AES-ADMIN" = [
+          "ALL_PRIVILEGES"
+        ]
+      }
+    }
+  }
+
+  employee = {
+    project = "aes2"  
+    schema_names = ["bronze", "silver", "gold","ai"] 
+    catalog_access = {
+      "AES-EBU_MOBI-DATAENGINEERING" = [
+        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+      ],
+      "AES-ADMIN" = [
+        "ALL_PRIVILEGES"
+      ]
+    }
+    schema_access = {
+      bronze = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      silver = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      gold = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      ai = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ],
+        "AES-ADMIN" = [
+          "ALL_PRIVILEGES"
+        ]
+      }
+    }
+  }
+
+  suppliers-vendors = {
+    project = "aes2"  
+    schema_names = ["bronze", "silver", "gold","ai"] 
+    catalog_access = {
+      "AES-EBU_MOBI-DATAENGINEERING" = [
+        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+      ],
+      "AES-ADMIN" = [
+        "ALL_PRIVILEGES"
+      ]
+    }
+    schema_access = {
+      bronze = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      silver = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      gold = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ]
+      },
+      ai = {
+        "AES-EBU_MOBI-DATAENGINEERING" = [
+          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
+          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+        ],
+        "AES-ADMIN" = [
+          "ALL_PRIVILEGES"
+        ]
+      }
+    }
+  }
 }
 
 ##############################################
