@@ -296,7 +296,7 @@ folder_path = "/Workspace/Shared"
 access_controls = [
   {
     group_name       = "users"
-    permission_level = "CAN_MANAGE"
+    permission_level = "CAN_READ"
   }
 ]
 
