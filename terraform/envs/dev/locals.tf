@@ -38,7 +38,6 @@ locals {
     }
   }
 
-
   sql_warehouse_definitions = {
     for unit_name, unit_def in var.unit_definitions : "${var.env}-${unit_name}" => {
       name                      = "${var.env}-${unit_name}-${try(unit_def.sql_warehouse.name_suffix, "serverless-sql-warehouse-aes2-small")}"
