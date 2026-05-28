@@ -9,9 +9,6 @@ variable "location_abbr" {
   default     = "euw"
 }
 
-# -----------------------------
-# Azure / Auth (required if you use TF vars for auth)
-# -----------------------------
 variable "subscription_id" {
   type = string
 }
@@ -29,9 +26,6 @@ variable "client_secret" {
   sensitive = true
 }
 
-# -----------------------------
-# Databricks account/workspace auth (required if you use TF vars for auth)
-# -----------------------------
 variable "account_id" {
   type      = string
   sensitive = true
@@ -61,10 +55,6 @@ variable "workspace_client_secret" {
   sensitive = true
 }
 
-# -----------------------------
-# Identity / Groups / Entitlements
-# (defaults added to avoid prompting when not used in a run)
-# -----------------------------
 variable "group_names" {
   description = "List of Databricks group names"
   type        = list(string)
@@ -90,10 +80,6 @@ variable "entitlements" {
   default = {}
 }
 
-# -----------------------------
-# LEGACY: Single cluster inputs (make optional to avoid CI prompting)
-# Prefer: unit_definitions.cluster.*
-# -----------------------------
 variable "cluster_name" {
   description = "Name of the Databricks cluster (legacy). Prefer unit_definitions."
   type        = string
@@ -151,10 +137,6 @@ variable "cluster_permissions" {
   default     = {}
 }
 
-# -----------------------------
-# LEGACY: Single SQL warehouse inputs (make optional to avoid CI prompting)
-# Prefer: unit_definitions.sql_warehouse.*
-# -----------------------------
 variable "sql_warehouse_name" {
   description = "Name of the SQL Warehouse (legacy). Prefer unit_definitions."
   type        = string
@@ -208,9 +190,6 @@ variable "sql_warehouse_permissions" {
   default = {}
 }
 
-# -----------------------------
-# Catalog definitions (required)
-# -----------------------------
 variable "catalog_definitions" {
   type = map(object({
     project        = string
@@ -220,10 +199,6 @@ variable "catalog_definitions" {
   }))
 }
 
-# -----------------------------
-# Folder permissions
-# (defaults added to avoid prompting when folder module not used)
-# -----------------------------
 variable "folder_path" {
   type        = string
   description = "Path of the folder"
@@ -239,9 +214,6 @@ variable "access_controls" {
   default     = []
 }
 
-# -----------------------------
-# Units / per-unit definitions
-# -----------------------------
 variable "allowed_units" {
   description = "Authoritative list of allowed units"
   type        = set(string)
