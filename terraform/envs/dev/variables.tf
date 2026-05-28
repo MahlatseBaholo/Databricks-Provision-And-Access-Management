@@ -217,7 +217,7 @@ variable "unit_definitions" {
       data_security_mode      = optional(string)
 
       size    = optional(string, "small")            # for naming only
-      purpose = optional(string, "general-purpose")  # for naming only
+      purpose = optional(string, "general-purpose")  
 
       azure_attributes = optional(object({
         first_on_demand    = optional(number)
