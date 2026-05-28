@@ -296,18 +296,6 @@ folder_path = "/Shared"
 access_controls = [
   {
     group_name       = "users"
-    permission_level = "CAN_READ"
-  },
-  {
-    group_name       = "users"
-    permission_level = "CAN_RUN"
-  },
-  {
-    group_name       = "users"
-    permission_level = "CAN_EDIT"
-  },
-  {
-    group_name       = "users"
     permission_level = "CAN_MANAGE"
   }
 ]
