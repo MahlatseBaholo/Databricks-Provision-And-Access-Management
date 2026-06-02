@@ -1,11 +1,11 @@
 ##############################################
 # Define AD Groups and Permissions
 ##############################################
-group_names = ["AES-ADMIN", "AES-EBU_MOBI-DATAENGINEERING"]
+group_names = ["AES-ADMIN", "AES-ADMIN"]
 
 permission_assignments = {
-  "AES-EBU_MOBI-DATAENGINEERING" = {
-    principal_id = "AES-EBU_MOBI-DATAENGINEERING"  
+  "AES-ADMIN" = {
+    principal_id = "AES-ADMIN"  
     permissions  = ["USER"]             
   },
     "AES-ADMIN" = {
@@ -18,8 +18,8 @@ permission_assignments = {
 # Define Entitlements for AD Groups
 ##############################################
 entitlements = {
-  "AES-EBU_MOBI-DATAENGINEERING" = {
-    group_id              = "AES-EBU_MOBI-DATAENGINEERING"  
+  "AES-ADMIN" = {
+    group_id              = "AES-ADMIN"  
     workspace_access      = true                  
     databricks_sql_access = true                 
   },
@@ -39,7 +39,7 @@ catalog_definitions = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
-      "AES-EBU_MOBI-DATAENGINEERING" = [
+      "AES-ADMIN" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
       "AES-ADMIN" = [
@@ -48,25 +48,25 @@ catalog_definitions = {
     }
     schema_access = {
       bronze = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       ai = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ],
@@ -81,7 +81,7 @@ catalog_definitions = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
-      "AES-EBU_MOBI-DATAENGINEERING" = [
+      "AES-ADMIN" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
       "AES-ADMIN" = [
@@ -90,25 +90,25 @@ catalog_definitions = {
     }
     schema_access = {
       bronze = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       ai = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ],
@@ -123,7 +123,7 @@ catalog_definitions = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
-      "AES-EBU_MOBI-DATAENGINEERING" = [
+      "AES-ADMIN" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
       "AES-ADMIN" = [
@@ -132,25 +132,25 @@ catalog_definitions = {
     }
     schema_access = {
       bronze = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       ai = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ],
@@ -165,7 +165,7 @@ catalog_definitions = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
-      "AES-EBU_MOBI-DATAENGINEERING" = [
+      "AES-ADMIN" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
       "AES-ADMIN" = [
@@ -174,25 +174,25 @@ catalog_definitions = {
     }
     schema_access = {
       bronze = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       ai = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ],
@@ -207,7 +207,7 @@ catalog_definitions = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
-      "AES-EBU_MOBI-DATAENGINEERING" = [
+      "AES-ADMIN" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
       "AES-ADMIN" = [
@@ -216,25 +216,25 @@ catalog_definitions = {
     }
     schema_access = {
       bronze = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       ai = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ],
@@ -249,7 +249,7 @@ catalog_definitions = {
     project = "aes2"  
     schema_names = ["bronze", "silver", "gold","ai"] 
     catalog_access = {
-      "AES-EBU_MOBI-DATAENGINEERING" = [
+      "AES-ADMIN" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
       "AES-ADMIN" = [
@@ -258,25 +258,25 @@ catalog_definitions = {
     }
     schema_access = {
       bronze = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       ai = {
-        "AES-EBU_MOBI-DATAENGINEERING" = [
+        "AES-ADMIN" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ],
@@ -295,7 +295,15 @@ folder_path = "/Workspace/Shared/dev/marketing-sales"
 
 access_controls = [
   {
-    group_name       = "AES-EBU_MOBI-DATAENGINEERING"
+    group_name       = "AES-ADMIN"
+    permission_level = "CAN_MANAGE"
+  }
+]
+
+folder_path = "/Workspace/Shared/dev/finance"
+access_controls = [
+  {
+    group_name       = "AES-ADMIN"
     permission_level = "CAN_MANAGE"
   }
 ]
@@ -318,7 +326,7 @@ unit_definitions = {
       }
       autoscale = { min_workers = 2, max_workers = 10 }
       cluster_permissions = {
-        "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_ATTACH_TO"],
+        "AES-ADMIN" = ["CAN_ATTACH_TO"],
         "AES-ADMIN" = ["CAN_MANAGE"]       
       }
     }
@@ -335,7 +343,7 @@ unit_definitions = {
       enable_permissions        = true
 
       permissions = {
-        "AES-EBU_MOBI-DATAENGINEERING" = ["CAN_USE"]
+        "AES-ADMIN" = ["CAN_USE"]
         "AES-ADMIN"                   = ["CAN_MANAGE"]
       }
     }
