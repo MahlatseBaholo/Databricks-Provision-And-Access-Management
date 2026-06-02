@@ -299,15 +299,6 @@ access_controls = [
     permission_level = "CAN_MANAGE"
   }
 ]
-
-folder_path = "/Workspace/Shared/dev/finance"
-access_controls = [
-  {
-    group_name       = "AES-ADMIN"
-    permission_level = "CAN_MANAGE"
-  }
-]
-
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
