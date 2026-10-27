@@ -286,48 +286,6 @@ catalog_definitions = {
       }
     }
   }
-
-  demo_tf = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
-    catalog_access = {
-      "AES-ADMIN" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
-      }
-    }
-  }
 }
 
 ##############################################
