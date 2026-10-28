@@ -262,7 +262,7 @@ variable "unit_definitions" {
       auto_stop_mins            = optional(number, 10)
       enable_serverless_compute = optional(bool, true)
       tags                      = optional(map(string), {})
-      warehouse_type            = optional(string, "Serverless")
+      warehouse_type            = optional(string, "PRO")
       enable_permissions        = optional(bool, false)
       permissions               = optional(map(list(string)), {})
     }))
