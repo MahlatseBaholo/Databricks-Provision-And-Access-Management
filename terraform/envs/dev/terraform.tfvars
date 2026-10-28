@@ -73,10 +73,7 @@ catalog_definitions = {
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
-      },
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
+      }
     }
   }
 }
