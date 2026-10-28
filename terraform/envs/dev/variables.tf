@@ -217,7 +217,7 @@ variable "access_controls" {
 variable "allowed_units" {
   description = "Authoritative list of allowed units"
   type        = set(string)
-  default     = ["aes_pm,risk_she"]
+  default     = ["aes_pm","risk_she"]
 }
 
 variable "units" {
