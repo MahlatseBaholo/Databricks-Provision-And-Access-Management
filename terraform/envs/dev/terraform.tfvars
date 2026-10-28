@@ -1,7 +1,7 @@
 ##############################################
 # Define AD Groups and Permissions
 ##############################################
-group_names = ["AES-ADMIN", "AES-ADMIN"]
+group_names = ["AES-ADMIN", "AES-ADMIN", "AES-EOP_SO-DATAENGINEERING"]
 
 permission_assignments = {
   "AES-ADMIN" = {
@@ -11,7 +11,11 @@ permission_assignments = {
     "AES-ADMIN" = {
     principal_id = "AES-ADMIN"  
     permissions  = ["ADMIN"]             
-  }
+  },
+  "AES-EOP_SO-DATAENGINEERING" = {
+    principal_id = "AES-EOP_SO-DATAENGINEERING"  
+    permissions  = ["USER"]             
+  },
 }
 
 ##############################################
@@ -27,6 +31,11 @@ entitlements = {
     group_id              = "AES-ADMIN"  
     workspace_access      = true                  
     databricks_sql_access = true                 
+  },
+  "AES-EOP_SO-DATAENGINEERING" = {
+    group_id              = "AES-EOP_SO-DATAENGINEERING"  
+    workspace_access      = true                  
+    databricks_sql_access = true                 
   }
 }
 
@@ -35,11 +44,11 @@ entitlements = {
 ##############################################
 catalog_definitions = {
 
-  ms_customer_b2b = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
+  aes_pm = {
+    project = "plantmaintenance"  
+    schema_names = ["bronze", "silver", "gold"] 
     catalog_access = {
-      "AES-ADMIN" = [
+      "AES-EOP_SO-DATAENGINEERING" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
       ],
       "AES-ADMIN" = [
@@ -48,242 +57,26 @@ catalog_definitions = {
     }
     schema_access = {
       bronze = {
-        "AES-ADMIN" = [
+        "AES-EOP_SO-DATAENGINEERING" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       silver = {
-        "AES-ADMIN" = [
+        "AES-EOP_SO-DATAENGINEERING" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
       gold = {
-        "AES-ADMIN" = [
+        "AES-EOP_SO-DATAENGINEERING" = [
           "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
           "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
         ]
       },
-      ai = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
         "AES-ADMIN" = [
           "ALL_PRIVILEGES"
         ]
-      }
-    }
-  }
-
-  ms_customer_b2c = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
-    catalog_access = {
-      "AES-ADMIN" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
-      }
-    }
-  }
-
-  ms_assets = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
-    catalog_access = {
-      "AES-ADMIN" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
-      }
-    }
-  }
-
-  ms_products = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
-    catalog_access = {
-      "AES-ADMIN" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
-      }
-    }
-  }
-
-  ms_employee = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
-    catalog_access = {
-      "AES-ADMIN" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
-      }
-    }
-  }
-
-  ms_suppliers = {
-    project = "aes2"  
-    schema_names = ["bronze", "silver", "gold","ai"] 
-    catalog_access = {
-      "AES-ADMIN" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
-      ]
-    }
-    schema_access = {
-      bronze = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      ai = {
-        "AES-ADMIN" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ],
-        "AES-ADMIN" = [
-          "ALL_PRIVILEGES"
-        ]
-      }
     }
   }
 }
@@ -291,11 +84,11 @@ catalog_definitions = {
 ##############################################
 # Define Folder Usage Permissions
 ##############################################
-folder_path = "/Workspace/dev/marketing-sales"
+folder_path = "/Workspace/dev/plantmaintenance"
 
 access_controls = [
   {
-    group_name       = "AES-ADMIN"
+    group_name       = "AES-EOP_SO-DATAENGINEERING"
     permission_level = "CAN_MANAGE"
   }
 ]
@@ -303,7 +96,7 @@ access_controls = [
 # Cluster Configuration and Updates
 ##############################################
 unit_definitions = {
-  ms = {
+  aes_pm = {
     cluster = {
       spark_version           = "17.3.x-scala2.13"
       node_type_id            = "Standard_DS3_v2"
@@ -317,8 +110,9 @@ unit_definitions = {
       }
       autoscale = { min_workers = 2, max_workers = 10 }
       cluster_permissions = {
-        "AES-ADMIN" = ["CAN_ATTACH_TO"],
-        "AES-ADMIN" = ["CAN_MANAGE"]       
+        "AES-ADMIN" = ["CAN_MANAGE"], 
+        "AES-EOP_SO-DATAENGINEERING" = ["CAN_ATTACH_TO"],
+        "AES-EOP_SO-DATAENGINEERING" = ["CAN_RESTART"]      
       }
     }
 
@@ -329,13 +123,14 @@ unit_definitions = {
       min_num_clusters          = 1
       auto_stop_mins            = 10
       enable_serverless_compute = true
-      tags                      = { Unit = "ms" }
-      warehouse_type            = "PRO"
+      tags                      = { Unit = "aes_pm" }
+      warehouse_type            = "Serverless"
       enable_permissions        = true
 
       permissions = {
         "AES-ADMIN" = ["CAN_USE"]
         "AES-ADMIN"                   = ["CAN_MANAGE"]
+        "AES-EOP_SO-DATAENGINEERING" = ["CAN_USE"]
       }
     }
   }
