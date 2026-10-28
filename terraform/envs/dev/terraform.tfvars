@@ -162,7 +162,7 @@ unit_definitions = {
 
       permissions = {
         "AES-ADMIN"                  = ["CAN_MANAGE"]
-        "AES-EOP_SO-DATAENGINEERING" = ["CAN_USE"]
+        "AES-EOP_SHE-DATAENGINEERING" = ["CAN_USE"]
       }
     }
   }
