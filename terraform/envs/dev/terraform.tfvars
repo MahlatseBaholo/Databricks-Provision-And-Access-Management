@@ -110,8 +110,9 @@ unit_definitions = {
       }
       autoscale = { min_workers = 2, max_workers = 10 }
       cluster_permissions = {
+        "AES-ADMIN" = ["CAN_MANAGE"], 
         "AES-EOP_SO-DATAENGINEERING" = ["CAN_ATTACH_TO"],
-        "AES-ADMIN" = ["CAN_MANAGE"]       
+        "AES-EOP_SO-DATAENGINEERING" = ["CAN_RESTART"]      
       }
     }
 
@@ -129,6 +130,7 @@ unit_definitions = {
       permissions = {
         "AES-ADMIN" = ["CAN_USE"]
         "AES-ADMIN"                   = ["CAN_MANAGE"]
+        "AES-EOP_SO-DATAENGINEERING" = ["CAN_USE"]
       }
     }
   }
