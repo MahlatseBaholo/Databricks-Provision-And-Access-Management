@@ -96,7 +96,7 @@ access_controls = [
 # Cluster Configuration and Updates
 ##############################################
 unit_definitions = {
-  ms = {
+  aes_pm = {
     cluster = {
       spark_version           = "17.3.x-scala2.13"
       node_type_id            = "Standard_DS3_v2"
@@ -110,7 +110,7 @@ unit_definitions = {
       }
       autoscale = { min_workers = 2, max_workers = 10 }
       cluster_permissions = {
-        "AES-ADMIN" = ["CAN_ATTACH_TO"],
+        "AES-EOP_SO-DATAENGINEERING" = ["CAN_ATTACH_TO"],
         "AES-ADMIN" = ["CAN_MANAGE"]       
       }
     }
@@ -122,8 +122,8 @@ unit_definitions = {
       min_num_clusters          = 1
       auto_stop_mins            = 10
       enable_serverless_compute = true
-      tags                      = { Unit = "ms" }
-      warehouse_type            = "PRO"
+      tags                      = { Unit = "aes_pm" }
+      warehouse_type            = "Serverless"
       enable_permissions        = true
 
       permissions = {
