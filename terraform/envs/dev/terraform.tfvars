@@ -129,6 +129,7 @@ unit_definitions = {
       }
     }
   },
+
     risk_she = {
     cluster = {
       spark_version           = "17.3.x-scala2.13"
@@ -161,7 +162,8 @@ unit_definitions = {
 
       permissions = {
         "AES-ADMIN"                  = ["CAN_MANAGE"]
-        "AES-EOP_SO-DATAENGINEERING" = ["CAN_USE"]
+        "AES-EOP_SHE-DATAENGINEERING" = ["CAN_USE"]
       }
     }
+  }
 }
