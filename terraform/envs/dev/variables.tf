@@ -217,7 +217,7 @@ variable "access_controls" {
 variable "allowed_units" {
   description = "Authoritative list of allowed units"
   type        = set(string)
-  default     = ["ms", "finance"]
+  default     = ["aes_pm"]
 }
 
 variable "units" {
@@ -262,7 +262,7 @@ variable "unit_definitions" {
       auto_stop_mins            = optional(number, 10)
       enable_serverless_compute = optional(bool, true)
       tags                      = optional(map(string), {})
-      warehouse_type            = optional(string, "PRO")
+      warehouse_type            = optional(string, "Serverless")
       enable_permissions        = optional(bool, false)
       permissions               = optional(map(list(string)), {})
     }))
