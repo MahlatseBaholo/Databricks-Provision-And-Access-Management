@@ -121,7 +121,7 @@ unit_definitions = {
       auto_stop_mins            = 10
       enable_serverless_compute = true
       tags                      = { Unit = "aes_pm" }
-      warehouse_type            = "Serverless"
+      warehouse_type            = "PRO"
       enable_permissions        = true
 
       permissions = {
