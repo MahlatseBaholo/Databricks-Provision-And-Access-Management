@@ -1,7 +1,7 @@
 ##############################################
 # Define AD Groups and Permissions
 ##############################################
-group_names = ["AES-ADMIN", "AES-ADMIN", "AES-EOP_SO-DATAENGINEERING", "AES-EOP_SHE-DATAENGINEERING"]
+group_names = ["AES-ADMIN", "AES-ADMIN", "AES-EOP_SHE-DATAENGINEERING", "AES-EOP_SO-DATAENGINEERING"]
 
 permission_assignments = {
   "AES-ADMIN" = {
@@ -12,14 +12,14 @@ permission_assignments = {
     principal_id = "AES-ADMIN"  
     permissions  = ["ADMIN"]             
   },
-  "AES-EOP_SO-DATAENGINEERING" = {
-    principal_id = "AES-EOP_SO-DATAENGINEERING"  
-    permissions  = ["USER"]             
-  },
   "AES-EOP_SHE-DATAENGINEERING" = {
     principal_id = "AES-EOP_SHE-DATAENGINEERING"  
     permissions  = ["USER"]             
   },
+  "AES-EOP_SO-DATAENGINEERING" = {
+    principal_id = "AES-EOP_SO-DATAENGINEERING"  
+    permissions  = ["USER"]             
+  }
 }
 
 ##############################################
@@ -36,13 +36,13 @@ entitlements = {
     workspace_access      = true                  
     databricks_sql_access = true                 
   },
-  "AES-EOP_SO-DATAENGINEERING" = {
-    group_id              = "AES-EOP_SO-DATAENGINEERING"  
+  "AES-EOP_SHE-DATAENGINEERING" = {
+    group_id              = "AES-EOP_SHE-DATAENGINEERING"  
     workspace_access      = true                  
     databricks_sql_access = true                 
   },
-  "AES-EOP_SHE-DATAENGINEERING" = {
-    group_id              = "AES-EOP_SHE-DATAENGINEERING"  
+  "AES-EOP_SO-DATAENGINEERING" = {
+    group_id              = "AES-EOP_SO-DATAENGINEERING"  
     workspace_access      = true                  
     databricks_sql_access = true                 
   }
@@ -102,43 +102,6 @@ access_controls = [
 # Cluster Configuration and Updates
 ##############################################
 unit_definitions = {
-  aes_pm = {
-    cluster = {
-      spark_version           = "17.3.x-scala2.13"
-      node_type_id            = "Standard_DS3_v2"
-      driver_node_type_id     = "Standard_DS3_v2"
-      autotermination_minutes = 10
-      data_security_mode      = "USER_ISOLATION"
-      azure_attributes = {
-        first_on_demand    = 1
-        availability       = "SPOT_WITH_FALLBACK_AZURE"
-        spot_bid_max_price = -1
-      }
-      autoscale = { min_workers = 2, max_workers = 10 }
-      cluster_permissions = {
-        "AES-ADMIN" = ["CAN_MANAGE"], 
-        "AES-EOP_SO-DATAENGINEERING" = ["CAN_RESTART"]      
-      }
-    }
-
-    sql_warehouse = {
-      enabled                   = true
-      cluster_size              = "Small"
-      max_num_clusters          = 2
-      min_num_clusters          = 1
-      auto_stop_mins            = 10
-      enable_serverless_compute = true
-      tags                      = { Unit = "aes_pm" }
-      warehouse_type            = "PRO"
-      enable_permissions        = true
-
-      permissions = {
-        "AES-ADMIN"                  = ["CAN_MANAGE"]
-        "AES-EOP_SO-DATAENGINEERING" = ["CAN_USE"]
-      }
-    }
-  },
-
     risk_she = {
     cluster = {
       spark_version           = "17.3.x-scala2.13"
@@ -174,5 +137,41 @@ unit_definitions = {
         "AES-EOP_SHE-DATAENGINEERING" = ["CAN_USE"]
       }
     }
-  }
+  },
+    aes_pm = {
+        cluster = {
+          spark_version           = "17.3.x-scala2.13"
+          node_type_id            = "Standard_DS3_v2"
+          driver_node_type_id     = "Standard_DS3_v2"
+          autotermination_minutes = 10
+          data_security_mode      = "USER_ISOLATION"
+          azure_attributes = {
+            first_on_demand    = 1
+            availability       = "SPOT_WITH_FALLBACK_AZURE"
+            spot_bid_max_price = -1
+          }
+          autoscale = { min_workers = 2, max_workers = 10 }
+          cluster_permissions = {
+            "AES-ADMIN" = ["CAN_MANAGE"], 
+            "AES-EOP_SO-DATAENGINEERING" = ["CAN_RESTART"]      
+          }
+        }
+
+        sql_warehouse = {
+          enabled                   = true
+          cluster_size              = "Small"
+          max_num_clusters          = 2
+          min_num_clusters          = 1
+          auto_stop_mins            = 10
+          enable_serverless_compute = true
+          tags                      = { Unit = "aes_pm" }
+          warehouse_type            = "PRO"
+          enable_permissions        = true
+
+          permissions = {
+            "AES-ADMIN"                  = ["CAN_MANAGE"]
+            "AES-EOP_SO-DATAENGINEERING" = ["CAN_USE"]
+          }
+        }
+      }
 }
