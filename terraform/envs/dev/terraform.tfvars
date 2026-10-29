@@ -55,14 +55,16 @@ catalog_definitions = {
 
   aes_pm = {
     project = "plantmaintenance"  
-    schema_names = ["bronze", "silver", "gold"] 
+    schema_names = ["bronze", "silver", "gold"]
+    comment = "This catalog is for plant maintance, please contact Gedion Botha for any enquiries" 
     catalog_access = {
       "AES-EOP_SO-DATAENGINEERING" = [
         "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ],
-      "AES-ADMIN" = [
-        "ALL_PRIVILEGES"
       ]
+      #,
+      #"AES-ADMIN" = [
+      #  "ALL_PRIVILEGES"
+      #]
     }
     schema_access = {
       bronze = {
@@ -115,8 +117,7 @@ unit_definitions = {
         spot_bid_max_price = -1
       }
       autoscale = { min_workers = 2, max_workers = 10 }
-      cluster_permissions = {
-        "AES-ADMIN" = ["CAN_MANAGE"], 
+      cluster_permissions = { 
         "AES-EOP_SHE-DATAENGINEERING" = ["CAN_RESTART"]      
       }
     }
@@ -133,7 +134,6 @@ unit_definitions = {
       enable_permissions        = true
 
       permissions = {
-        "AES-ADMIN"                  = ["CAN_MANAGE"]
         "AES-EOP_SHE-DATAENGINEERING" = ["CAN_USE"]
       }
     }
@@ -151,8 +151,7 @@ unit_definitions = {
             spot_bid_max_price = -1
           }
           autoscale = { min_workers = 2, max_workers = 10 }
-          cluster_permissions = {
-            "AES-ADMIN" = ["CAN_MANAGE"], 
+          cluster_permissions = { 
             "AES-EOP_SO-DATAENGINEERING" = ["CAN_RESTART"]      
           }
         }
@@ -169,7 +168,6 @@ unit_definitions = {
           enable_permissions        = true
 
           permissions = {
-            "AES-ADMIN"                  = ["CAN_MANAGE"]
             "AES-EOP_SO-DATAENGINEERING" = ["CAN_USE"]
           }
         }
