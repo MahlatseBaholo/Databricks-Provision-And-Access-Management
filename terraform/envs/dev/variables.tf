@@ -196,6 +196,12 @@ variable "catalog_definitions" {
     schema_names   = list(string)
     catalog_access = map(list(string))
     schema_access  = map(map(list(string)))
+
+    # Optional storage overrides
+    storage_account_name    = optional(string)
+    storage_container_name  = optional(string)
+    storage_folder          = optional(string)
+    storage_credential_name = optional(string)
   }))
 }
 
