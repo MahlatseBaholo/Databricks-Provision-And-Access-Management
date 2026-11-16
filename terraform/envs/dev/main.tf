@@ -36,18 +36,32 @@ resource "null_resource" "metastore_assignment_dependency" {
 }
 
 module "external_location" {
-  source = "../../modules/databricks_external_location"
+  source   = "../../modules/databricks_external_location"
   for_each = local.storage_definitions
 
-  name             = each.value.external_location_name
-  url              = format("abfss://%s@%s.dfs.core.windows.net",
-    module.storage_container[each.key].container_name,
-    data.terraform_remote_state.metastore.outputs.storage_account_name
+  name = each.value.external_location_name
+
+  url = format(
+    "abfss://%s@%s.dfs.core.windows.net%s",
+    coalesce(
+      each.value.storage_container_name,
+      module.storage_container[each.key].container_name
+    ),
+    coalesce(
+      each.value.storage_account_name,
+      data.terraform_remote_state.metastore.outputs.storage_account_name
+    ),
+    each.value.storage_folder != null && each.value.storage_folder != ""
+      ? "/${trim(each.value.storage_folder, "/")}"
+      : ""
   )
+
   credential_name = module.storage_credential[each.key].storage_credential_id
+
   providers = {
     databricks = databricks.workspace
   }
+
   depends_on = [
     null_resource.metastore_assignment_dependency,
     module.storage_container,
