@@ -31,17 +31,38 @@ locals {
   }
 
   storage_definitions = {
-    for catalog_name, catalog_def in var.catalog_definitions :
-    "${var.env}_${local.catalog_slug[catalog_name]}" => {
-      container_name          = "${var.env}-${local.container_slug[catalog_name]}"
-      storage_credential_name = "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
-      external_location_name  = "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
-      # Optional location overrides from tfvars
-      storage_account_name   = try(catalog_def.storage_account_name, null)
-      storage_container_name = try(catalog_def.storage_container_name, null)
-      storage_folder         = try(catalog_def.storage_folder, null)
+      for catalog_name, catalog_def in var.catalog_definitions :
+      "${var.env}_${local.catalog_slug[catalog_name]}" => {
+        # Generated names
+        container_name          = "${var.env}-${local.container_slug[catalog_name]}"
+        storage_credential_name = "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
+        external_location_name  = "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
+
+        # Optional existing storage
+        storage_account_name   = try(catalog_def.storage_account_name, null)
+        storage_container_name = try(catalog_def.storage_container_name, null)
+        storage_folder         = try(catalog_def.storage_folder, null)
+
+        use_existing_storage = (
+          try(catalog_def.storage_account_name, null) != null &&
+          try(catalog_def.storage_container_name, null) != null
+        )
+      }
     }
-  }
+
+    # Resources that Terraform must create
+    new_storage_definitions = {
+      for key, definition in local.storage_definitions :
+      key => definition
+      if !definition.use_existing_storage
+    }
+
+    # Resources that already exist
+    existing_storage_definitions = {
+      for key, definition in local.storage_definitions :
+      key => definition
+      if definition.use_existing_storage
+    }
 
   enriched_catalog_definitions = {
     for catalog_name, def in var.catalog_definitions :
