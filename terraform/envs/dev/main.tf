@@ -12,7 +12,7 @@ module "databricks_identity_access" {
 
 module "storage_container" {
   source = "../../modules/storage_container"
-  for_each = local.storage_definitions
+  for_each = local.new_storage_definitions
   name                 = each.value.container_name
   storage_account_name = data.terraform_remote_state.metastore.outputs.storage_account_name
   resource_group_name  = data.terraform_remote_state.metastore.outputs.unity_catalog_resource_group_name
@@ -20,7 +20,7 @@ module "storage_container" {
 
 module "storage_credential" {
   source = "../../modules/databricks_storage_credential"
-  for_each = local.storage_definitions
+  for_each = local.new_storage_definitions
   name                = each.value.storage_credential_name
   access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
   managed_identity_id = data.terraform_remote_state.metastore.outputs.user_assigned_identity_id
