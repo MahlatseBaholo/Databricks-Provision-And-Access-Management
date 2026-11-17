@@ -36,6 +36,10 @@ locals {
       container_name          = "${var.env}-${local.container_slug[catalog_name]}"
       storage_credential_name = "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
       external_location_name  = "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
+      # Optional location overrides from tfvars
+      storage_account_name   = try(catalog_def.storage_account_name, null)
+      storage_container_name = try(catalog_def.storage_container_name, null)
+      storage_folder         = try(catalog_def.storage_folder, null)
     }
   }
 
