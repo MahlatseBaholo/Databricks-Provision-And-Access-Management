@@ -198,6 +198,7 @@ variable "catalog_definitions" {
     schema_access  = map(map(list(string)))
     comment        = optional(string)
 
+    # Optional existing-storage configuration
     storage_account_name   = optional(string)
     storage_container_name = optional(string)
     storage_folder         = optional(string)
@@ -205,18 +206,30 @@ variable "catalog_definitions" {
 
   validation {
     condition = alltrue([
-      for _, catalog in var.catalog_definitions :
+      for _, definition in var.catalog_definitions :
       (
-        catalog.storage_account_name == null &&
-        catalog.storage_container_name == null
-      ) ||
-      (
-        catalog.storage_account_name != null &&
-        catalog.storage_container_name != null
+        definition.storage_account_name == null &&
+        definition.storage_container_name == null
+      ) || (
+        definition.storage_account_name != null &&
+        definition.storage_container_name != null
       )
     ])
 
     error_message = "storage_account_name and storage_container_name must either both be provided or both be omitted."
+  }
+
+  validation {
+    condition = alltrue([
+      for _, definition in var.catalog_definitions :
+      definition.storage_folder == null ||
+      (
+        definition.storage_account_name != null &&
+        definition.storage_container_name != null
+      )
+    ])
+
+    error_message = "storage_folder can only be provided when storage_account_name and storage_container_name are also provided."
   }
 }
 
