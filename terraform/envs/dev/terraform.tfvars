@@ -58,7 +58,7 @@ catalog_definitions = {
     schema_names = ["bronze", "silver", "gold"]
 
     storage_account_name    = "sasoldevaeslake"
-    storage_container_name  = "aes-pm"
+    storage_container_name  = "eop-so"
     storage_folder          = "plantmaintenance"
 
     comment = "This catalog is for plant maintance, please contact Gedion Botha for any enquiries" 
