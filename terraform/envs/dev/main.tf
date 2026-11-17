@@ -44,16 +44,17 @@ module "external_location" {
   url = format(
     "abfss://%s@%s.dfs.core.windows.net%s",
     coalesce(
-      each.value.storage_container_name,
+      try(each.value.storage_container_name, null),
       module.storage_container[each.key].container_name
     ),
     coalesce(
-      each.value.storage_account_name,
+      try(each.value.storage_account_name, null),
       data.terraform_remote_state.metastore.outputs.storage_account_name
     ),
-    each.value.storage_folder != null && each.value.storage_folder != ""
-      ? "/${trim(each.value.storage_folder, "/")}"
-      : ""
+    try(each.value.storage_folder, null) != null &&
+    try(each.value.storage_folder, "") != ""
+    ? "/${trim(each.value.storage_folder, "/")}"
+    : ""
   )
 
   credential_name = module.storage_credential[each.key].storage_credential_id
