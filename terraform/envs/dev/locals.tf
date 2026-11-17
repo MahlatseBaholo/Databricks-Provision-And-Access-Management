@@ -45,20 +45,13 @@ locals {
   storage_definitions = {
     for catalog_name, catalog_def in var.catalog_definitions :
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
-      # Generated/default names
-      container_name = (
-        "${var.env}-${local.container_slug[catalog_name]}"
-      )
 
-      storage_credential_name = (
-        "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
-      )
+      container_name = "${var.env}-${local.container_slug[catalog_name]}"
 
-      external_location_name = (
-        "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
-      )
+      storage_credential_name = "${var.env}_${local.catalog_slug[catalog_name]}_dbsc"
 
-      # Optional existing storage from tfvars
+      external_location_name = "${var.env}_${local.catalog_slug[catalog_name]}_catalog_external_location"
+
       storage_account_name = try(
         catalog_def.storage_account_name,
         null
@@ -74,7 +67,6 @@ locals {
         null
       )
 
-      # Existing storage is selected only when both values are populated
       use_existing_storage = (
         try(trimspace(catalog_def.storage_account_name), "") != "" &&
         try(trimspace(catalog_def.storage_container_name), "") != ""
@@ -83,7 +75,7 @@ locals {
   }
 
   ##############################################
-  # Split new and existing storage paths
+  # New storage
   ##############################################
 
   new_storage_definitions = {
@@ -92,6 +84,10 @@ locals {
     if !definition.use_existing_storage
   }
 
+  ##############################################
+  # Existing storage
+  ##############################################
+
   existing_storage_definitions = {
     for key, definition in local.storage_definitions :
     key => definition
@@ -99,7 +95,7 @@ locals {
   }
 
   ##############################################
-  # External locations using newly created storage
+  # New external locations
   ##############################################
 
   new_external_location_definitions = {
@@ -113,14 +109,12 @@ locals {
         data.terraform_remote_state.metastore.outputs.storage_account_name
       )
 
-      credential_name = (
-        module.storage_credential[key].storage_credential_id
-      )
+      credential_name = module.storage_credential[key].storage_credential_id
     }
   }
 
   ##############################################
-  # External locations using existing storage
+  # Existing external locations
   ##############################################
 
   existing_external_location_definitions = {
@@ -139,14 +133,12 @@ locals {
         )
       )
 
-      credential_name = (
-        data.databricks_storage_credential.existing[key].name
-      )
+      credential_name = data.databricks_storage_credential.existing[key].name
     }
   }
 
   ##############################################
-  # Combined external-location definitions
+  # Combined external locations
   ##############################################
 
   external_location_definitions = merge(
@@ -155,12 +147,13 @@ locals {
   )
 
   ##############################################
-  # Catalog definitions enriched with storage root
+  # Catalog definitions
   ##############################################
 
   enriched_catalog_definitions = {
     for catalog_name, definition in var.catalog_definitions :
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
+
       schema_names   = definition.schema_names
       catalog_access = definition.catalog_access
       schema_access  = definition.schema_access
@@ -178,6 +171,7 @@ locals {
   cluster_definitions = {
     for unit_name, unit_def in var.unit_definitions :
     "${var.env}-${unit_name}" => {
+
       cluster_name = join("-", [
         var.env,
         unit_name,
@@ -228,6 +222,7 @@ locals {
   sql_warehouse_definitions = {
     for unit_name, unit_def in var.unit_definitions :
     "${var.env}-${unit_name}" => {
+
       name = "${var.env}-${unit_name}-${try(
         unit_def.sql_warehouse.name_suffix,
         "serverless-sql-warehouse-aes2-small"
@@ -278,6 +273,7 @@ locals {
         {}
       )
     }
+
     if try(unit_def.sql_warehouse.enabled, false)
   }
 }
