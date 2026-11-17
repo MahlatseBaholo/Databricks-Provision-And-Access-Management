@@ -133,7 +133,7 @@ locals {
         )
       )
 
-      credential_name = data.databricks_storage_credential.existing[key].name
+      credential_name = module.storage_credential[key].storage_credential_id
     }
   }
 
