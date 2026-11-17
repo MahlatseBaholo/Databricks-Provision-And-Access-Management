@@ -128,7 +128,7 @@ locals {
         definition.storage_account_name,
         (
           try(trim(definition.storage_folder, "/"), "") != ""
-          ? "/${trim(definition.storage_folder, "/")}"
+          ? "/${try(trim(definition.storage_folder, "/"), "")}"
           : ""
         )
       )
