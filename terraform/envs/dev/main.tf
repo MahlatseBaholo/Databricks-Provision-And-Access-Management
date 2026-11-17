@@ -12,7 +12,7 @@ module "databricks_identity_access" {
 
 module "storage_container" {
   source = "../../modules/storage_container"
-  for_each = local.storage_definitions
+  for_each = local.new_storage_definitions
   name                 = each.value.container_name
   storage_account_name = data.terraform_remote_state.metastore.outputs.storage_account_name
   resource_group_name  = data.terraform_remote_state.metastore.outputs.unity_catalog_resource_group_name
@@ -20,13 +20,64 @@ module "storage_container" {
 
 module "storage_credential" {
   source = "../../modules/databricks_storage_credential"
-  for_each = local.storage_definitions
+  for_each = local.new_storage_definitions
   name                = each.value.storage_credential_name
   access_connector_id = data.terraform_remote_state.metastore.outputs.access_connector_id
   managed_identity_id = data.terraform_remote_state.metastore.outputs.user_assigned_identity_id
   providers = {
     databricks = databricks.workspace
   }
+}
+
+data "databricks_storage_credential" "existing" {
+  for_each = local.existing_storage_definitions
+
+  name = each.value.storage_credential_name
+
+  provider = databricks.workspace
+}
+
+locals {
+  new_external_location_definitions = {
+    for key, definition in local.new_storage_definitions :
+    key => {
+      external_location_name = definition.external_location_name
+
+      url = format(
+        "abfss://%s@%s.dfs.core.windows.net",
+        module.storage_container[key].container_name,
+        data.terraform_remote_state.metastore.outputs.storage_account_name
+      )
+
+      credential_name = module.storage_credential[key].storage_credential_id
+    }
+  }
+
+  existing_external_location_definitions = {
+    for key, definition in local.existing_storage_definitions :
+    key => {
+      external_location_name = definition.external_location_name
+
+      url = format(
+        "abfss://%s@%s.dfs.core.windows.net%s",
+        definition.storage_container_name,
+        definition.storage_account_name,
+        (
+          definition.storage_folder != null &&
+          trim(definition.storage_folder, "/") != ""
+        )
+        ? "/${trim(definition.storage_folder, "/")}"
+        : ""
+      )
+
+      credential_name = data.databricks_storage_credential.existing[key].name
+    }
+  }
+
+  external_location_definitions = merge(
+    local.new_external_location_definitions,
+    local.existing_external_location_definitions
+  )
 }
 
 resource "null_resource" "metastore_assignment_dependency" {
@@ -37,35 +88,18 @@ resource "null_resource" "metastore_assignment_dependency" {
 
 module "external_location" {
   source   = "../../modules/databricks_external_location"
-  for_each = local.storage_definitions
+  for_each = local.external_location_definitions
 
-  name = each.value.external_location_name
-
-  url = format(
-    "abfss://%s@%s.dfs.core.windows.net%s",
-    coalesce(
-      each.value.storage_container_name,
-      module.storage_container[each.key].container_name
-    ),
-    coalesce(
-      each.value.storage_account_name,
-      data.terraform_remote_state.metastore.outputs.storage_account_name
-    ),
-    each.value.storage_folder != null && each.value.storage_folder != ""
-      ? "/${trim(each.value.storage_folder, "/")}"
-      : ""
-  )
-
-  credential_name = module.storage_credential[each.key].storage_credential_id
+  name            = each.value.external_location_name
+  url             = each.value.url
+  credential_name = each.value.credential_name
 
   providers = {
     databricks = databricks.workspace
   }
 
   depends_on = [
-    null_resource.metastore_assignment_dependency,
-    module.storage_container,
-    module.storage_credential
+    null_resource.metastore_assignment_dependency
   ]
 }
 

@@ -196,13 +196,41 @@ variable "catalog_definitions" {
     schema_names   = list(string)
     catalog_access = map(list(string))
     schema_access  = map(map(list(string)))
+    comment        = optional(string)
 
-    # Optional storage overrides
-    storage_account_name    = optional(string)
-    storage_container_name  = optional(string)
-    storage_folder          = optional(string)
-    storage_credential_name = optional(string)
+    # Optional existing-storage configuration
+    storage_account_name   = optional(string)
+    storage_container_name = optional(string)
+    storage_folder         = optional(string)
   }))
+
+  validation {
+    condition = alltrue([
+      for _, definition in var.catalog_definitions :
+      (
+        definition.storage_account_name == null &&
+        definition.storage_container_name == null
+      ) || (
+        definition.storage_account_name != null &&
+        definition.storage_container_name != null
+      )
+    ])
+
+    error_message = "storage_account_name and storage_container_name must either both be provided or both be omitted."
+  }
+
+  validation {
+    condition = alltrue([
+      for _, definition in var.catalog_definitions :
+      definition.storage_folder == null ||
+      (
+        definition.storage_account_name != null &&
+        definition.storage_container_name != null
+      )
+    ])
+
+    error_message = "storage_folder can only be provided when storage_account_name and storage_container_name are also provided."
+  }
 }
 
 variable "folder_path" {
