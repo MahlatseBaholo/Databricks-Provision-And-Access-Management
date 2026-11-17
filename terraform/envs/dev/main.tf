@@ -37,49 +37,6 @@ data "databricks_storage_credential" "existing" {
   provider = databricks.workspace
 }
 
-locals {
-  new_external_location_definitions = {
-    for key, definition in local.new_storage_definitions :
-    key => {
-      external_location_name = definition.external_location_name
-
-      url = format(
-        "abfss://%s@%s.dfs.core.windows.net",
-        module.storage_container[key].container_name,
-        data.terraform_remote_state.metastore.outputs.storage_account_name
-      )
-
-      credential_name = module.storage_credential[key].storage_credential_id
-    }
-  }
-
-  existing_external_location_definitions = {
-    for key, definition in local.existing_storage_definitions :
-    key => {
-      external_location_name = definition.external_location_name
-
-      url = format(
-        "abfss://%s@%s.dfs.core.windows.net%s",
-        definition.storage_container_name,
-        definition.storage_account_name,
-        (
-          definition.storage_folder != null &&
-          trim(definition.storage_folder, "/") != ""
-        )
-        ? "/${trim(definition.storage_folder, "/")}"
-        : ""
-      )
-
-      credential_name = data.databricks_storage_credential.existing[key].name
-    }
-  }
-
-  external_location_definitions = merge(
-    local.new_external_location_definitions,
-    local.existing_external_location_definitions
-  )
-}
-
 resource "null_resource" "metastore_assignment_dependency" {
   triggers = {
     metastore_assignment_id = data.terraform_remote_state.databricks-metastore-assignment.outputs.metastore_assignment.id
