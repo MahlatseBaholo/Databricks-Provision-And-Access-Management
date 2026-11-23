@@ -305,7 +305,7 @@ variable "unit_definitions" {
 
     sql_warehouse = optional(object({
       enabled                   = optional(bool, false)
-      name_suffix               = optional(string, "serverless-sql-warehouse-aes2-small")
+      name_suffix               = optional(string, "serverless-sql-warehouse-aes3-small")
       cluster_size              = optional(string, "Small")
       max_num_clusters          = optional(number, 2)
       min_num_clusters          = optional(number, 1)
