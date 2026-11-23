@@ -155,6 +155,7 @@ locals {
     "${var.env}_${local.catalog_slug[catalog_name]}" => {
 
       schema_names   = definition.schema_names
+      schema_paths   = definition.schema_paths
       catalog_access = definition.catalog_access
       schema_access  = definition.schema_access
 
