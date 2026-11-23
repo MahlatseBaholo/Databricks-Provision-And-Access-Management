@@ -10,7 +10,7 @@ parameters:
 
 variables:
   metastore_rg: 'sasoleuw-big-data-aes-unity-catalog-rg'
-  tfstate_storage: 'sasoleuaes2terraform'
+  tfstate_storage: 'sasoleuaes3terraform'
   containername: 'shared-components'
   key: 'metastore/terraform.tfstate'
   azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
@@ -96,7 +96,7 @@ stages:
               terraform import azurerm_storage_account.$(tfstate_storage) /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/$(tfstate_storage)
               terraform import azurerm_storage_account.sasoleuwaescatalog /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Storage/storageAccounts/sasoleuwaescatalog
               terraform import azurerm_storage_container.metastore https://sasoleuwaescatalog.blob.core.windows.net/metastore
-              terraform import azurerm_storage_container.shared-components https://sasoleuaes2terraform.blob.core.windows.net/shared-components
+              terraform import azurerm_storage_container.shared-components https://sasoleuaes3terraform.blob.core.windows.net/shared-components
               terraform import azurerm_user_assigned_identity.sasoleuw-aes-catalog-id /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sasoleuw-aes-catalog-id
               terraform import azurerm_databricks_access_connector.sasoleuw-aes-catalog-conncetor /subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/$(metastore_rg)/providers/Microsoft.Databricks/accessConnectors/sasoleuw-aes-catalog-conncetor
             displayName: 'Import Resources'

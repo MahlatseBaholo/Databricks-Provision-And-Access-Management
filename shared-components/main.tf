@@ -3,8 +3,8 @@ resource "azurerm_resource_group" "sasoleuw-big-data-aes-unity-catalog-rg" {
   location = "westeurope"
 }
 
-resource "azurerm_storage_account" "sasoleuaes2terraform" {
-  name                      = "sasoleuaes2terraform"
+resource "azurerm_storage_account" "sasoleuaes3terraform" {
+  name                      = "sasoleuaes3terraform"
   resource_group_name       = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.name
   location                  = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.location
   account_tier              = "Standard"
@@ -14,7 +14,7 @@ resource "azurerm_storage_account" "sasoleuaes2terraform" {
 
 resource "azurerm_storage_container" "shared-components" {
   name                  = "shared-components"
-  storage_account_name  = azurerm_storage_account.sasoleuaes2terraform.name
+  storage_account_name  = azurerm_storage_account.sasoleuaes3terraform.name
   container_access_type = "private"
 }
 

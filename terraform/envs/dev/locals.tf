@@ -176,7 +176,7 @@ locals {
       cluster_name = join("-", [
         var.env,
         unit_name,
-        "multi-node-aes2",
+        "multi-node-aes3",
         try(unit_def.cluster.size, "small"),
         try(unit_def.cluster.purpose, "general-purpose")
       ])
@@ -226,7 +226,7 @@ locals {
 
       name = "${var.env}-${unit_name}-${try(
         unit_def.sql_warehouse.name_suffix,
-        "serverless-sql-warehouse-aes2-small"
+        "serverless-sql-warehouse-aes3-small"
       )}"
 
       cluster_size = try(
