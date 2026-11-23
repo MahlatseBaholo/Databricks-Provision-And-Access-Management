@@ -4,7 +4,7 @@ trigger:
     - main
 pool:
   name: DeploymentAgents(Linux)
-
+  
 parameters:
 - name: env
   default: dev
