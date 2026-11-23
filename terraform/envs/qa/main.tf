@@ -36,22 +36,19 @@ resource "null_resource" "metastore_assignment_dependency" {
 }
 
 module "external_location" {
-  source = "../../modules/databricks_external_location"
-  for_each = local.storage_definitions
+  source   = "../../modules/databricks_external_location"
+  for_each = local.external_location_definitions
 
-  name             = each.value.external_location_name
-  url              = format("abfss://%s@%s.dfs.core.windows.net",
-    module.storage_container[each.key].container_name,
-    data.terraform_remote_state.metastore.outputs.storage_account_name
-  )
-  credential_name = module.storage_credential[each.key].storage_credential_id
+  name            = each.value.external_location_name
+  url             = each.value.url
+  credential_name = each.value.credential_name
+
   providers = {
     databricks = databricks.workspace
   }
+
   depends_on = [
-    null_resource.metastore_assignment_dependency,
-    module.storage_container,
-    module.storage_credential
+    null_resource.metastore_assignment_dependency
   ]
 }
 
@@ -61,6 +58,7 @@ module "databricks_catalog_with_access" {
   catalog_name   = each.key
   storage_root   = each.value.storage_root
   schema_names   = each.value.schema_names
+  schema_paths = each.value.schema_paths
   catalog_access = each.value.catalog_access
   depends_on = [module.external_location]
   providers = {
@@ -90,36 +88,39 @@ module "folder_permissions" {
 }
 
 module "databricks_cluster" {
-  source = "../../modules/databricks_cluster_with_permissions"
-  cluster_name                 = var.cluster_name
-  spark_version                = var.spark_version
-  node_type_id                 = var.node_type_id
-  driver_node_type_id          = var.driver_node_type_id
-  autotermination_minutes      = var.autotermination_minutes
-  azure_attributes             = var.azure_attributes
-  autoscale                    = var.autoscale
-  data_security_mode           = var.data_security_mode
-  cluster_permissions          = var.cluster_permissions
+  source   = "../../modules/databricks_cluster_with_permissions"
+  for_each = local.cluster_definitions
+
+  cluster_name            = each.value.cluster_name
+  spark_version           = each.value.spark_version
+  node_type_id            = each.value.node_type_id
+  driver_node_type_id     = each.value.driver_node_type_id
+  autotermination_minutes = each.value.autotermination_minutes
+  azure_attributes        = each.value.azure_attributes
+  autoscale               = each.value.autoscale
+  data_security_mode      = each.value.data_security_mode
+  cluster_permissions     = each.value.cluster_permissions
+
   depends_on = [module.databricks_catalog_schema_grants]
-  providers = {
-    databricks = databricks.workspace
-  }
+  providers  = { databricks = databricks.workspace }
 }
 
 module "sql_warehouse" {
-  source                     = "../../modules/databricks_sql_warehouse"
-  name                       = var.sql_warehouse_name
-  cluster_size               = var.sql_warehouse_cluster_size
-  max_num_clusters           = var.sql_warehouse_max_num_clusters
-  min_num_clusters           = var.sql_warehouse_min_num_clusters
-  auto_stop_mins             = var.sql_warehouse_auto_stop_mins
-  enable_serverless_compute  = var.sql_warehouse_enable_serverless_compute
-  tags                       = var.sql_warehouse_tags
-  warehouse_type             = var.warehouse_type
-  enable_permissions         = var.sql_warehouse_enable_permissions
-  permissions                = var.sql_warehouse_permissions
+  source   = "../../modules/databricks_sql_warehouse"
+  for_each = local.sql_warehouse_definitions
+
+  name                      = each.value.name
+  cluster_size              = each.value.cluster_size
+  max_num_clusters          = each.value.max_num_clusters
+  min_num_clusters          = each.value.min_num_clusters
+  auto_stop_mins            = each.value.auto_stop_mins
+  enable_serverless_compute = each.value.enable_serverless_compute
+  tags                      = each.value.tags
+  warehouse_type            = each.value.warehouse_type
+
+  enable_permissions         = each.value.enable_permissions
+  permissions                = each.value.permissions
+
   depends_on = [module.databricks_cluster]
-  providers = {
-    databricks = databricks.workspace
-  }
+  providers  = { databricks = databricks.workspace }
 }
