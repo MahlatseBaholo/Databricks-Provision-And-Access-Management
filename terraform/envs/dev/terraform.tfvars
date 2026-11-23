@@ -61,6 +61,12 @@ catalog_definitions = {
     storage_container_name  = "eop-so"
     storage_folder          = "plantmaintenance"
 
+    schema_paths = {
+      bronze = "bronze"
+      silver = "silver"
+      gold   = "gold"
+    }
+
     comment = "This catalog is for plant maintance, please contact Gedion Botha for any enquiries" 
     catalog_access = {
       "AES-EOP_SO-DATAENGINEERING" = [

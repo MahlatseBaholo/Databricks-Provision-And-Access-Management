@@ -58,6 +58,7 @@ module "databricks_catalog_with_access" {
   catalog_name   = each.key
   storage_root   = each.value.storage_root
   schema_names   = each.value.schema_names
+  schema_paths = each.value.schema_paths
   catalog_access = each.value.catalog_access
   depends_on = [module.external_location]
   providers = {

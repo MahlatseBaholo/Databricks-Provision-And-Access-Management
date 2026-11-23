@@ -35,5 +35,11 @@ resource "databricks_schema" "this" {
   name         = each.value
   catalog_name = var.catalog_name
   comment      = "Schema ${each.value} in catalog ${var.catalog_name}"
+
+  storage_root = lookup(var.schema_paths, each.value, null) != null ? (
+    "${trimsuffix(var.storage_root, "/")}/${trim(var.schema_paths[each.value], "/")}"
+  ) : null
+
   depends_on = [databricks_grants.catalog]
 }
+

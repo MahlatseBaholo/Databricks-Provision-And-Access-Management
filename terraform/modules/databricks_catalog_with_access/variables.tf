@@ -18,3 +18,9 @@ variable "schema_access" {
   type = map(map(list(string)))
   default     = {}
 }
+
+variable "schema_paths" {
+  description = "Optional storage path for each schema relative to the catalog storage root"
+  type        = map(string)
+  default     = {}
+}
