@@ -10,7 +10,7 @@ parameters:
 
 variables:
   metastore_rg: 'sasoleuw-big-data-aes-unity-catalog-rg'
-  tfstate_storage: 'sasoleuaes2terraform'
+  tfstate_storage: 'sasoleuaes3terraform'
   containername: 'shared-components'
   key: 'metastore/terraform.tfstate'
   azureSubscription: 'AES 2.0 ${{ parameters.env }} - SP'
