@@ -1,8 +1,9 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "sasolsan-simegas-qa-terraform-rg"
-    storage_account_name = "sasolqasimegastf"
-    container_name       = "sasol-qa-simegas-dbw"
+    resource_group_name  = "sasoleuw-big-data-qa-aes-terraform-rg"
+    storage_account_name = "sasolqaterraform"
+    container_name       = "sasol-qa-aes3-dbw"
     key                  = "manage/terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
