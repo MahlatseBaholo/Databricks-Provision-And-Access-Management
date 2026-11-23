@@ -1,42 +1,42 @@
-resource "azurerm_resource_group" "sasolsan-simegas-qa-rg" {
-  name     = "sasolsan-simegas-qa-rg"
-  location = "southafricanorth" 
+resource "azurerm_resource_group" "sasoleuw-big-data-qa-aes-rg" {
+  name     = "sasoleuw-big-data-qa-aes-rg"
+  location = "westeurope" 
 }
 
-resource "azurerm_databricks_workspace" "sasol-qa-simegas-dbw" {
-  name                = "sasol-qa-simegas-dbw"
-  location            = azurerm_resource_group.sasolsan-simegas-qa-rg.location
-  resource_group_name = azurerm_resource_group.sasolsan-simegas-qa-rg.name
+resource "azurerm_databricks_workspace" "sasol-qa-aes3-dbw" {
+  name                = "sasol-qa-aes3-dbw"
+  location            = azurerm_resource_group.sasoleuw-big-data-qa-aes-rg.location
+  resource_group_name = azurerm_resource_group.sasoleuw-big-data-qa-aes-rg.name
   sku                 = "premium"
 }
 
-resource "azurerm_resource_group" "sasolsan-simegas-qa-terraform-rg" {
-  name     = "sasolsan-simegas-qa-terraform-rg"
-  location = "southafricanorth"
+resource "azurerm_resource_group" "sasoleuw-big-data-qa-aes-terraform-rg" {
+  name     = "sasoleuw-big-data-qa-aes-terraform-rg"
+  location = "westeurope"
 }
 
-resource "azurerm_storage_account" "sasolqasimegastf" {
-  name                     = "sasolqasimegastf"
-  resource_group_name      = azurerm_resource_group.sasolsan-simegas-qa-terraform-rg.name
-  location                 = azurerm_resource_group.sasolsan-simegas-qa-rg.location
+resource "azurerm_storage_account" "sasolqaterraform" {
+  name                     = "sasolqaterraform"
+  resource_group_name      = azurerm_resource_group.sasoleuw-big-data-qa-aes-terraform-rg.name
+  location                 = azurerm_resource_group.sasoleuw-big-data-qa-aes-rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
-resource "azurerm_storage_container" "sasol-qa-simegas-dbw" {
-  name                  = "metastoreazuresan"
-  storage_account_name  = azurerm_storage_account.sasolqasimegastf.name
+resource "azurerm_storage_container" "sasol-qa-aes3-dbw" {
+  name                  = "metastore"
+  storage_account_name  = azurerm_storage_account.sasolqaterraform.name
   container_access_type = "private"
 }
 
-resource "databricks_metastore" "metastore_azure_southafricanorth" {
+resource "databricks_metastore" "metastore" {
   provider      = databricks.account
-  name          = "metastore_azure_southafricanorth"
-  location      = azurerm_resource_group.sasolsan-simegas-unity-catalog-rg.location
+  name          = "metastore"
+  location      = azurerm_resource_group.sasoleuw-big-data-aes-unity-catalog-rg.location
 }
 
-resource "databricks_metastore_assignment" "metastore_azure_southafricanorth" {
+resource "databricks_metastore_assignment" "metastore" {
   provider      = databricks.account
-  metastore_id  = databricks_metastore.metastore_azure_southafricanorth.id
-  workspace_id  = azurerm_databricks_workspace.sasol-qa-simegas-dbw.id
+  metastore_id  = databricks_metastore.metastore.id
+  workspace_id  = azurerm_databricks_workspace.sasol-qa-aes3-dbw.workspace_id
 }
