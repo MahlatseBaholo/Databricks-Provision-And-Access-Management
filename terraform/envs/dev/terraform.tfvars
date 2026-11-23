@@ -97,43 +97,6 @@ catalog_definitions = {
         ]
       }
     }
-  },
-
-  test = {
-    project = "plantmaintenance"  
-    schema_names = ["bronze", "silver", "gold"]
-
-
-    comment = "This catalog is for plant maintance, please contact Gedion Botha for any enquiries" 
-    catalog_access = {
-      "AES-EOP_SO-DATAENGINEERING" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
-      ]
-      #,
-      #"AES-ADMIN" = [
-      #  "ALL_PRIVILEGES"
-      #]
-    }
-    schema_access = {
-      bronze = {
-        "AES-EOP_SO-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      silver = {
-        "AES-EOP_SO-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      },
-      gold = {
-        "AES-EOP_SO-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
-        ]
-      }
-    }
   }
 }
 
