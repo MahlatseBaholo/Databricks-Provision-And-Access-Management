@@ -202,6 +202,8 @@ variable "catalog_definitions" {
     storage_account_name   = optional(string)
     storage_container_name = optional(string)
     storage_folder         = optional(string)
+
+    schema_paths = optional(map(string), {})
   }))
 
   validation {
@@ -230,6 +232,20 @@ variable "catalog_definitions" {
     ])
 
     error_message = "storage_folder can only be provided when storage_account_name and storage_container_name are also provided."
+  }
+
+  validation {
+    condition = alltrue([
+      for _, definition in var.catalog_definitions :
+      length(
+        setsubtract(
+          toset(keys(definition.schema_paths)),
+          toset(definition.schema_names)
+        )
+      ) == 0
+    ])
+
+    error_message = "schema_paths can only contain schemas defined in schema_names."
   }
 }
 
