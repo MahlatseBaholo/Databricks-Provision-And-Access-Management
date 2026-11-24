@@ -95,12 +95,12 @@ unit_definitions = {
       }
       autoscale = { min_workers = 2, max_workers = 10 }
       cluster_permissions = { 
-        "AES-EOP_SHE-DATAENGINEERING" = ["CAN_RESTART"]      
+        "AES-ADMIN" = ["CAN_RESTART"]      
       }
     }
 
     sql_warehouse = {
-      enabled                   = false
+      enabled                   = true
       cluster_size              = "Small"
       max_num_clusters          = 2
       min_num_clusters          = 1
@@ -111,7 +111,7 @@ unit_definitions = {
       enable_permissions        = true
 
       permissions = {
-        "AES-EOP_SHE-DATAENGINEERING" = ["CAN_USE"]
+        "AES-ADMIN" = ["CAN_USE"]
       }
     }
   }
