@@ -81,6 +81,24 @@ catalog_definitions = {
 ##############################################
 unit_definitions = {
     dpms = {
+    cluster = {
+      enabled                 = false
+      spark_version           = "17.3.x-scala2.13"
+      node_type_id            = "Standard_DS3_v2"
+      driver_node_type_id     = "Standard_DS3_v2"
+      autotermination_minutes = 10
+      data_security_mode      = "USER_ISOLATION"
+      azure_attributes = {
+        first_on_demand    = 1
+        availability       = "SPOT_WITH_FALLBACK_AZURE"
+        spot_bid_max_price = -1
+      }
+      autoscale = { min_workers = 2, max_workers = 10 }
+      cluster_permissions = { 
+        "AES-EOP_SHE-DATAENGINEERING" = ["CAN_RESTART"]      
+      }
+    }
+
     sql_warehouse = {
       enabled                   = false
       cluster_size              = "Small"
