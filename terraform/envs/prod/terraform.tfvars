@@ -33,7 +33,7 @@ catalog_definitions = {
     project = "plantmaintenance"  
     schema_names = ["bronze", "silver", "gold"]
 
-    storage_account_name    = "sasoldevaeslake"
+    storage_account_name    = "sasolprodaeslake"
     storage_container_name  = "eop-so"
     storage_folder          = "plantmaintenance"
 
