@@ -105,7 +105,7 @@ unit_definitions = {
       min_num_clusters          = 1
       auto_stop_mins            = 10
       enable_serverless_compute = true
-      tags                      = { Unit = "risk_she" }
+      tags                      = { Unit = "dpms" }
       warehouse_type            = "PRO"
       enable_permissions        = true
 
