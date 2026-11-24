@@ -1,9 +1,14 @@
 trigger:
-  branches:
-    include:
-    - main
+  none
 pool:
   name: DeploymentAgents(Linux)
+
+resources:
+  pipelines:
+  - pipeline: aes3-tf-adb-deploy-preprod
+    project: AES Management
+    source: aes3-tf-adb-deploy-dev 
+    trigger: true
   
 parameters:
 - name: env
