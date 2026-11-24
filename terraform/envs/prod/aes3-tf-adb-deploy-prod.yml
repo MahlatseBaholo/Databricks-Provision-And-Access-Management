@@ -2,7 +2,14 @@ trigger:
   none
 pool:
   name: DeploymentAgents(Linux)
-  
+
+resources:
+  pipelines:
+  - pipeline: aes3-tf-adb-deploy-prod
+    project: AES Management
+    source: aes3-tf-adb-deploy-preprod 
+    trigger: true
+
 parameters:
 - name: env
   default: prod
