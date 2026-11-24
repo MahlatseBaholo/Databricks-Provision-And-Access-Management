@@ -77,6 +77,28 @@ catalog_definitions = {
 }
 
 ##############################################
+# Cluster Configuration and Updates
+##############################################
+unit_definitions = {
+    dpms = {
+    sql_warehouse = {
+      enabled                   = false
+      cluster_size              = "Small"
+      max_num_clusters          = 2
+      min_num_clusters          = 1
+      auto_stop_mins            = 10
+      enable_serverless_compute = true
+      tags                      = { Unit = "risk_she" }
+      warehouse_type            = "PRO"
+      enable_permissions        = true
+
+      permissions = {
+        "AES-EOP_SHE-DATAENGINEERING" = ["CAN_USE"]
+      }
+    }
+  }
+}
+##############################################
 # Define Folder Usage Permissions
 ##############################################
 folder_path = "/Workspace"
