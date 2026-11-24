@@ -21,7 +21,6 @@ permission_assignments = {
     permissions  = ["USER"]             
   }
 }
-
 ##############################################
 # Define Entitlements for AD Groups
 ##############################################
