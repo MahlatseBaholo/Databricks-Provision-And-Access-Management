@@ -1,0 +1,9 @@
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "sasoleuw-big-data-qa-aes-terraform-rg"
+    storage_account_name = "sasolqaterraform"
+    container_name       = "sasol-qa-aes3-dbw"
+    key                  = "databricks-metastore-assignment/terraform.tfstate"
+    use_azuread_auth     = true
+  }
+}

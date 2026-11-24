@@ -5,22 +5,24 @@ data "databricks_group" "groups" {
   display_name = each.value
 }
 
-data "terraform_remote_state" "metastoreazuresan" {
+data "terraform_remote_state" "metastore" {
   backend = "azurerm"
   config = {
-    resource_group_name  = "sasolsan-simegas-unity-catalog-rg"
-    storage_account_name = "sasolsansimegasterraform"
+    resource_group_name  = "sasoleuw-big-data-aes-unity-catalog-rg"
+    storage_account_name = "sasoleuaes3terraform"
     container_name       = "shared-components"
-    key                  = "metastoreazuresan/terraform.tfstate"
+    key                  = "metastore/terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
 
 data "terraform_remote_state" "databricks-metastore-assignment" {
   backend = "azurerm"
   config = {
-    resource_group_name  = "sasolsan-simegas-prod-terraform-rg"
-    storage_account_name = "sasolprodsimegastf"
-    container_name       = "sasol-prod-simegas-dbw"
+    resource_group_name  = "sasoleuw-big-data-prod-aes-terraform-rg"
+    storage_account_name = "sasolprodterraform"
+    container_name       = "sasol-prod-aes3-dbw"
     key                  = "databricks-metastore-assignment/terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
