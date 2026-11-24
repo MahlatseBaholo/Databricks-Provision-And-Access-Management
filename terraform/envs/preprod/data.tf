@@ -19,8 +19,8 @@ data "terraform_remote_state" "metastore" {
 data "terraform_remote_state" "databricks-metastore-assignment" {
   backend = "azurerm"
   config = {
-    resource_group_name  = "sasoleuw-big-data-qa-aes-terraform-rg"
-    storage_account_name = "sasolqaterraform"
+    resource_group_name  = "sasoleuw-big-data-preprod-aes-terraform-rg"
+    storage_account_name = "sasolpreprodterraform"
     container_name       = "sasol-preprod-aes3-dbw"
     key                  = "databricks-metastore-assignment/terraform.tfstate"
     use_azuread_auth     = true
