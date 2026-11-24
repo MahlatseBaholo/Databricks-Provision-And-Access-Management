@@ -82,7 +82,6 @@ catalog_definitions = {
 unit_definitions = {
     dpms = {
     cluster = {
-      enabled                 = false
       spark_version           = "17.3.x-scala2.13"
       node_type_id            = "Standard_DS3_v2"
       driver_node_type_id     = "Standard_DS3_v2"
