@@ -6,7 +6,7 @@ pool:
 
 parameters:
   - name: env
-    default: qa
+    default: preprod
 
 variables:
   env: '${{ parameters.env }}'
