@@ -68,7 +68,7 @@ catalog_definitions = {
     comment = "This catalog is for plant maintance, please contact Gedion Botha for any enquiries" 
     catalog_access = {
       "AES-EOP_SO-DATAENGINEERING" = [
-        "APPLY_TAG", "BROWSE", "USE_CATALOG", "READ_VOLUME", "REFRESH", "EXECUTE", "SELECT", "USE_SCHEMA"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
       ]
       #,
       #"AES-ADMIN" = [
@@ -78,20 +78,17 @@ catalog_definitions = {
     schema_access = {
       bronze = {
         "AES-EOP_SO-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       },
       silver = {
         "AES-EOP_SO-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       },
       gold = {
         "AES-EOP_SO-DATAENGINEERING" = [
-          "CREATE_FUNCTION", "CREATE_TABLE", "CREATE_MODEL", "CREATE_VOLUME", "CREATE_MATERIALIZED_VIEW",
-          "USE_SCHEMA", "EXECUTE", "MODIFY", "SELECT", "READ_VOLUME", "REFRESH", "WRITE_VOLUME"
+          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
         ]
       }
     }
