@@ -20,6 +20,7 @@ permission_assignments = {
     principal_id = "AES-EOP_SO-DATAENGINEERING"  
     permissions  = ["USER"]             
   }
+
 }
 ##############################################
 # Define Entitlements for AD Groups
