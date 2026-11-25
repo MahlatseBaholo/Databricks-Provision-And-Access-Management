@@ -299,9 +299,9 @@ variable "folder_permissions" {
   validation {
     condition = alltrue([
       for p in keys(var.folder_permissions) :
-      p == "/Workspace" || can(regex("^/Workspace/[^/]+(/[^/]+)*$", p))
+      can(regex("^/Workspace(/[^/]+)*/?$", p))
     ])
-    error_message = "Keys must be \"/Workspace\" (root) or a full subfolder path under /Workspace/, with no trailing '/'."
+    error_message = "Keys must be \"/Workspace\" or a full path under /Workspace/."
   }
 
   validation {

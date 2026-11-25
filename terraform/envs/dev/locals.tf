@@ -290,10 +290,10 @@ locals {
   }
 
   # Per-folder entries override the shared ones
-  all_folder_permissions = merge(
-    local.shared_folder_permissions,
-    var.folder_permissions
-  )
+  all_folder_permissions = {
+    for p, acl in merge(local.shared_folder_permissions, var.folder_permissions) :
+    trimsuffix(p, "/") => acl
+  }
 
   # Root /Workspace goes to a standalone permissions resource (no directory creation)
   workspace_root_permissions = lookup(local.all_folder_permissions, "/Workspace", [])
