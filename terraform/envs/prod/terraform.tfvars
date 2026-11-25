@@ -138,7 +138,7 @@ unit_definitions = {
 # Workspace folder permissions
 ##############################################
 folder_permissions = {
-  "/Workspace/" = [
+  "/Workspace" = [
     {
       group_name       = "AES-ADMIN"
       permission_level = "CAN_READ"
