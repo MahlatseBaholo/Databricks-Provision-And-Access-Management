@@ -135,6 +135,24 @@ unit_definitions = {
   }
 }
 ##############################################
+# Workspace folder permissions
+##############################################
+folder_permissions = {
+  "/Workspace/" = [
+    {
+      group_name       = "AES-ADMIN"
+      permission_level = "CAN_READ"
+    }
+  ]
+
+   "/Workspace/preprod/plantmaintenance" = [
+     {
+       group_name       = "AES-EOP_SO-DATAENGINEERING"
+       permission_level = "CAN_READ"
+     }
+   ]
+}
+##############################################
 # Define Folder Usage Permissions
 ##############################################
 folder_paths = [
