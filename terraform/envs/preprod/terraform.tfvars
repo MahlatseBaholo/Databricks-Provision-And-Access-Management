@@ -1,15 +1,15 @@
 ##############################################
 # Define AD Groups and Permissions
 ##############################################
-group_names = ["AES-ADMIN", "AES-ADMIN", "AES-EOP_SHE-DATAENGINEERING", "AES-EOP_SO-DATAENGINEERING"]
+group_names = ["AES-ADMIN", "AES-DATAOPERATIONS", "AES-EOP_SHE-DATAENGINEERING", "AES-EOP_SO-DATAENGINEERING"]
 
 permission_assignments = {
   "AES-ADMIN" = {
     principal_id = "AES-ADMIN"  
-    permissions  = ["USER"]             
+    permissions  = ["ADMIN"]             
   },
-    "AES-ADMIN" = {
-    principal_id = "AES-ADMIN"  
+    "AES-DATAOPERATIONS" = {
+    principal_id = "AES-DATAOPERATIONS"  
     permissions  = ["ADMIN"]             
   },
   "AES-EOP_SHE-DATAENGINEERING" = {
@@ -20,6 +20,7 @@ permission_assignments = {
     principal_id = "AES-EOP_SO-DATAENGINEERING"  
     permissions  = ["USER"]             
   }
+
 }
 ##############################################
 # Define Entitlements for AD Groups
@@ -30,8 +31,8 @@ entitlements = {
     workspace_access      = true                  
     databricks_sql_access = false                 
   },
-  "AES-ADMIN" = {
-    group_id              = "AES-ADMIN"  
+  "AES-DATAOPERATIONS" = {
+    group_id              = "AES-DATAOPERATIONS"  
     workspace_access      = true                  
     databricks_sql_access = false                 
   },
