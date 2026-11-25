@@ -277,4 +277,21 @@ locals {
 
     if try(unit_def.sql_warehouse.enabled, false)
   }
+  ##############################################
+  # Folder permission definitions
+  ##############################################
+
+  # Folders that use the shared access_controls
+  shared_folder_permissions = {
+    for p in distinct(concat(
+      var.folder_paths,
+      var.folder_path == null ? [] : [var.folder_path]
+    )) : p => var.access_controls
+  }
+
+  # Per-folder entries override the shared ones
+  folder_permissions = merge(
+    local.shared_folder_permissions,
+    var.folder_permissions
+  )
 }
