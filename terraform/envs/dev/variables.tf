@@ -320,15 +320,6 @@ variable "folder_permissions" {
   }
 }
 
-variable "access_controls" {
-  type = list(object({
-    group_name       = string
-    permission_level = string
-  }))
-  description = "List of permissions to assign to the folder"
-  default     = []
-}
-
 variable "allowed_units" {
   description = "Authoritative list of allowed units"
   type        = set(string)
