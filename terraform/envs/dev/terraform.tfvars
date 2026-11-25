@@ -101,17 +101,7 @@ catalog_definitions = {
 }
 
 
-##############################################
-# Define Folder Usage Permissions
-##############################################
-folder_path = "/Workspace/dev/plantmaintenance"
 
-access_controls = [
-  {
-    group_name       = "AES-EOP_SO-DATAENGINEERING"
-    permission_level = "CAN_READ"
-  }
-]
 ##############################################
 # Cluster Configuration and Updates
 ##############################################
@@ -185,3 +175,14 @@ unit_definitions = {
         }
       }
 }
+##############################################
+# Define Folder Usage Permissions
+##############################################
+folder_path = "/Workspace/dev/plantmaintenance"
+
+access_controls = [
+  {
+    group_name       = "AES-EOP_SO-DATAENGINEERING"
+    permission_level = "CAN_READ"
+  }
+]
