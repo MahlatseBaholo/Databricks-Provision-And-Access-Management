@@ -79,12 +79,14 @@ module "databricks_catalog_schema_grants" {
 }
 
 module "folder_permissions" {
-  source = "../../modules/databricks_folder_usage_permissions"
-  directory_path  = var.folder_path
-  access_controls = var.access_controls
+  source   = "../../modules/databricks_folder_usage_permissions"
+  for_each = local.folder_permissions
+
   providers = {
-    databricks = databricks.workspace
-  }
+    databricks = databricks.workspace   
+
+  directory_path  = each.key
+  access_controls = each.value
 }
 
 module "databricks_cluster" {
