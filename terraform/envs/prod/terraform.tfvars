@@ -135,20 +135,20 @@ unit_definitions = {
   }
 }
 ##############################################
-# Workspace folder permissions
+# Define Folder Usage Permissions
 ##############################################
 folder_permissions = {
-  "/Workspace" = [
+  "/Workspace/" = [
     {
       group_name       = "AES-ADMIN"
       permission_level = "CAN_READ"
     }
   ]
 
-   "/Workspace/prod/plantmaintenance" = [
-     {
-       group_name       = "AES-EOP_SO-DATAENGINEERING"
-       permission_level = "CAN_READ"
-     }
-   ]
+  "/Workspace/prod/plantmaintenance" = [
+    {
+      group_name       = "AES-EOP_SO-DATAENGINEERING"
+      permission_level = "CAN_READ"
+    }
+  ]
 }
