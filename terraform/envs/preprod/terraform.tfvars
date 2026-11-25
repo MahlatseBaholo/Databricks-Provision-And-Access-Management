@@ -139,7 +139,7 @@ unit_definitions = {
 # Define Folder Usage Permissions
 ##############################################
 folder_permissions = {
-  "/Workspace/" = [
+  "/Workspace" = [
     {
       group_name       = "AES-ADMIN"
       permission_level = "CAN_READ"
