@@ -90,6 +90,21 @@ module "folder_permissions" {
   access_controls = each.value
 }
 
+resource "databricks_permissions" "workspace_root" {
+  count    = length(local.workspace_root_permissions) > 0 ? 1 : 0
+  provider = databricks.workspace
+
+  directory_path = "/Workspace"
+
+  dynamic "access_control" {
+    for_each = local.workspace_root_permissions
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+
 module "databricks_cluster" {
   source   = "../../modules/databricks_cluster_with_permissions"
   for_each = local.cluster_definitions

@@ -186,10 +186,10 @@ folder_permissions = {
     }
   ]
 
-   "/Workspace/dev/plantmaintenance" = [
-     {
-       group_name       = "AES-EOP_SO-DATAENGINEERING"
-       permission_level = "CAN_READ"
-     }
-   ]
+  "/Workspace/dev/plantmaintenance" = [
+    {
+      group_name       = "AES-EOP_SO-DATAENGINEERING"
+      permission_level = "CAN_READ"
+    }
+  ]
 }

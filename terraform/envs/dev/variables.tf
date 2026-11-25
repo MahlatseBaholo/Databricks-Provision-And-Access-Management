@@ -297,8 +297,11 @@ variable "folder_permissions" {
   default = {}
 
   validation {
-    condition     = alltrue([for p in keys(var.folder_permissions) : startswith(p, "/Workspace/")])
-    error_message = "Each folder path must be a full path starting with /Workspace/."
+    condition = alltrue([
+      for p in keys(var.folder_permissions) :
+      p == "/Workspace" || can(regex("^/Workspace/[^/]+(/[^/]+)*$", p))
+    ])
+    error_message = "Keys must be \"/Workspace\" (root) or a full subfolder path under /Workspace/, with no trailing '/'."
   }
 
   validation {
