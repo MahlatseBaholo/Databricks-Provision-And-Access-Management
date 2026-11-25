@@ -138,7 +138,7 @@ unit_definitions = {
 ##############################################
 # Define Folder Usage Permissions
 ##############################################
-folder_path = "/Workspace/dev/plantmaintenance"
+folder_path = "/Workspace/preprod/plantmaintenance"
 
 access_controls = [
   {
