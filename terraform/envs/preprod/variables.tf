@@ -251,8 +251,73 @@ variable "catalog_definitions" {
 
 variable "folder_path" {
   type        = string
-  description = "Path of the folder"
+  description = "Path of the folder (legacy, single). Prefer folder_permissions."
   default     = null
+}
+
+variable "folder_paths" {
+  type        = list(string)
+  description = "Folders that use the shared access_controls"
+  default     = []
+
+  validation {
+    condition     = alltrue([for p in var.folder_paths : startswith(p, "/Workspace/")])
+    error_message = "Each folder path must be a full path starting with /Workspace/."
+  }
+}
+
+variable "access_controls" {
+  type = list(object({
+    group_name       = string
+    permission_level = string
+  }))
+  description = "Shared permissions applied to folder_path / folder_paths"
+  default     = []
+
+  validation {
+    condition     = length(var.access_controls) == length(distinct([for a in var.access_controls : a.group_name]))
+    error_message = "A group can only appear once in access_controls (use the highest level needed)."
+  }
+
+  validation {
+    condition = alltrue([
+      for a in var.access_controls :
+      contains(["CAN_READ", "CAN_RUN", "CAN_EDIT", "CAN_MANAGE"], a.permission_level)
+    ])
+    error_message = "permission_level must be one of CAN_READ, CAN_RUN, CAN_EDIT, CAN_MANAGE."
+  }
+}
+
+variable "folder_permissions" {
+  description = "Per-folder permissions. Overrides access_controls for the folders listed."
+  type = map(list(object({
+    group_name       = string
+    permission_level = string
+  })))
+  default = {}
+
+  validation {
+    condition     = alltrue([for p in keys(var.folder_permissions) : startswith(p, "/Workspace/")])
+    error_message = "Each folder path must be a full path starting with /Workspace/."
+  }
+
+  validation {
+    condition = alltrue([
+      for p, acl in var.folder_permissions :
+      length(acl) == length(distinct([for a in acl : a.group_name]))
+    ])
+    error_message = "A group can only appear once per folder (use the highest level needed)."
+  }
+
+  validation {
+    condition = alltrue(flatten([
+      for p, acl in var.folder_permissions : [
+        for a in acl :
+        contains(["CAN_READ", "CAN_RUN", "CAN_EDIT", "CAN_MANAGE"], a.permission_level)
+      ]
+    ]))
+    error_message = "permission_level must be one of CAN_READ, CAN_RUN, CAN_EDIT, CAN_MANAGE."
+  }
 }
 
 variable "access_controls" {
