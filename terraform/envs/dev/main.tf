@@ -82,8 +82,10 @@ module "folder_permissions" {
   source   = "../../modules/databricks_folder_usage_permissions"
   for_each = local.folder_permissions
 
+
   providers = {
     databricks = databricks.workspace   
+
 
   directory_path  = each.key
   access_controls = each.value
