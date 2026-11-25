@@ -186,7 +186,7 @@ folder_permissions = {
     }
   ]
 
-   "/Workspace/preprod/plantmaintenance" = [
+   "/Workspace/dev/plantmaintenance" = [
      {
        group_name       = "AES-EOP_SO-DATAENGINEERING"
        permission_level = "CAN_READ"
