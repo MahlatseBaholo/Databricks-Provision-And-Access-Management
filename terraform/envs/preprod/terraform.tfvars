@@ -69,7 +69,7 @@ catalog_definitions = {
     comment = "This catalog is for plant maintance, please contact Gedion Botha for any enquiries" 
     catalog_access = {
       "AES-EOP_SO-DATAENGINEERING" = [
-          "USE_SCHEMA", "EXECUTE", "SELECT", "READ_VOLUME", "REFRESH"
+        "BROWSE", "USE_CATALOG", "READ_VOLUME", "SELECT", "USE_SCHEMA"
       ]
       #,
       #"AES-ADMIN" = [
