@@ -142,11 +142,11 @@ folder_path = "/Workspace/preprod/plantmaintenance"
 
 access_controls = [
   {
-    group_name       = "users"
+    group_name       = "AES-EOP_SO-DATAENGINEERING"
     permission_level = "CAN_READ"
   },
   {
-    group_name       = "users"
+    group_name       = "AES-EOP_SO-DATAENGINEERING"
     permission_level = "CAN_RUN"
   }
 ]
