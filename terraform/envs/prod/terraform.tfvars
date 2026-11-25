@@ -1,15 +1,15 @@
 ##############################################
 # Define AD Groups and Permissions
 ##############################################
-group_names = ["AES-ADMIN"]
+group_names = ["AES-ADMIN", "AES-DATAOPERATIONS"]
 
 permission_assignments = {
   "AES-ADMIN" = {
     principal_id = "AES-ADMIN"  
     permissions  = ["USER"]             
   },
-    "AES-ADMIN" = {
-    principal_id = "AES-ADMIN"  
+    "AES-DATAOPERATIONS" = {
+    principal_id = "AES-DATAOPERATIONS"  
     permissions  = ["ADMIN"]             
   }
 }
