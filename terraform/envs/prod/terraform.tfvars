@@ -1,27 +1,49 @@
 ##############################################
 # Define AD Groups and Permissions
 ##############################################
-group_names = ["AES-ADMIN", "AES-DATAOPERATIONS"]
+group_names = ["AES-ADMIN", "AES-DATAOPERATIONS", "AES-EOP_SHE-DATAENGINEERING", "AES-EOP_SO-DATAENGINEERING"]
 
 permission_assignments = {
   "AES-ADMIN" = {
     principal_id = "AES-ADMIN"  
-    permissions  = ["USER"]             
+    permissions  = ["ADMIN"]             
   },
     "AES-DATAOPERATIONS" = {
     principal_id = "AES-DATAOPERATIONS"  
     permissions  = ["ADMIN"]             
+  },
+  "AES-EOP_SHE-DATAENGINEERING" = {
+    principal_id = "AES-EOP_SHE-DATAENGINEERING"  
+    permissions  = ["USER"]             
+  },
+  "AES-EOP_SO-DATAENGINEERING" = {
+    principal_id = "AES-EOP_SO-DATAENGINEERING"  
+    permissions  = ["USER"]             
   }
 }
-
 ##############################################
 # Define Entitlements for AD Groups
 ##############################################
 entitlements = {
   "AES-ADMIN" = {
     group_id              = "AES-ADMIN"  
-    workspace_access      = true
-    databricks_sql_access = false                                   
+    workspace_access      = true                  
+    databricks_sql_access = false                 
+  },
+  "AES-DATAOPERATIONS" = {
+    group_id              = "AES-DATAOPERATIONS"  
+    workspace_access      = true                  
+    databricks_sql_access = false                 
+  },
+  "AES-EOP_SHE-DATAENGINEERING" = {
+    group_id              = "AES-EOP_SHE-DATAENGINEERING"  
+    workspace_access      = true                  
+    databricks_sql_access = false                 
+  },
+  "AES-EOP_SO-DATAENGINEERING" = {
+    group_id              = "AES-EOP_SO-DATAENGINEERING"  
+    workspace_access      = true                  
+    databricks_sql_access = false                 
   }
 }
 
