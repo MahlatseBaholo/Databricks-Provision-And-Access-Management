@@ -192,4 +192,11 @@ folder_permissions = {
       permission_level = "CAN_READ"
     }
   ]
+
+    "/Workspace/dev/test" = [
+    {
+      group_name       = "AES-EOP_SO-DATAENGINEERING"
+      permission_level = "CAN_READ"
+    }
+  ]
 }
